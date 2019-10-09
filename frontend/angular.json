@@ -24,9 +24,13 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.json"
             ],
             "styles": [
+              {
+                "input": "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"
+              },
               "src/styles.scss"
             ],
             "scripts": [],
@@ -37,7 +41,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "with": "src/environments/environment.hmr.ts"
                 }
               ],
               "optimization": true,
@@ -55,7 +59,9 @@
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "src/ngsw-config.json"
             }
           }
         },
@@ -65,8 +71,8 @@
             "browserTarget": "payroll-app:build"
           },
           "configurations": {
-            "production": {
-              "browserTarget": "payroll-app:build:production"
+            "hmr": {
+              "hmr": true
             }
           }
         },
@@ -89,7 +95,8 @@
             "scripts": [],
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.json"
             ]
           }
         },
