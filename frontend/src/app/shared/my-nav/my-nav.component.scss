@@ -34,3 +34,18 @@ img {
 .rightDrawer-list {
   padding-top: 88px;
 }
+
+.active {
+  background-color: #103C6E;
+  color: #C7E5FD;
+  font-weight: bold;
+  mat-icon {
+    padding-right: 10px;
+    color:  #C7E5FD;
+  }
+}
+
+
+mat-icon {
+  padding-right: 10px;
+}

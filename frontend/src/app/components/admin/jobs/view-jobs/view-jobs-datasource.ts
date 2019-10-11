@@ -5,8 +5,18 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
 export interface ViewjobsItem {
-  name: string;
   id: number;
+  clientName: {
+    firstName: string,
+    lastName: string
+  };
+  jobAddress: {
+    street: string,
+    city: string,
+    zipCode: number
+  };
+  status: string;
+  created: Date;
 }
 
 // TODO: replace this with real data from your application
@@ -73,8 +83,10 @@ export class ViewjobsDataSource extends DataSource<ViewjobsItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'text': return compare(a.name, b.name, isAsc);
-        case 'date': return compare(+a.id, +b.id, isAsc);
+        case 'created': return compare(+a.id, +b.id, isAsc);
+        case 'clientName': return compare(a.created, b.created, isAsc);
+        case 'address': return compare(a.created, b.created, isAsc);
+        case 'status': return compare(a.created, b.created, isAsc);
         default: return 0;
       }
     });

@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AddJobComponent implements OnInit {
 
   job: any = [];
+  formIsFilledOut = false;
 
   constructor(private db: AngularFireDatabase) { }
 
@@ -16,7 +17,7 @@ export class AddJobComponent implements OnInit {
   }
 
   onSubmit() {
-    this.job.date = new Date(this.job.date).valueOf();
+    this.job.created = new Date(this.job.created).valueOf();
     this.db.list('jobs').push(this.job)
     .then(_ => {
       this.job = {};

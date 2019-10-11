@@ -1,4 +1,4 @@
-import { JobService } from './../job.service';
+import { JobService } from '../job.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Job } from '../job';
@@ -9,8 +9,8 @@ import { Job } from '../job';
   styleUrls: ['./job-details.component.scss']
 })
 export class JobDetailsComponent implements OnInit {
-  private theJob: Job;
-  private id: number = 0;
+  theJob: Job;
+  id = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,7 +24,7 @@ export class JobDetailsComponent implements OnInit {
       console.log( params );
       this.id = params.id;
       this.theJob = this.service.getJobById(this.id);
-    })
+    });
   }
 
 }

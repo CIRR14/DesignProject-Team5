@@ -1,4 +1,6 @@
-import { AppMaterialModule } from './../../shared/app-material.module';
+import { FormsModule } from '@angular/forms';
+import { AddJobComponent } from './add-job/add-job.component';
+import { AppMaterialModule } from '../../../shared/app-material.module';
 import { ViewJobsComponent } from './view-jobs/view-jobs.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -8,13 +10,15 @@ import { JobDetailsComponent } from './job-details/job-details.component';
 
 
 
+
 @NgModule({
   imports: [
     CommonModule,
     JobsRoutingModule,
-    AppMaterialModule
+    AppMaterialModule,
+    FormsModule
   ],
-  declarations: [JobComponent, ViewJobsComponent, JobDetailsComponent],
-  exports: [JobComponent, ViewJobsComponent, JobDetailsComponent]
+  declarations: [JobComponent, ViewJobsComponent, AddJobComponent, JobDetailsComponent],
+  exports: [JobComponent, ViewJobsComponent, AddJobComponent, JobDetailsComponent]
 })
 export class JobsModule { }

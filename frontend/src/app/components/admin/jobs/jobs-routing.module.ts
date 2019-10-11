@@ -1,4 +1,5 @@
-import { AuthGuard } from './../auth/auth.guard';
+import { AddJobComponent } from './add-job/add-job.component';
+import { AuthGuard } from '../../../shared/auth/auth.guard';
 import { JobComponent } from './job/job.component';
 import { JobDetailsComponent } from './job-details/job-details.component';
 import { ViewJobsComponent } from './view-jobs/view-jobs.component';
@@ -18,8 +19,9 @@ const projectRoutes: Routes = [
     path: '',
     canActivateChild: [AuthGuard],
     children: [
-      { path: ':id', component: JobDetailsComponent },
-      { path: '', component: ViewJobsComponent}
+      { path: '', component: ViewJobsComponent},
+      { path: 'addJob', component: AddJobComponent },
+      { path: ':id', component: JobDetailsComponent }
     ]
     }
   ]
