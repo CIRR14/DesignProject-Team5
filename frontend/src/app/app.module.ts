@@ -1,3 +1,4 @@
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AppMaterialModule } from './shared/app-material.module';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
@@ -23,6 +24,8 @@ import { ExportComponent } from './components/admin/export/export.component';
 
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +45,7 @@ import { ExportComponent } from './components/admin/export/export.component';
     LayoutModule,
     FormsModule,
     AngularFireDatabaseModule,
+    AngularFireAuthModule,
     AppMaterialModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],

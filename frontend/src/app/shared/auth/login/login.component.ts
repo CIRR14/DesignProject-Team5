@@ -10,7 +10,9 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  isLoggedIn: boolean = false;
+  isLoggedIn = false;
+  user: firebase.User;
+
 
   constructor(
     public authService: AuthService,
@@ -20,6 +22,14 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.authService.checkLoginStatus()
       .subscribe(val => this.isLoggedIn = val);
+
+    this.authService.getLoggedUser()
+          .subscribe( user => {
+              console.log(user);
+              this.user = user;
+      });
+
+
   }
 
   login() {

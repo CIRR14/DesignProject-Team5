@@ -20,7 +20,7 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async) && !(leftDrawer)">
     <mat-nav-list class="rightDrawer-list">
-      <a mat-list-item routerLink="/login" routerLinkActive="active">Log In </a>
+      <a mat-list-item routerLink="/login" routerLinkActive="active"> Log{{ isLoggedIn ? 'out' : 'in' }}</a>
       <a mat-list-item routerLink="/help" routerLinkActive="active">Help</a>
     </mat-nav-list>
   </mat-sidenav>
