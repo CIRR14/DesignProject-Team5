@@ -28,9 +28,11 @@ constructor(
   }
 
   checkAuth(): boolean {
-    if (this.authService.isLoggedIn) { return true; }
-    this.router.navigate(['/login']);
-    return false;
+    if (this.authService.isLoggedIn !== true) {
+      this.router.navigate(['/login']);
+    } else {
+      return true;
+    }
   }
   // canLoad(
   //   route: Route,

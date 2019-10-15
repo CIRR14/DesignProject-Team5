@@ -1,11 +1,11 @@
 import { ExportComponent } from './components/admin/export/export.component';
-import { AvailabilitiesComponent } from './components/admin/availabilities/availabilities.component';
-import { AuthGuard } from './shared/auth/auth.guard';
+import { AvailabilitiesComponent } from './components/admin/availabilities/availabilities/availabilities.component';
+import { AuthGuard } from './components/auth/auth.guard';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { DashComponent } from './components/admin/dash/dash.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EmployeesComponent } from './components/admin/employees/employees.component';
+import { EmployeesComponent } from './components/admin/employees/employee/employees.component';
 
 
 

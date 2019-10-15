@@ -11,19 +11,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyNavComponent } from './shared/my-nav/my-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { DashComponent } from './components/admin/dash/dash.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
-import { AuthModule } from './shared/auth/auth.module';
-import { EmployeesComponent } from './components/admin/employees/employees.component';
-import { AvailabilitiesComponent } from './components/admin/availabilities/availabilities.component';
+import { AuthModule } from './components/auth/auth.module';
+import { EmployeesComponent } from './components/admin/employees/employee/employees.component';
+import { AvailabilitiesComponent } from './components/admin/availabilities/availabilities/availabilities.component';
 import { ExportComponent } from './components/admin/export/export.component';
-
-
-
-
+import { AddEmployeeComponent } from './components/admin/employees/add-employee/add-employee.component';
+import { ViewAvailabilityComponent } from './components/admin/availabilities/view-availability/view-availability.component';
+import { EmployeeDetailsComponent } from './components/admin/employees/employee-details/employee-details.component';
+import { ViewEmployeesComponent } from './components/admin/employees/view-employees/view-employees.component';
 
 
 @NgModule({
@@ -34,7 +34,11 @@ import { ExportComponent } from './components/admin/export/export.component';
     NotFoundComponent,
     EmployeesComponent,
     AvailabilitiesComponent,
-    ExportComponent
+    ExportComponent,
+    AddEmployeeComponent,
+    ViewAvailabilityComponent,
+    EmployeeDetailsComponent,
+    ViewEmployeesComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +48,7 @@ import { ExportComponent } from './components/admin/export/export.component';
     BrowserAnimationsModule,
     LayoutModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AppMaterialModule,

@@ -1,5 +1,5 @@
 import { AddJobComponent } from './add-job/add-job.component';
-import { AuthGuard } from '../../../shared/auth/auth.guard';
+import { AuthGuard } from '../../auth/auth.guard';
 import { JobComponent } from './job/job.component';
 import { JobDetailsComponent } from './job-details/job-details.component';
 import { ViewJobsComponent } from './view-jobs/view-jobs.component';
