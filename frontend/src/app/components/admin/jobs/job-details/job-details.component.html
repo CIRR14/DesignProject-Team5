@@ -1,5 +1,5 @@
 <mat-card>
-  <button mat-stroked-button [routerLink]= "['/jobs']" routerDirection="backward">
+  <button mat-stroked-button [routerLink]= "['/admin-jobs']" routerDirection="backward">
     back
   </button>
 <mat-card-header>
@@ -10,7 +10,7 @@
     {{theJob.clientName.firstName}} {{theJob.clientName.lastName}}
   </mat-card-title>
   <mat-card-subtitle [ngStyle]="{'color': theJob.status === 'not started' ? 'red': theJob.status === 'in progress' ? 'yellow': theJob.status === 'done' ? 'green': ''}">
-    {{theJob.status}}
+    status
   </mat-card-subtitle>
   {{theJob.created | date: 'MM/dd/yyyy'}}
   <br>

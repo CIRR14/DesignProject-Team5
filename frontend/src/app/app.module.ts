@@ -24,6 +24,7 @@ import { AddEmployeeComponent } from './components/admin/employees/add-employee/
 import { ViewAvailabilityComponent } from './components/admin/availabilities/view-availability/view-availability.component';
 import { EmployeeDetailsComponent } from './components/admin/employees/employee-details/employee-details.component';
 import { ViewEmployeesComponent } from './components/admin/employees/view-employees/view-employees.component';
+import { EmployeeAvailabilityComponent } from './components/employee/employee-availability/employee-availability.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { ViewEmployeesComponent } from './components/admin/employees/view-employ
     AddEmployeeComponent,
     ViewAvailabilityComponent,
     EmployeeDetailsComponent,
-    ViewEmployeesComponent
+    ViewEmployeesComponent,
+    EmployeeAvailabilityComponent
   ],
   imports: [
     BrowserModule,

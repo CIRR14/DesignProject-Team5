@@ -1,6 +1,6 @@
 <mat-card class="mat-elevation-z8">
   <mat-card-title> JOBS
-    <button mat-raised-button class="add-job-button" [routerLink]="['/jobs/addJob']"> Add Job </button>
+    <button mat-raised-button class="add-job-button" [routerLink]="['/admin-jobs/addJob']"> Add Job </button>
   </mat-card-title>
   <table mat-table #table [dataSource]='dataSource' matSort aria-label="Elements">
     <!-- Date Column -->
@@ -25,7 +25,7 @@
       </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/jobs', row.id]"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/admin-jobs', row.id]"></tr>
   </table>
 
     <mat-paginator #paginator

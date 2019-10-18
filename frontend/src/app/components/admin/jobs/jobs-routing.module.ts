@@ -1,5 +1,5 @@
 import { AddJobComponent } from './add-job/add-job.component';
-import { AuthGuard } from '../../auth/auth.guard';
+import { AdminGuard } from '../../auth/guards/admin.guard';
 import { JobComponent } from './job/job.component';
 import { JobDetailsComponent } from './job-details/job-details.component';
 import { ViewJobsComponent } from './view-jobs/view-jobs.component';
@@ -7,17 +7,17 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 
-const projectRoutes: Routes = [
+const jobsRoutes: Routes = [
 {
-  ///   "/jobs"
+  ///   "/admin-jobs"
   path: '',
   component: JobComponent,
-  canActivate: [AuthGuard],
+  canActivate: [AdminGuard],
   children: [
-    //    "/jobs/:id" or just "/jobs"
+    //    "/admin-jobs/:id" or "/admin-jobs/addJob" or just "/admin-jobs"
     {
     path: '',
-    canActivateChild: [AuthGuard],
+    canActivateChild: [AdminGuard],
     children: [
       { path: '', component: ViewJobsComponent},
       { path: 'addJob', component: AddJobComponent },
@@ -30,7 +30,7 @@ const projectRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(projectRoutes)],
+  imports: [RouterModule.forChild(jobsRoutes)],
   exports: [RouterModule]
 })
 export class JobsRoutingModule { }

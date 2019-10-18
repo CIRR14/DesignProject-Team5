@@ -1,7 +1,7 @@
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SecureInnerPages } from './secure-inner-pages.guard.ts.guard';
+import { SecureInnerPages } from './guards/secure-inner-pages.guard.ts.guard';
 
 const authRoutes: Routes = [
   {
@@ -9,8 +9,7 @@ const authRoutes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent,
-    canActivate: [SecureInnerPages]
+    component: LoginComponent
   }
 ];
 

@@ -1,10 +1,12 @@
+import { EmployeeGuard } from './components/auth/guards/employee.guard';
+import { EmployeeAvailabilityComponent } from './components/employee/employee-availability/employee-availability.component';
 import { ExportComponent } from './components/admin/export/export.component';
 import { AvailabilitiesComponent } from './components/admin/availabilities/availabilities/availabilities.component';
-import { AuthGuard } from './components/auth/auth.guard';
+import { AdminGuard } from './components/auth/guards/admin.guard';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { DashComponent } from './components/admin/dash/dash.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, CanActivate } from '@angular/router';
 import { EmployeesComponent } from './components/admin/employees/employee/employees.component';
 
 
@@ -12,33 +14,42 @@ import { EmployeesComponent } from './components/admin/employees/employee/employ
 
 const appRoutes: Routes = [
   {
-    path: 'dash',
+    path: 'admin-dash',
     component: DashComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AdminGuard]
   },
   {
-    path: 'employees',
+    path: 'admin-employees',
     component: EmployeesComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AdminGuard]
   },
   {
-    path: 'availabilities',
+    path: 'admin-availabilities',
     component: AvailabilitiesComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AdminGuard]
   },
   {
-    path: 'jobs',
+    path: 'admin-jobs',
     loadChildren: './components/admin/jobs/jobs.module#JobsModule'
     // Lazy Loading
   },
   {
-    path: 'export',
+    path: 'admin-export',
     component: ExportComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AdminGuard]
+  },
+  {
+    path: 'employee-availability',
+    component: EmployeeAvailabilityComponent,
+    canActivate: [EmployeeGuard]
+  },
+  {
+    path: 'employee-hours',
+    loadChildren: './components/employee/hours/employee-hours.module#EmployeeHoursModule'
   },
   {
     path: '',
-    redirectTo: '/dash',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
   {

@@ -1,3 +1,4 @@
+import { User } from './../user';
 import { AuthService } from '../auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -11,8 +12,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  user: firebase.User;
+  firebaseUser: firebase.User;
+
+
+  user: User;
   credentials: FormGroup;
+
+  isLoggedIn: boolean;
 
 
   constructor(
@@ -35,6 +41,16 @@ export class LoginComponent implements OnInit {
     //           console.log(user);
     //           this.user = user;
     //   });
+
+    this.authService.user$.subscribe((userRepsonse) => {
+      if (userRepsonse) {
+        this.isLoggedIn = true;
+        this.user = userRepsonse;
+      } else {
+        this.isLoggedIn = false;
+      }
+    }
+    );
 
 
   }

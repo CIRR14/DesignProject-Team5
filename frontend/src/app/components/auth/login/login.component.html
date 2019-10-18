@@ -1,4 +1,4 @@
-<mat-card *ngIf="!authService.userData as user">
+<mat-card *ngIf="!isLoggedIn">
 <mat-card-header>
   Login to Garage Designs STL
 </mat-card-header>
@@ -35,17 +35,29 @@
 
           <!-- Calling GoogleAuth Api from AuthService -->
          <mat-card-actions>
-            <button mat-raised-button color="primary" (click)="authService.GoogleAuth()">
+            <button mat-raised-button color="primary" (click)="authService.googleLogin()">
               Log in with Google
             </button>
          </mat-card-actions>
 
+         <!-- <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="authService.signOut()" [routerLink]="['/login']">
+              Log Out
+            </button>
+         </mat-card-actions> -->
+
     </mat-card>
 
-<mat-card *ngIf="authService.userData as user">
+
+
+
+<mat-card *ngIf="isLoggedIn">
     <mat-card-content>
+      You are logged in as {{user.displayName}}! You are an
+      <span *ngIf="user.roles.admin"> Admin!</span>
+      <span *ngIf="user.roles.employee">Employee!</span>
         <form>
-    <button mat-raised-button (click)="authService.logOut()" color="warn">Logout</button>
+    <button mat-raised-button (click)="authService.signOut()" [routerLink]="['/login']" color="warn">Logout</button>
       </form>
     </mat-card-content>
 </mat-card>
