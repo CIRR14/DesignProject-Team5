@@ -28,7 +28,7 @@ export class DashComponent implements OnInit {
   }
 
   editPost() {
-    if (this.auth.canUpdate(this.user)){
+    if (this.auth.canUpdate(this.user)) {
       this.postRef.update({title: 'Edited Title!'});
     }
   }
