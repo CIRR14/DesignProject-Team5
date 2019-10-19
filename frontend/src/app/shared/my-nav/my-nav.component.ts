@@ -1,6 +1,6 @@
 import { User } from './../../components/auth/user';
 import { AuthService } from '../../components/auth/auth.service';
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -27,7 +27,9 @@ export class MyNavComponent implements OnInit {
        );
 
        ngOnInit() {
-            this.authService.user$.subscribe(user => this.user = user);
+            this.authService.user$.subscribe((userResponse) => {
+              this.user = userResponse;
+            });
        }
 
 

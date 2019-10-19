@@ -7,7 +7,7 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { DashComponent } from './components/admin/dash/dash.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, CanActivate } from '@angular/router';
-import { EmployeesComponent } from './components/admin/employees/employee/employees.component';
+import { ViewEmployeesComponent } from './components/admin/employees/view-employees/view-employees.component';
 
 
 
@@ -19,8 +19,8 @@ const appRoutes: Routes = [
     canActivate: [AdminGuard]
   },
   {
-    path: 'admin-employees',
-    component: EmployeesComponent,
+    path: 'admin-view-employees',
+    component: ViewEmployeesComponent,
     canActivate: [AdminGuard]
   },
   {

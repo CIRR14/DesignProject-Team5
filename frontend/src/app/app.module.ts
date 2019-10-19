@@ -17,7 +17,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { DashComponent } from './components/admin/dash/dash.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { AuthModule } from './components/auth/auth.module';
-import { EmployeesComponent } from './components/admin/employees/employee/employees.component';
 import { AvailabilitiesComponent } from './components/admin/availabilities/availabilities/availabilities.component';
 import { ExportComponent } from './components/admin/export/export.component';
 import { AddEmployeeComponent } from './components/admin/employees/add-employee/add-employee.component';
@@ -33,7 +32,6 @@ import { EmployeeAvailabilityComponent } from './components/employee/employee-av
     MyNavComponent,
     DashComponent,
     NotFoundComponent,
-    EmployeesComponent,
     AvailabilitiesComponent,
     ExportComponent,
     AddEmployeeComponent,

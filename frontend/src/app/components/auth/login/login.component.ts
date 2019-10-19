@@ -1,8 +1,7 @@
 import { User } from './../user';
 import { AuthService } from '../auth.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -12,24 +11,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  firebaseUser: firebase.User;
-
 
   user: User;
-  credentials: FormGroup;
 
   isLoggedIn: boolean;
 
 
   constructor(
-    public authService: AuthService,
-    private router: Router,
-    fb: FormBuilder
+    public authService: AuthService
   ) {
-    this.credentials = fb.group({
-      email: ['', [Validators.email, Validators.required]],
-      password: ['', Validators.required]
-    });
    }
 
   ngOnInit() {

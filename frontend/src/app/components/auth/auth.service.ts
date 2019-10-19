@@ -14,7 +14,7 @@ import { AngularFirestore} from '@angular/fire/firestore';
 export class AuthService {
 
   user$: Observable<User>;
-
+  currentUser: firebase.User;
 
 
   constructor(
@@ -27,6 +27,8 @@ export class AuthService {
         .pipe(
         switchMap( (user) => {
           if (user) {
+            this.currentUser = user;
+            console.log(this.currentUser);
             return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
           } else {
             return of(null);

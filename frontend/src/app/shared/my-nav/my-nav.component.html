@@ -7,14 +7,18 @@
       <img mat-card-avatar src='{{profilePicture}}'>
     </mat-toolbar>
     <mat-card-title>
-      Admin: {{ authService.isAdmin(user) }}
-      <br/>
-      Employee: {{authService.isEmployee(user)}}
-
+      Logged in as {{ user.displayName }}
     </mat-card-title>
+    <br/>
+      <mat-card-subtitle>
+        Admin: {{ authService.isAdmin(user) }}
+        <br/>
+        Employee: {{ authService.isEmployee(user)}}
+      </mat-card-subtitle>
+
     <mat-nav-list *ngIf="authService.isAdmin(user)">
       <a mat-list-item routerLink="/admin-dash" routerLinkActive="active"> <mat-icon class="sidebar-icon">dashboard</mat-icon>Dashboard </a>
-      <a mat-list-item routerLink="/admin-employees" routerLinkActive="active"><mat-icon class="sidebar-icon">people_alt</mat-icon>Employees</a>
+      <a mat-list-item routerLink="/admin-view-employees" routerLinkActive="active"><mat-icon class="sidebar-icon">people_alt</mat-icon>Employees</a>
       <a mat-list-item routerLink="/admin-availabilities" routerLinkActive="active"><mat-icon class="sidebar-icon">calendar_today</mat-icon>Availabilities</a>
       <a mat-list-item routerLink="/admin-jobs" routerLinkActive="active"><mat-icon class="sidebar-icon">card_travel</mat-icon>Jobs</a>
       <a mat-list-item routerLink="/admin-export" routerLinkActive="active"><mat-icon class="sidebar-icon">file_upload</mat-icon>EXPORT</a>
