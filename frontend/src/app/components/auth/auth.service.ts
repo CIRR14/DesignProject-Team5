@@ -1,12 +1,10 @@
-import { Roles } from './user';
 import { switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable, of } from 'rxjs';
 import { auth } from 'firebase';
 import { Injectable, NgZone } from '@angular/core';
 import { User } from '../auth/user';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
+import { AngularFirestore} from '@angular/fire/firestore';
 
 
 
@@ -16,17 +14,13 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   user$: Observable<User>;
-  private usersCollection: AngularFirestoreCollection<User>;
-  private usersDoc: AngularFirestoreDocument<User>;
-  private  registers: Observable<User[]>;
 
 
 
   constructor(
     private afs: AngularFirestore,   // Inject Firestore service
-    private afAuth: AngularFireAuth, // Inject Firebase auth service
-    private router: Router,
-    private ngZone: NgZone) {
+    private afAuth: AngularFireAuth // Inject Firebase auth service
+   ) {
 
 
       this.user$ = this.afAuth.authState
@@ -46,22 +40,36 @@ googleLogin() {
  return this.oAuthLogin(provider);
 }
 
-private oAuthLogin(provider) {
-  return this.afAuth.auth.signInWithPopup(provider)
-    .then((credentials) => {
-      this.updateUserData(credentials.user);
-    });
-}
-
 signOut() {
   this.afAuth.auth.signOut();
 }
 
-private updateUserData(user) {
-  // Sets user data to firestore on login
-  if (user.roles) {
-    const userRef: AngularFirestoreDocument <User> = this.afs.doc(`users/${user.uid}`);
-    const data: User = {
+private oAuthLogin(provider) {
+  return this.afAuth.auth.signInWithPopup(provider)
+    .then((credentials) => {
+      this.checkIfUserExists(credentials.user);
+    });
+}
+
+
+private checkIfUserExists(user) {
+  const userRef = this.afs.doc(`users/${user.uid}`);
+  userRef.get()
+    .subscribe(async (doc) => {
+    if (doc.exists) {
+        console.log('Existing User:', doc.data());
+        await this.getUserData(doc.data());
+    } else {
+        console.log('New user');
+        await this.createDefaultUser(user);
+    }
+});
+}
+
+private getUserData(user) {
+  const userRef = this.afs.doc(`users/${user.uid}`);
+
+  const data: User = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
@@ -72,47 +80,68 @@ private updateUserData(user) {
         admin: user.roles.admin
       }
     };
-    userRef.set(data, { merge: true} );
-  }
-  }
+  userRef.set(data, { merge: true} );
+}
+
+
+private createDefaultUser(defaultUser) {
+  const userRef = this.afs.doc(`users/${defaultUser.uid}`);
+  const data: User = {
+    uid: defaultUser.uid,
+    email: defaultUser.email,
+    displayName: defaultUser.displayName,
+    photoURL: defaultUser.photoURL,
+    emailVerified: defaultUser.emailVerified,
+    roles: {
+      employee: false,
+      admin: false
+    }
+  };
+  userRef.set(data, { merge: true} );
+  console.log('Default user created:', data);
+
+}
+
+
+
 
 
 // Abilities and Roles Authorization
 // Assign roles to an ability method
 
 
-isAdmin( user: User ): boolean {
+  isAdmin( user: User ): boolean {
   const isAdmin = ['admin'];
   return this.checkAuthorization(user, isAdmin);
 }
 
-isEmployee( user: User ): boolean {
+  isEmployee( user: User ): boolean {
   const isEmployee = ['employee'];
   return this.checkAuthorization(user, isEmployee);
 }
 
 
-canCreate( user: User ): boolean {
+  canCreate( user: User ): boolean {
   const allowed = ['admin'];
   return this.checkAuthorization(user, allowed);
 }
 
-canRead( user: User ): boolean {
+  canRead( user: User ): boolean {
   const allowed = ['admin', 'employee'];
   return this.checkAuthorization(user, allowed);
 }
 
-canUpdate( user: User ): boolean {
+  canUpdate( user: User ): boolean {
   const allowed = ['admin'];
   return this.checkAuthorization(user, allowed);
 }
 
-canDelete( user: User ): boolean {
+  canDelete( user: User ): boolean {
   const allowed = ['admin'];
   return this.checkAuthorization(user, allowed);
 }
 
-checkIfLoggedIn(user: User): boolean {
+  checkIfLoggedIn(user: User): boolean {
   if (!user) {
     return false;
   } else {
