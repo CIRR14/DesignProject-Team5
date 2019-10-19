@@ -20,30 +20,18 @@
       <a mat-list-item routerLink="/admin-export" routerLinkActive="active"><mat-icon class="sidebar-icon">file_upload</mat-icon>EXPORT</a>
     </mat-nav-list>
 
-    <mat-nav-list *ngIf="!authService.isAdmin(user)">
+    <mat-nav-list *ngIf="!authService.isAdmin(user) && authService.isEmployee(user)">
         <a mat-list-item routerLink="/employee-availability" routerLinkActive="active"> <mat-icon class="sidebar-icon">calendar_today</mat-icon>Availability </a>
-        <a mat-list-item routerLink="/employee-hours" routerLinkActive="active"><mat-icon class="sidebar-icon">people_alt</mat-icon>Clock Hours</a>
+        <a mat-list-item routerLink="/employee-hours" routerLinkActive="active"><mat-icon class="sidebar-icon">watch_later</mat-icon>Clock Hours</a>
       </mat-nav-list>
-  </mat-sidenav>
 
-  <mat-sidenav position="end" #rightDrawer class="sidenav" fixedInViewport="true"
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="!(isHandset$ | async) && !(leftDrawer)">
-    <mat-nav-list class="rightDrawer-list">
-      <!-- <div *ngIf="authService.userData as user">
-          <div>
-              <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
-              <p>User ID: <strong>{{user.uid}}</strong></p>
-              <p>Email: <strong>{{user.email}}</strong></p>
-              <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
-              <p>Admin: <strong>{{user.admin}}</strong></p>
-            </div>
-      </div> -->
-        <a mat-list-item  *ngIf="user" routerLink="/login"> Logout </a>
-        <a mat-list-item *ngIf="!user" routerLink="/login" routerLinkActive="active"> Login </a>
-        <a mat-list-item routerLink="/help" routerLinkActive="active">Help</a>
+      <mat-nav-list class="rightDrawer-list">
+        <a mat-list-item *ngIf="user" routerLink="/login"> <mat-icon class="sidebar-icon">arrow_back</mat-icon>Logout </a>
+        <a mat-list-item *ngIf="!user" routerLink="/login" routerLinkActive="active"> <mat-icon class="sidebar-icon">exit_to_app</mat-icon>Login </a>
+        <a mat-list-item routerLink="/help" routerLinkActive="active"><mat-icon class="sidebar-icon">help</mat-icon>Help</a>
     </mat-nav-list>
+
+
   </mat-sidenav>
 
   <mat-sidenav-content>
@@ -56,14 +44,6 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span class="title">{{title}}</span>
-      <button mat-button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="rightDrawer.toggle()">
-
-        <mat-icon style="text-align: end" aria-label="Side nav toggle icon">account_circle</mat-icon>
-      </button>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
