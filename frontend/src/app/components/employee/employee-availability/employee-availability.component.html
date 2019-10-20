@@ -1,1 +1,7 @@
-<ejs-calendar [value]='dateValue' [min]='minDate' [values]='dateValues' [isMultiSelection]='multiSelect'  (change)='setAvailable($event)'></ejs-calendar>
+<mat-card>
+  <mat-card-title>Click the dates that you are available</mat-card-title>
+<ejs-calendar [value]='dateValue' [min]='minDate' [values]='dateValues' 
+[isMultiSelection]='multiSelect'  (change)='setAvailable($event)'>
+</ejs-calendar>
+<button mat-button>Submit Availability</button>
+</mat-card>
