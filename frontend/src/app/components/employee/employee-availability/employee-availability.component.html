@@ -4,4 +4,9 @@
 [isMultiSelection]='multiSelect'  (change)='setAvailable($event)'>
 </ejs-calendar>
 <button mat-button>Submit Availability</button>
+
+<div *ngFor="let date of availableDates">
+  {{ date | date:"MM/dd/yyy" }}
+</div>
+
 </mat-card>
