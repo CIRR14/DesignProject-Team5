@@ -1,6 +1,6 @@
 import { User } from './../../components/auth/user';
 import { AuthService } from '../../components/auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,10 +12,11 @@ import { map } from 'rxjs/operators';
   templateUrl: './my-nav.component.html',
   styleUrls: ['./my-nav.component.scss']
 })
-export class MyNavComponent implements OnInit {
+export class MyNavComponent implements OnInit, OnDestroy {
   profilePicture = '../../../assets/profile/default-profile.png';
   title = 'Garage Designs of St. Louis Management System';
   user: User;
+  subscription;
 
 
     constructor(private breakpointObserver: BreakpointObserver,
@@ -27,10 +28,17 @@ export class MyNavComponent implements OnInit {
        );
 
        ngOnInit() {
-            this.authService.user$.subscribe((userResponse) => {
+            this.subscription = this.authService.user$.subscribe((userResponse) => {
               this.user = userResponse;
             });
        }
+
+       ngOnDestroy() {
+        if (this.subscription) {
+          this.subscription.unsubscribe();
+          console.log('unsubscribed!');
+        }
+      }
 
 
       // loggedIn =  this.authService.checkLoginStatus()

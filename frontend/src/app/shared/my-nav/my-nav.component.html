@@ -6,7 +6,7 @@
     <mat-toolbar>
       <img mat-card-avatar src='{{profilePicture}}'>
     </mat-toolbar>
-    <mat-card-title>
+    <mat-card-title *ngIf="user">
       Logged in as {{ user.displayName }}
     </mat-card-title>
     <br/>
