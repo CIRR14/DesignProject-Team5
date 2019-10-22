@@ -20,7 +20,9 @@
       <ng-container matColumnDef="role">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
         <td mat-cell *matCellDef="let row">
-          {{row.roles.admin === true ? 'ADMIN ' :  row.roles.employee === true ? 'EMPLOYEE ' : 'NOT APPROVED' }}
+          <button class="role-button" mat-button [ngStyle]="{'background-color' :row.roles.admin === true ? 'blue': row.roles.employee === true ? 'green': 'red'}">
+            {{row.roles.admin === true ? 'ADMIN ' :  row.roles.employee === true ? 'EMPLOYEE ' : 'NOT APPROVED' }}
+          </button>
         </td>
 
       </ng-container>
@@ -31,8 +33,8 @@
 
       <mat-paginator #paginator
         [pageIndex]="0"
-        [pageSize]="50"
-        [pageSizeOptions]="[25, 50, 100, 250]">
+        [pageSize]="20"
+        [pageSizeOptions]="[10, 20, 30]">
     </mat-paginator>
 
 
