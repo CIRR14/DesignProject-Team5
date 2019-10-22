@@ -1,7 +1,7 @@
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { User } from './../../auth/user';
 import { AuthService } from '../../auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 
@@ -10,11 +10,12 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
   templateUrl: './dash.component.html',
   styleUrls: ['./dash.component.scss']
 })
-export class DashComponent implements OnInit {
+export class DashComponent implements OnInit, OnDestroy {
 
   postRef: AngularFirestoreDocument<any>;
   post$: Observable<any>;
   user: User;
+  subscription: Subscription;
 
   documentId = 'testPost';
 
@@ -24,7 +25,11 @@ export class DashComponent implements OnInit {
     this.postRef = this.afs.doc(`examplePost/${this.documentId}`);
     this.post$ = this.postRef.valueChanges();
 
-    this.auth.user$.subscribe(user => this.user = user);
+    this.subscription = this.auth.user$.subscribe(user => this.user = user);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   editPost() {

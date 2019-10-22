@@ -2,7 +2,7 @@ import { User } from './../../components/auth/user';
 import { AuthService } from '../../components/auth/auth.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 
@@ -16,7 +16,7 @@ export class MyNavComponent implements OnInit, OnDestroy {
   profilePicture = '../../../assets/profile/default-profile.png';
   title = 'Garage Designs of St. Louis Management System';
   user: User;
-  subscription;
+  subscription: Subscription;
 
 
     constructor(private breakpointObserver: BreakpointObserver,

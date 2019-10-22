@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { ViewEmployeesDataSource, ViewEmployeesItem } from './view-employees-datasource';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort } from '@angular/material';
+
 
 @Component({
   selector: 'app-view-employees',
@@ -7,9 +12,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewEmployeesComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  dataSource: ViewEmployeesDataSource;
+
+  displayedColumns = ['name', 'hourlyRate', 'role'];
+  subscription: Subscription;
+
+  constructor( private afs: AngularFirestore) { }
 
   ngOnInit() {
+
+// get all employees
+// display employees
+
+
+
+    this.subscription = this.afs.collection<ViewEmployeesItem>('users').valueChanges().subscribe( res => {
+      console.log('in employees subscription', res);
+      this.dataSource = new ViewEmployeesDataSource(this.paginator, this.sort);
+      this.dataSource.employeesData = res;
+    });
   }
+
+
 
 }

@@ -1,7 +1,40 @@
 <mat-card class="mat-elevation-z8">
-    <mat-card-title> EMPLOYEES
-      <button mat-raised-button class="add-employee-button" [routerLink]=""> Add employees? </button>
+    <mat-card-title>
+      EMPLOYEES
     </mat-card-title>
+
+
+    <table mat-table #table [dataSource]='dataSource' matSort aria-label="Elements">
+      <!-- Name Column -->
+      <ng-container matColumnDef = 'name'>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let row"> {{row.displayName }} </td>
+      </ng-container>
+      <!-- Hourly Rate Column -->
+      <ng-container matColumnDef="hourlyRate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Hourly Rate</th>
+        <td mat-cell *matCellDef="let row">{{row.hourlyRate}}</td>
+      </ng-container>
+
+      <!-- Role Column -->
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+        <td mat-cell *matCellDef="let row">
+          {{row.roles.admin === true ? 'ADMIN ' :  row.roles.employee === true ? 'EMPLOYEE ' : 'NOT APPROVED' }}
+        </td>
+
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]=""></tr>
+    </table>
+
+      <mat-paginator #paginator
+        [pageIndex]="0"
+        [pageSize]="50"
+        [pageSizeOptions]="[25, 50, 100, 250]">
+    </mat-paginator>
+
 
 
   </mat-card>
