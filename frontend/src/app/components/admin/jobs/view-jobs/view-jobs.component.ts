@@ -48,7 +48,6 @@ constructor(
 
   ngOnInit() {
     this.subscription = this.db.list<ViewjobsItem>('jobs').valueChanges().subscribe(d => {
-      console.log('data streaming');
       this.dataSource = new ViewjobsDataSource(this.paginator, this.sort);
       this.dataSource.data = d;
     });

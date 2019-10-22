@@ -14,7 +14,7 @@ import { map } from 'rxjs/operators';
 })
 export class MyNavComponent implements OnInit, OnDestroy {
   profilePicture = '../../../assets/profile/default-profile.png';
-  title = 'Garage Designs of St. Louis Management System';
+  title = 'Garage Designs of St. Louis';
   user: User;
   subscription;
 
@@ -30,6 +30,9 @@ export class MyNavComponent implements OnInit, OnDestroy {
        ngOnInit() {
             this.subscription = this.authService.user$.subscribe((userResponse) => {
               this.user = userResponse;
+              if (this.user.photoURL){
+                this.profilePicture = this.user.photoURL;
+              }
             });
        }
 
