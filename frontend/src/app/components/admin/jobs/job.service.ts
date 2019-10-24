@@ -16,7 +16,7 @@ export class JobService {
   }
 
   getJobById(id: number): Job {
-    let job = JOBS.find( x => x.id === +id );
+    const job = JOBS.find( x => x.id === +id );
     return job;
   }
 }

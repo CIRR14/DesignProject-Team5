@@ -7,7 +7,7 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 export interface ViewEmployeesItem {
   id: number;
   displayName: string;
-  hourlyRate: number;
+  hourlyRate?: number;
   roles: {
     employee: boolean;
     admin: boolean;

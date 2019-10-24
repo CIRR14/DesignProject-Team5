@@ -21,8 +21,6 @@ import { AvailabilitiesComponent } from './components/admin/availabilities/avail
 import { ExportComponent } from './components/admin/export/export.component';
 import { AddEmployeeComponent } from './components/admin/employees/add-employee/add-employee.component';
 import { ViewAvailabilityComponent } from './components/admin/availabilities/view-availability/view-availability.component';
-import { EmployeeDetailsComponent } from './components/admin/employees/employee-details/employee-details.component';
-import { ViewEmployeesComponent } from './components/admin/employees/view-employees/view-employees.component';
 import { EmployeeAvailabilityComponent } from './components/employee/employee-availability/employee-availability.component';
 
 
@@ -36,8 +34,6 @@ import { EmployeeAvailabilityComponent } from './components/employee/employee-av
     ExportComponent,
     AddEmployeeComponent,
     ViewAvailabilityComponent,
-    EmployeeDetailsComponent,
-    ViewEmployeesComponent,
     EmployeeAvailabilityComponent
   ],
   imports: [

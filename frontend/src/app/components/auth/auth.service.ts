@@ -28,7 +28,7 @@ export class AuthService {
         switchMap( (user) => {
           if (user) {
             this.currentUser = user;
-            console.log(this.currentUser);
+            // console.log(this.currentUser);
             return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
           } else {
             return of(null);

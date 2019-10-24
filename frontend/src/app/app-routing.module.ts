@@ -20,8 +20,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'admin-view-employees',
-    component: ViewEmployeesComponent,
-    canActivate: [AdminGuard]
+    loadChildren: './components/admin/employees/employees.module#EmployeesModule'
   },
   {
     path: 'admin-availabilities',
