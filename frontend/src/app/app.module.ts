@@ -22,6 +22,7 @@ import { ExportComponent } from './components/admin/export/export.component';
 import { AddEmployeeComponent } from './components/admin/employees/add-employee/add-employee.component';
 import { ViewAvailabilityComponent } from './components/admin/availabilities/view-availability/view-availability.component';
 import { EmployeeAvailabilityComponent } from './components/employee/employee-availability/employee-availability.component';
+import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { EmployeeAvailabilityComponent } from './components/employee/employee-av
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
+    CalendarModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AppMaterialModule,

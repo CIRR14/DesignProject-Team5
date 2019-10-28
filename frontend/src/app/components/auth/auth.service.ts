@@ -59,7 +59,7 @@ private checkIfUserExists(user) {
   userRef.get()
     .subscribe(async (doc) => {
     if (doc.exists) {
-        console.log('Existing User:', doc.data());
+        console.log('Existing User:');
         await this.getUserData(doc.data());
     } else {
         console.log('New user');

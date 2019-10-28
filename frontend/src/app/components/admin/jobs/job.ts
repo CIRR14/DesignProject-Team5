@@ -1,4 +1,4 @@
-export class Job {
+export interface Job {
   id: number;
   clientName: {
     firstName: string,
