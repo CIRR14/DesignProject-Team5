@@ -1,3 +1,27 @@
-<p>
-  employee-details works!
-</p>
+<mat-card>
+  <mat-card-title *ngIf="employee"> {{ employee.displayName }} Details </mat-card-title>
+
+  Form where you can edit employees/users goes here.
+  <br/>
+  Be able to update roles (admin/employees) and be able to change pay rate
+
+  <mat-card-content>
+
+<mat-form-field>
+<input matInput placeholder="Input">
+ </mat-form-field>
+
+ <mat-form-field>
+    <textarea matInput placeholder="TextArea"></textarea>
+</mat-form-field>
+
+ <mat-form-field>
+        <mat-select placeholder="Select">
+        <mat-option [value]="mock.value" *ngFor="let mock of mockData" > {{mock.name}} </mat-option>
+       </mat-select>
+  </mat-form-field>
+
+
+
+  </mat-card-content>
+</mat-card>

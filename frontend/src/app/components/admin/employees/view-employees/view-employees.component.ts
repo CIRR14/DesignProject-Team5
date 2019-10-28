@@ -29,7 +29,6 @@ export class ViewEmployeesComponent implements OnInit, OnDestroy{
 
     this.loggedInUser = this.as.user$.subscribe( (res) => {
       this.loggedInUser = res;
-      console.log(this.loggedInUser);
     });
 
 // get all employees
