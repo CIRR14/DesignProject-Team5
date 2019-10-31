@@ -4,7 +4,7 @@ import { AuthService } from './../../../auth/auth.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { User, Roles } from './../../../auth/user';
 import { EmployeesService } from './../employees.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
@@ -34,6 +34,7 @@ employeeRole = new FormControl('', Validators.required);
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private service: EmployeesService,
     private auth: AuthService,
     fb: FormBuilder,
@@ -120,6 +121,7 @@ ngOnDestroy() {
     console.log(data);
     userRef.set(data, {merge: true} );
 
+    this.router.navigateByUrl('/admin-view-employees');
   }
 
 
@@ -129,6 +131,17 @@ ngOnDestroy() {
         case 'false': case 'no': case '0': case null: return false;
         default: return Boolean(word);
     }
+}
+
+
+deleteEmployee() {
+  const userRef = this.afs.doc(`users/${this.employee.uid}`);
+  this.router.navigateByUrl('/admin-view-employees');
+
+  setTimeout(() => {
+    userRef.delete();
+  }, 300);
+
 }
 
 }

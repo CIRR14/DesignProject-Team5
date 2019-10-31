@@ -2,6 +2,7 @@
 
     <mat-card-actions>
         <button mat-stroked-button [routerLink]="['/admin-view-employees']" routerDirection="backward">Back</button>
+        <button mat-raised-button position="end" class="delete-employee" color="warn" (click)="deleteEmployee()"> DELETE EMPLOYEE </button>
       </mat-card-actions>
 
   <mat-card-title > {{ employee.displayName }} / {{employee.empID}}</mat-card-title>
@@ -9,7 +10,6 @@
   <mat-card-subtitle style="color: green" *ngIf="employee.roles.employee"> EMPLOYEE </mat-card-subtitle>
 
   <mat-card-content>
-
 
     <form [formGroup]="form"(ngSubmit)="onSubmit()" class="employee-form">
 
@@ -19,7 +19,7 @@
       </mat-form-field>
 
       <mat-form-field>
-        <textarea matInput placeholder="Employee ID" formControlName="employeeID"> {{employee.empID}}</textarea>
+        <textarea matInput placeholder="Employee ID" formControlName="employeeID" maxLength="5"> {{employee.empID}}</textarea>
       </mat-form-field>
 
       <mat-form-field class="hourlyRate">
