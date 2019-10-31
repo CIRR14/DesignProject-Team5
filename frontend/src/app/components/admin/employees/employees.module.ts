@@ -1,3 +1,4 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppMaterialModule } from './../../../shared/app-material.module';
 import { ViewEmployeesComponent } from './view-employees/view-employees.component';
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
@@ -13,7 +14,9 @@ import { EmployeeComponent } from './employee/employee.component';
   imports: [
     CommonModule,
     EmployeesRoutingModule,
-    AppMaterialModule
+    AppMaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [EmployeeDetailsComponent, ViewEmployeesComponent]
 })

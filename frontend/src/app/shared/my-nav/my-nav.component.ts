@@ -30,9 +30,8 @@ export class MyNavComponent implements OnInit, OnDestroy {
        ngOnInit() {
             this.subscription = this.authService.user$.subscribe((userResponse) => {
               this.user = userResponse;
-              if (this.user.photoURL){
-                this.profilePicture = this.user.photoURL;
-              }
+              console.log(this.user);
+              this.setUserPicture();
             });
        }
 
@@ -40,6 +39,14 @@ export class MyNavComponent implements OnInit, OnDestroy {
         if (this.subscription) {
           this.subscription.unsubscribe();
           console.log('unsubscribed!');
+        }
+      }
+
+      setUserPicture() {
+        if (this.user) {
+          if(this.user.photoURL){
+            this.profilePicture = this.user.photoURL;
+          }
         }
       }
 

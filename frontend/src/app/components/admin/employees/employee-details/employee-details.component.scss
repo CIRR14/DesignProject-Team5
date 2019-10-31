@@ -1,0 +1,19 @@
+.employee-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.employee-form > * {
+  width: 100%;
+}
+
+.hourlyRate {
+  width: 20% !important;
+}
+
+.selectRole {
+  display: inline-block;
+  mat-form-field {
+    margin-right: 1.4%;
+  }
+}

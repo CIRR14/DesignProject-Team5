@@ -20,7 +20,8 @@
       <ng-container matColumnDef="role">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
         <td mat-cell *matCellDef="let row">
-          <button class="role-button" mat-button [ngStyle]="{'background-color' :row.roles.admin === true ? 'blue': row.roles.employee === true ? 'green': 'red'}">
+          <button class="role-button" mat-button [ngStyle]="{'background-color' :row.roles.admin === true ? '#64b5f6': row.roles.employee === true ? '#4db6ac
+          ': '#ff8a65'}">
             {{row.roles.admin === true ? 'ADMIN ' :  row.roles.employee === true ? 'EMPLOYEE ' : 'NOT APPROVED' }}
           </button>
         </td>

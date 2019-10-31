@@ -7,7 +7,6 @@ import { User } from '../auth/user';
 import { AngularFirestore} from '@angular/fire/firestore';
 
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -17,11 +16,12 @@ export class AuthService {
   currentUser: firebase.User;
 
 
+
   constructor(
     private afs: AngularFirestore,   // Inject Firestore service
-    private afAuth: AngularFireAuth // Inject Firebase auth service
-   ) {
+    private afAuth: AngularFireAuth // Inject Firebase auth service,
 
+   ) {
 
       this.user$ = this.afAuth.authState
         .pipe(
@@ -44,6 +44,7 @@ googleLogin() {
 
 signOut() {
   this.afAuth.auth.signOut();
+  window.location.reload(); // TODO: FIND A BETTER WAY TO FIX
 }
 
 private oAuthLogin(provider) {
@@ -69,14 +70,17 @@ private checkIfUserExists(user) {
 }
 
 private getUserData(user) {
+
   const userRef = this.afs.doc(`users/${user.uid}`);
 
   const data: User = {
+      empID: user.empID,
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
+      hourlyRate: user.hourlyRate,
       roles: {
         employee: user.roles.employee,
         admin: user.roles.admin
@@ -89,11 +93,13 @@ private getUserData(user) {
 private createDefaultUser(defaultUser) {
   const userRef = this.afs.doc(`users/${defaultUser.uid}`);
   const data: User = {
+    empID: Math.round(Math.random() * 100000).toString(),
     uid: defaultUser.uid,
     email: defaultUser.email,
     displayName: defaultUser.displayName,
     photoURL: defaultUser.photoURL,
     emailVerified: defaultUser.emailVerified,
+    hourlyRate: 0,
     roles: {
       employee: false,
       admin: false
@@ -103,7 +109,6 @@ private createDefaultUser(defaultUser) {
   console.log('Default user created:', data);
 
 }
-
 
 
 
