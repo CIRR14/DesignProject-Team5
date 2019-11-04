@@ -16,10 +16,10 @@ export class LoginComponent implements OnInit {
   isLoggedIn: boolean;
 
 
-  constructor(
-    public authService: AuthService
-  ) {
-   }
+  constructor(public authService: AuthService) 
+  {
+
+  }
 
   ngOnInit() {
     // this.authService.checkLoginStatus()
