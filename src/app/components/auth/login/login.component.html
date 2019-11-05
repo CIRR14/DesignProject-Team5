@@ -1,0 +1,63 @@
+<mat-card *ngIf="!isLoggedIn">
+<mat-card-header>
+  Login to Garage Designs STL
+</mat-card-header>
+
+<mat-card-content>
+  <!-- <form [formGroup]="credentials" class="loginForm">
+          <table cellspacing="0">
+
+            <tr>
+              <td>
+                <mat-form-field class="field-full-width">
+                  <input matInput formControlName="email" type="email" id="email" placeholder="Enter email" aria-describedby="emailHelp" #userEmail required>
+                </mat-form-field>
+              </td>
+            </tr>
+
+            <tr>
+                <td>
+                  <mat-form-field class="field-full-width">
+                  <input matInput formControlName="password" type="password" id="password" placeholder="Password" #userPassword required>
+                  </mat-form-field>
+              </td>
+            </tr>
+
+          </table>
+        </form> -->
+
+
+        </mat-card-content>
+
+        <!-- <mat-card-actions>
+          <button mat-raised-button [disabled]="!credentials.valid" (click)="authService.logIn(credentials.value.email, credentials.value.password)" color="primary">Login</button>
+        </mat-card-actions> -->
+
+          <!-- Calling GoogleAuth Api from AuthService -->
+         <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="authService.googleLogin()">
+              Log in with Google
+            </button>
+         </mat-card-actions>
+
+         <!-- <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="authService.signOut()" [routerLink]="['/login']">
+              Log Out
+            </button>
+         </mat-card-actions> -->
+
+    </mat-card>
+
+
+
+
+<mat-card *ngIf="isLoggedIn">
+    <mat-card-content>
+      You are logged in as {{user.displayName}}! You are an
+      <span *ngIf="user.roles.admin"> Admin!</span>
+      <span *ngIf="user.roles.employee">Employee!</span>
+        <form>
+    <button mat-raised-button (click)="authService.signOut()" [routerLink]="['/login']" color="warn">Logout</button>
+      </form>
+    </mat-card-content>
+</mat-card>

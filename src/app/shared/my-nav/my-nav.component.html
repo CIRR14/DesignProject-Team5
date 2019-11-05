@@ -1,0 +1,55 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav position="start" #leftDrawer class="sidenav" fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)">
+    <mat-toolbar>
+      <img mat-card-avatar src='{{profilePicture}}'>
+    </mat-toolbar>
+    <mat-card-title *ngIf="user">
+      Logged in as {{ user.displayName }}
+    </mat-card-title>
+    <br/>
+      <mat-card-subtitle>
+        Admin: {{ authService.isAdmin(user) }}
+        <br/>
+        Employee: {{ authService.isEmployee(user)}}
+      </mat-card-subtitle>
+
+    <mat-nav-list *ngIf="authService.isAdmin(user)">
+      <a mat-list-item routerLink="/admin-dash" routerLinkActive="active"> <mat-icon class="sidebar-icon">dashboard</mat-icon>Dashboard </a>
+      <a mat-list-item routerLink="/admin-view-employees" routerLinkActive="active"><mat-icon class="sidebar-icon">people_alt</mat-icon>Employees</a>
+      <a mat-list-item routerLink="/admin-availabilities" routerLinkActive="active"><mat-icon class="sidebar-icon">calendar_today</mat-icon>Availabilities</a>
+      <a mat-list-item routerLink="/admin-jobs" routerLinkActive="active"><mat-icon class="sidebar-icon">card_travel</mat-icon>Jobs</a>
+      <a mat-list-item routerLink="/admin-export" routerLinkActive="active"><mat-icon class="sidebar-icon">file_upload</mat-icon>EXPORT</a>
+    </mat-nav-list>
+
+    <mat-nav-list *ngIf="!authService.isAdmin(user) && authService.isEmployee(user)">
+        <a mat-list-item routerLink="/employee-availability" routerLinkActive="active"> <mat-icon class="sidebar-icon">calendar_today</mat-icon>Availability </a>
+        <a mat-list-item routerLink="/employee-hours" routerLinkActive="active"><mat-icon class="sidebar-icon">watch_later</mat-icon>Clock Hours</a>
+      </mat-nav-list>
+
+      <mat-nav-list class="rightDrawer-list">
+        <a mat-list-item *ngIf="user" routerLink="/login"> <mat-icon class="sidebar-icon">arrow_back</mat-icon>Logout </a>
+        <a mat-list-item *ngIf="!user" routerLink="/login" routerLinkActive="active"> <mat-icon class="sidebar-icon">exit_to_app</mat-icon>Login </a>
+        <a mat-list-item routerLink="/help" routerLinkActive="active"><mat-icon class="sidebar-icon">help</mat-icon>Help</a>
+    </mat-nav-list>
+
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="leftDrawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span class="title">{{title}}</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

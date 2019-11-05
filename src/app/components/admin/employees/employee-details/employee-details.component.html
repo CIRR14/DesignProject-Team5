@@ -1,0 +1,58 @@
+<mat-card *ngIf="employee">
+
+    <mat-card-actions>
+        <button mat-stroked-button [routerLink]="['/admin-view-employees']" routerDirection="backward">Back</button>
+        <button mat-raised-button position="end" class="delete-employee" color="warn" (click)="deleteEmployee()"> DELETE EMPLOYEE </button>
+      </mat-card-actions>
+
+  <mat-card-title > {{ employee.displayName }} / {{employee.empID}}</mat-card-title>
+  <mat-card-subtitle style="color: blue" *ngIf="employee.roles.admin"> ADMIN </mat-card-subtitle>
+  <mat-card-subtitle style="color: green" *ngIf="employee.roles.employee"> EMPLOYEE </mat-card-subtitle>
+
+  <mat-card-content>
+
+    <form [formGroup]="form"(ngSubmit)="onSubmit()" class="employee-form">
+
+
+      <mat-form-field>
+        <textarea matInput placeholder="Employee Name" formControlName="employeeName"> {{employee.displayName}} </textarea>
+      </mat-form-field>
+
+      <mat-form-field>
+        <textarea matInput placeholder="Employee ID" formControlName="employeeID" maxLength="5"> {{employee.empID}}</textarea>
+      </mat-form-field>
+
+      <mat-form-field class="hourlyRate">
+          <input matInput type="number" maxLength="3" placeholder="Hourly Rate" formControlName="hourlyRate">
+          <span matPrefix> $&nbsp; </span>
+  <!-- {{employee.hourlyRate}} -->
+      </mat-form-field>
+
+      <div class="selectRole">
+        <mat-form-field>
+          <mat-select matInput placeholder="Admin" formControlName="adminRole" >
+            <mat-option value=true> True </mat-option>
+            <mat-option value=false> False </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field >
+          <mat-select matInput placeholder="Employee" formControlName="employeeRole" disabled >
+              <mat-option value=true> True </mat-option>
+              <mat-option value=false> False </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-card-actions>
+        <button mat-raised-button type="submit" color="primary"  [disabled]="!form.valid"> UPDATE EMPLOYEE </button>
+      </mat-card-actions>
+    </form>
+
+    <mat-card-actions>
+      <button mat-raised-button color="warn" [routerLink]="['/admin-view-employees']" > CANCEL </button>
+    </mat-card-actions>
+
+
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,37 @@
+<mat-card class="mat-elevation-z8">
+  <mat-card-title> JOBS
+    <button mat-raised-button class="add-job-button" [routerLink]="['/admin-jobs/addJob']"> Add Job </button>
+  </mat-card-title>
+  <table mat-table #table [dataSource]='dataSource' matSort aria-label="Elements">
+    <!-- Date Column -->
+    <ng-container matColumnDef = 'created'>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+      <td mat-cell *matCellDef="let row"> {{row.created | date: 'MM/dd/yyyy'}} </td>
+    </ng-container>
+    <!-- Client Name Column -->
+    <ng-container matColumnDef="clientName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Client Name</th>
+      <td mat-cell *matCellDef="let row">{{row.clientName}}</td>
+    </ng-container>
+    <!-- Address Column -->
+    <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
+        <td mat-cell *matCellDef="let row">{{row.jobAddress}}</td>
+      </ng-container>
+      <!-- Address Column -->
+    <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let row" [ngStyle]="{'color': row.status === 'not started' ? 'red': row.status === 'in progress' ? 'yellow': row.status === 'done' ? 'green': ''}" >{{row.status}}</td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/admin-jobs', row.id]"></tr>
+  </table>
+
+    <mat-paginator #paginator
+      [pageIndex]="0"
+      [pageSize]="50"
+      [pageSizeOptions]="[25, 50, 100, 250]">
+  </mat-paginator>
+
+</mat-card>
