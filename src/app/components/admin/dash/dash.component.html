@@ -1,0 +1,22 @@
+<mat-card class="mat-elevation-z8">
+    <mat-card-title> DASHBOARD </mat-card-title>
+
+
+    <mat-card-content *ngIf="post$ | async as post">
+      <mat-card-subtitle>{{ post.title }} </mat-card-subtitle>
+      <p> {{ post.content}} </p>
+
+      <button mat-raised-button color="warn" (click)="deletePost()" *ngIf="auth.canDelete(user)">
+        Delete Post
+      </button>
+
+      <button mat-raised-button (click)="editPost()" *ngIf="auth.canUpdate(user)">
+          Edit Post
+        </button>
+
+        <button mat-raised-button (click)="createPost()" *ngIf="auth.canCreate(user)">
+            Create Post
+          </button>
+
+    </mat-card-content>
+  </mat-card>
