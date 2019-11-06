@@ -13,7 +13,7 @@ import { MatPaginator, MatSort } from '@angular/material';
   templateUrl: './view-employees.component.html',
   styleUrls: ['./view-employees.component.scss']
 })
-export class ViewEmployeesComponent implements OnInit, OnDestroy{
+export class ViewEmployeesComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
