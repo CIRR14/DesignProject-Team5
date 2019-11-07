@@ -15,8 +15,6 @@ export class AuthService {
   user$: Observable<User>;
   currentUser: firebase.User;
 
-
-
   constructor(
     private afs: AngularFirestore,   // Inject Firestore service
     private afAuth: AngularFireAuth // Inject Firebase auth service,

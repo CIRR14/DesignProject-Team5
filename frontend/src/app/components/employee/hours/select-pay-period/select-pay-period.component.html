@@ -1,19 +1,12 @@
-
 <mat-card *ngIf="isLoggedIn">
   <mat-card-content>
-    Welcome, {{user.displayName}}.
-    <mat-form-field>
-      <input [ngModel]="date" (ngModelChange)="onDataChange($event)"  matInput [matDatepicker]="picker" placeholder="Choose a date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <br>
-     <button (click)="savecsv()"
-      mat-raised-button 
-      color="primary">
-      Export CSV
-      </button>
-    
-    <p>{{date}}</p>
+    Welcome {{user.displayName}}! 
   </mat-card-content>
+    <mat-card-content>
+      <h3>Current Time: <span class='highlightedText'>{{ now | date:'HH:mm:ss a'}}</span></h3>
+  </mat-card-content>
+  <!-- <button (click)="onClickMe()" mat-raised-button color="primary">Clock In</button>  -->
+  <button (click)="changeText()" mat-raised-button color="primary">{{text}}</button> 
 </mat-card>
+
+
