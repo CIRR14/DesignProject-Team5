@@ -1,6 +1,6 @@
 <mat-card>
-  <mat-card-title>Click the dates that you are available</mat-card-title>
-<ejs-calendar [value]='dateValue' [min]='minDate' [values]='dateValues' 
+  <mat-card-title>Click the dates that you are available for {{currentDate | date:"MMMM"}} </mat-card-title>
+<ejs-calendar [value]='dateValue' [min]='minDate' [max]='maxDate' [values]='dateValues'
 [isMultiSelection]='multiSelect'  (change)='setAvailable($event)'>
 </ejs-calendar>
 <button mat-button>Submit Availability</button>
@@ -8,5 +8,7 @@
 <div *ngFor="let date of availableDates">
   {{ date | date:"MM/dd/yyy" }}
 </div>
+
+<button mat-button (click)="submit()"> SUBMIT </button>
 
 </mat-card>
