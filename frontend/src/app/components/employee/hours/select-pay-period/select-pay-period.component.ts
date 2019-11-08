@@ -10,8 +10,8 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1234, name: "1/1/2019", weight: "3:00", symbol: "4:00"},
-  {position: 2345, name: "2/2/2019", weight: "3:00", symbol: "4:00"},
+  {position: 1234, name: '1/1/2019', weight: '3:00', symbol: '4:00'},
+  {position: 2345, name: '2/2/2019', weight: '3:00', symbol: '4:00'},
 
 ];
 
@@ -20,66 +20,26 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './select-pay-period.component.html',
   styleUrls: ['./select-pay-period.component.scss']
 })
-<<<<<<< HEAD
 export class SelectPayPeriodComponent implements OnInit {
-
-firebaseUser;
-
-  constructor(private afs: AngularFirestore) {
-  //   setInterval(() => {
-  //   const currentDate = new Date();
-  //   this.datemessage = currentDate.toDateString();
-  //   } );
-
-  //   setInterval(() => {
-  //   const currentTime = new Date();
-  //   this.timemessage = currentTime.toLocaleTimeString();
-  //   } , 1000);
-
-  // }
-
-  // datemessage: string;
-  // timemessage: string;
-  // static controller(arg0: string, arg1: ($scope: any, usersApi: any, clockApi: any, payperiodFactory: any, totaltimeFactory: any) => void) {
-  //   throw new Error('Method not implemented.');
-  }
-
- ngOnInit() {
-
-    const users = this.afs.collection(`users`).valueChanges()
-      .subscribe((user) => {
-        // console.log(user);
-        this.firebaseUser = user;
-        
-      });
-
-      console.log(this.firebaseUser);
-
-=======
-
-export class SelectPayPeriodComponent implements OnInit { 
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
 
-  constructor() {  
+  constructor() {
 
-  setInterval(() =>
-    {
-    var dt = new Date();
-    document.getElementById("currentDate").innerHTML = dt.toLocaleDateString();
+  setInterval(() => {
+    let dt = new Date();
+    document.getElementById('currentDate').innerHTML = dt.toLocaleDateString();
   });
 
-  setInterval(() =>
-  {
-    var dt = new Date();
-    document.getElementById("currentTime").innerHTML = dt.toLocaleTimeString();
+  setInterval(() => {
+    let dt = new Date();
+    document.getElementById('currentTime').innerHTML = dt.toLocaleTimeString();
   });
-    
+
   }
 
   ngOnInit() {
->>>>>>> 1cb10d9e3f364fba9e2488d7b95ee64524f10752
   }
 
 // SelectPayPeriodComponent.controller('edit', function edit($scope, usersApi, clockApi, payperiodFactory, totaltimeFactory) {
