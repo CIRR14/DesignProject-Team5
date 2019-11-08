@@ -2,23 +2,17 @@ import { User } from './../../../auth/user';
 import { Subscription } from 'rxjs';
 import { AuthService } from './../../../auth/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { EmployeeAvailabilityDataSource, EmployeeAvailabilityItem } from './../view-availability/employee-availability-datasource';
-import { MatPaginator, MatSort } from '@angular/material';
+import { EmployeeAvailabilityItem } from './../view-availability/employee-availability-datasource';
 import { AvailabilitiesService } from './../availabilities.service';
-import { Component, OnInit, ViewChild, OnDestroy, Inject, ViewEncapsulation, QueryList, ViewChildren } from '@angular/core';
-import { Observable, of as observableOf, merge } from 'rxjs';
+import { Component, OnInit, ViewChild, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Observable} from 'rxjs';
 
 import { EventSettingsModel,
   DayService, WeekService, WorkWeekService,
   MonthService, AgendaService, ResizeService,
   DragAndDropService, View, ScheduleComponent, PopupOpenEventArgs } from '@syncfusion/ej2-angular-schedule';
 
-
-
-// import {  eventCollection, NotAvailable } from './data';
-import { extend } from '@syncfusion/ej2-base';
-import { Query, Predicate, DataManager, ReturnOption, WebApiAdaptor } from '@syncfusion/ej2-data';
-import { CheckBoxComponent } from '@syncfusion/ej2-angular-buttons';
+import { DataManager} from '@syncfusion/ej2-data';
 
 
 
@@ -31,7 +25,6 @@ import { CheckBoxComponent } from '@syncfusion/ej2-angular-buttons';
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, ResizeService, DragAndDropService]
 })
 export class AvailabilitiesComponent implements OnInit, OnDestroy {
-  employee: User;
   users;
   employeeSubscription: Subscription;
   eventSubscription: Subscription;
@@ -41,11 +34,14 @@ export class AvailabilitiesComponent implements OnInit, OnDestroy {
 
   employees$: Observable<User>;
 
-  notAvailableEvents$: Observable<EmployeeAvailabilityItem>;
-  notAvailableEvents;
+  availableEvents$: Observable<EmployeeAvailabilityItem>;
+  availableEvents;
 
-  public  eventCollection: object[] = [];
-  public  eventDataSource: object[] = this.getEvents();
+  desktop: boolean;
+  today = new Date();
+
+public  eventCollection: object[] = [];
+public  eventDataSource: object[] = this.getEvents();
 
 
 public ownerCollections: object[] = [];
@@ -60,31 +56,25 @@ private dataManger: DataManager = new DataManager({
   crossDomain: true
 });
 
-// TODO: get notAvailable dates from firebase and set them on here
 public eventSettings: EventSettingsModel = { dataSource: this.dataManger };
 
+public showHeaderBar = true;
+public currentView: View = 'Month';
 
 
 @ViewChild('scheduleObj') scheduleObj: ScheduleComponent;
-// @ViewChildren('ownerOneObj') ownerOneObj: CheckBoxComponent;
-// @ViewChild('ownerTwoObj') ownerTwoObj: CheckBoxComponent;
-// @ViewChild('ownerThreeObj') ownerThreeObj: CheckBoxComponent;
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  // dataSource: EmployeeAvailabilityDataSource;
-  loggedInUser;
-  today = new Date();
-
-  public currentView: View = 'Month';
-
-
-
 
   constructor(private aService: AvailabilitiesService , private afs: AngularFirestore, private as: AuthService) {
   }
 
   ngOnInit() {
+const width = window.innerWidth;
+
+if (width > 730) {
+  this.desktop = true;
+} else {
+  this.desktop = false;
+}
   }
 
 
@@ -95,8 +85,6 @@ public eventSettings: EventSettingsModel = { dataSource: this.dataManger };
            data => {
              this.users = data;
              this.users.forEach((element, i) => {
-               console.log('element', element);
-               console.log('index', i);
                const generatedColor = this.generateColor(i);
                this.users = {
                  OwnerText: element.displayName,
@@ -122,36 +110,41 @@ public eventSettings: EventSettingsModel = { dataSource: this.dataManger };
      '#DCE775',
      '#90A4AE',
      '#FFB74D',
-     '#81C784'
+     '#81C784',
+     '#5d4037',
+     '#ffc107'
     ];
     return colors[index];
   }
 
   getEvents(): object[] {
   /// GETS EVENTS FROM 'AVAILABILITY' IN FIREBASE //
-  this.notAvailableEvents$ = this.aService.getEvents();
-  this.eventSubscription = this.notAvailableEvents$.subscribe(
-        (events) => {
-            this.notAvailableEvents = events;
-            this.notAvailableEvents.forEach((event, index) => {
-              event.notAvailable.forEach(timestamp => {
-                this.notAvailableEvents = {
-                  Id: index,
-                  OwnerId: event.userId,
-                  Subject: event.title,
-                  StartTime: new Date(timestamp.seconds  * 1000),
-                  EndTime: new Date((timestamp.seconds + 1) * 1000),
-                  IsAllDay: true
-                };
-                  this.eventCollection.push(this.notAvailableEvents);
-              });
+  if (this.eventCollection.length === 0) {
+    this.availableEvents$ = this.aService.getEvents();
+    this.eventSubscription = this.availableEvents$.subscribe(
+          (events) => {
+              this.availableEvents = events;
+              this.availableEvents.forEach((event, index) => {
+                event.available.forEach(timestamp => {
+                  this.availableEvents = {
+                    Id: index,
+                    OwnerId: event.userId,
+                    Subject: event.title,
+                    StartTime: new Date(timestamp.seconds  * 1000),
+                    EndTime: new Date((timestamp.seconds + 1) * 1000),
+                    IsAllDay: true
+                  };
+                  this.eventCollection.push(this.availableEvents);
+                });
 
-            });
-            // console.log('after', this.ownerCollections);
-            this.eventsLoaded = Promise.resolve(true);
-        }
-        );
-  return this. eventCollection;
+              });
+              this.eventsLoaded = Promise.resolve(true);
+          }
+          );
+    return this. eventCollection;
+  } else {
+    console.log('events already loaded');
+  }
   }
 
 
@@ -170,11 +163,11 @@ public eventSettings: EventSettingsModel = { dataSource: this.dataManger };
     // this.scheduleObj.eventSettings.query = new Query().where(predicate);
 }
 
-onPopupOpen(args: PopupOpenEventArgs): void {
-  if (args.type === 'Editor' || args.type === 'QuickInfo')  {
-      args.cancel = true;
-  }
-}
+// onPopupOpen(args: PopupOpenEventArgs): void {
+//   if (args.type === 'Editor' || args.type === 'QuickInfo')  {
+//       args.cancel = true;
+//   }
+// }
 
   test2() {
    console.log(this.ownerCollections);
@@ -186,16 +179,4 @@ onPopupOpen(args: PopupOpenEventArgs): void {
    this.employeeSubscription.unsubscribe();
    this.eventSubscription.unsubscribe();
   }
-
-  // setAvailable(args): void {
-  //   this.selectedDate = args.value;
-  //   this.availableDates = args.values;
-
-  //   this.availableDates.forEach(selectedDate => {
-
-  //     console.log(selectedDate);
-
-  //   });
-  // }
-
 }

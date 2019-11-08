@@ -44,12 +44,12 @@ export class EmployeeAvailabilityComponent implements OnInit {
   }
 
   submit() {
-    const availabilityRef = this.afs.doc(`users/${this.currentUser.uid}/notAvailable/${this.currentMonth}`);
+    const availabilityRef = this.afs.doc(`users/${this.currentUser.uid}/available/${this.currentMonth}`);
 
     const data = {
       title: this.currentUser.displayName,
       userId: this.currentUser.uid,
-      notAvailable: this.availableDates
+      available: this.availableDates
     };
 
     availabilityRef.set(data, {merge: true});

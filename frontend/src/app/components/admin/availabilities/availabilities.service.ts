@@ -24,6 +24,6 @@ event$;
   }
 
   getEvents(): Observable<any> {
-      return this.afs.collectionGroup(`notAvailable`).valueChanges();
+      return this.afs.collectionGroup(`available`).valueChanges();
 }
 }

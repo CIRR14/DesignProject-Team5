@@ -13,5 +13,5 @@ export interface User {
   emailVerified: boolean;
   hourlyRate?: number;
   roles: Roles;
-  notAvailable?: Date[];
+  available?: Date[];
 }

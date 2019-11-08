@@ -1,28 +1,13 @@
 <mat-card class="mat-elevation-z8">
     <mat-card-title> AVAILABILITIES </mat-card-title>
+    <mat-card-subtitle> These are the dates your employees are available in the month </mat-card-subtitle>
+    <ejs-datepicker #datepicker [(value)]='selectedDate' [showClearButton]=false></ejs-datepicker>
 
-
-    <!-- <mat-card-title>Click the dates that you are available</mat-card-title>
-    <ejs-calendar [value]='dateValue' [min]='minDate' [values]='dateValues'
-    [isMultiSelection]='multiSelect'  (change)='setAvailable($event)'>
-    </ejs-calendar>
-    <button mat-button>Submit Availability</button>
-
-    <div *ngFor="let date of availableDates">
-      {{ date | date:"MM/dd/yyy" }}
-    </div> -->
-
-    <!-- <button mat-raised-button (click)="test()"> TEST </button> -->
     <button mat-raised-button (click)="test2()"> TEST2 </button>
 
 
-    <!-- <pre *ngIf="eventsLoaded && usersLoaded" >
-      {{ resourceSampleData | json }}
-      {{ resourceDataSource | json }}
-    </pre> -->
-
             <ejs-schedule *ngIf="eventsLoaded && usersLoaded" #scheduleObj cssClass='schedule-resource' width='100%' height='650px' [selectedDate]="selectedDate"
-            [eventSettings]="eventSettings" [currentView]="currentView" (dataBinding)="getEvents($event)" (popupOpen)='onPopupOpen($event)'>
+            [eventSettings]="eventSettings" [currentView]="currentView" (dataBinding)="getEvents($event)" (popupOpen)="onPopupOpen($event)" [showHeaderBar]="showHeaderBar">
             <e-resources>
                 <e-resource field='OwnerId' title='Owners' [dataSource]='ownerCollections' [allowMultiple]='allowMultiple'
                     name='Owners' textField='OwnerText' idField='OwnerId' colorField='Color'>
@@ -30,68 +15,12 @@
              </e-resources>
             </ejs-schedule>
 
-            <table style="width: 100%">
-              <tbody>
-              <tr *ngFor="let employee of ownerCollections" style="height: 50px">
-                <td style="width: 100%">
-                {{ employee.OwnerText }}
-                </td>
-              </tr>
-              </tbody>
-            </table>
-             <!-- <table id="checkboxes" style="width: 100%">
-                <tbody>
-                    <tr  style="height: 50px">
-                        <td style="width: 100%">
-                            <ejs-checkbox  #ownerOneObj cssClass="margaret" label="Margaret" value="1" [checked]="true" (change)="onChange()">
-                            </ejs-checkbox>
-                        </td>
-                    </tr>
-                    <tr style="height: 50px">
-                        <td style="width: 100%">
-                            <ejs-checkbox #ownerTwoObj cssClass="robert" label="Robert" value="2" [checked]="true" (change)="onChange()">
-                            </ejs-checkbox>
-                        </td>
-                    </tr>
-                    <tr style="height: 50px">
-                        <td style="width: 100%">
-                            <ejs-checkbox #ownerThreeObj cssClass="laura" label="Laura" value="3" [checked]="true" (change)="onChange()">
-                            </ejs-checkbox>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>  -->
 
-            <!-- <pre *ngFor="let user of ownerCollections; let i = index" color="user.Color">
-              {{user | json}}
-            </pre> -->
-            <ejs-datepicker #datepicker [(value)]='selectedDate' [showClearButton]=false></ejs-datepicker>
+            <mat-grid-list *ngIf="desktop" cols="4" rowHeight="3:1">
+                <mat-grid-tile *ngFor="let employee of ownerCollections; i" [ngStyle]="{'color': employee.Color}">
+                  {{ employee.OwnerText }}
+                </mat-grid-tile>
+            </mat-grid-list>
+
   </mat-card>
-
-
-
-      <!-- <div class="col-lg-3 property-section">
-          <div class="property-panel-section">
-              <div class="property-panel-header">Properties</div>
-              <div class="property-panel-content">
-                  <div id="property" class="property-panel-table" title="Properties">
-                      <table id="property" title="Properties" style="width: 100%">
-                          <tbody>
-                              <tr style="height: 50px">
-                                  <td style="width: 30%">
-                                      <div> Current Date
-                                      </div>
-                                  </td>
-                                  <td style="width: 70%;">
-                                      <div>
-
-                                      </div>
-                                  </td>
-                              </tr>
-                          </tbody>
-                      </table>
-                  </div>
-              </div>
-          </div>
-      </div> -->
 
