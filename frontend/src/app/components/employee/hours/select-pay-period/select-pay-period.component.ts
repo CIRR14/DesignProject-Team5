@@ -27,15 +27,25 @@ export class SelectPayPeriodComponent implements OnInit {
 
   constructor() {
 
-  setInterval(() => {
-    let dt = new Date();
-    document.getElementById('currentDate').innerHTML = dt.toLocaleDateString();
-  });
+  // setInterval(() => {
+  //   let dt = new Date();
+  //   if(document.getElementById('currentDate')){
+  //     document.getElementById('currentDate').innerHTML = dt.toLocaleDateString();
+  //   } else {
+  //     console.log('undefined date');
+  //   }
+  // });
 
-  setInterval(() => {
-    let dt = new Date();
-    document.getElementById('currentTime').innerHTML = dt.toLocaleTimeString();
-  });
+
+  // setInterval(() => {
+  //   let dt = new Date();
+  //   if(document.getElementById('currentTime')){
+  //     document.getElementById('currentTime').innerHTML = dt.toLocaleDateString();
+  //   } else {
+  //     console.log('undefined time');
+  //   }
+  // });
+
 
   }
 

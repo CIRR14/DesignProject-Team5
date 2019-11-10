@@ -1,7 +1,7 @@
-import { Subscription } from 'rxjs';
+
 import { AuthService } from './../../auth/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-employee-availability',
@@ -29,12 +29,20 @@ export class EmployeeAvailabilityComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.authService.currentUser;
+    // TODO: get dates from the db and show on the frontend dates that are already in the db
   }
 
+
+  disabledDate(args): void {
+    if (args.date.getDay() === 0 || args.date.getDay() === 6) {
+        args.isDisabled = true;
+    }
+}
 
   setAvailable(args): void {
     this.selectedDate = args.value;
     this.availableDates = args.values;
+
 
     this.availableDates.forEach(selectedDate => {
 
@@ -42,6 +50,7 @@ export class EmployeeAvailabilityComponent implements OnInit {
 
     });
   }
+
 
   submit() {
     const availabilityRef = this.afs.doc(`users/${this.currentUser.uid}/available/${this.currentMonth}`);
@@ -52,7 +61,11 @@ export class EmployeeAvailabilityComponent implements OnInit {
       available: this.availableDates
     };
 
-    availabilityRef.set(data, {merge: true});
+    if( this.availableDates.length > 0 ){
+      availabilityRef.set(data, {merge: true});
+    } else {
+      console.log('please select dates that you are available');
+    }
 
   }
 

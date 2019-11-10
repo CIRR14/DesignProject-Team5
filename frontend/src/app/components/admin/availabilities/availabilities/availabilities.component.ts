@@ -132,7 +132,8 @@ if (width > 730) {
                     Subject: event.title,
                     StartTime: new Date(timestamp.seconds  * 1000),
                     EndTime: new Date((timestamp.seconds + 1) * 1000),
-                    IsAllDay: true
+                    IsAllDay: true,
+                    IsReadonly: true
                   };
                   this.eventCollection.push(this.availableEvents);
                 });
@@ -145,6 +146,10 @@ if (width > 730) {
   } else {
     console.log('events already loaded');
   }
+  }
+
+  onPopupOpen() {
+    console.log('hello')
   }
 
 
