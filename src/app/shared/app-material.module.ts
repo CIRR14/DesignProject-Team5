@@ -5,7 +5,7 @@ import { MatInputModule, MatButtonModule,
   MatSidenavModule, MatIconModule, MatListModule,
   MatTableModule, MatPaginatorModule, MatSortModule,
   MatCardModule, MatFormFieldModule, MatDatepickerModule,
-  MatNativeDateModule, MatProgressSpinnerModule } from '@angular/material';
+  MatNativeDateModule, MatProgressSpinnerModule, MatGridListModule } from '@angular/material';
 
 
 @NgModule({
@@ -25,7 +25,8 @@ import { MatInputModule, MatButtonModule,
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatGridListModule
   ],
   exports: [
     MatInputModule,
@@ -42,7 +43,8 @@ import { MatInputModule, MatButtonModule,
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatGridListModule
   ]
 })
 export class AppMaterialModule { }

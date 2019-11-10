@@ -1,3 +1,26 @@
 <mat-card class="mat-elevation-z8">
     <mat-card-title> AVAILABILITIES </mat-card-title>
+    <mat-card-subtitle> These are the dates your employees are available in the month </mat-card-subtitle>
+    <ejs-datepicker #datepicker [(value)]='selectedDate' [showClearButton]=false></ejs-datepicker>
+
+    <button mat-raised-button (click)="test2()"> TEST2 </button>
+
+
+            <ejs-schedule *ngIf="eventsLoaded && usersLoaded" #scheduleObj cssClass='schedule-resource' width='100%' height='650px' [selectedDate]="selectedDate"
+            [eventSettings]="eventSettings" [currentView]="currentView" (dataBinding)="getEvents($event)" [showHeaderBar]="showHeaderBar">
+            <e-resources>
+                <e-resource field='OwnerId' title='Owners' [dataSource]='ownerCollections' [allowMultiple]='allowMultiple'
+                    name='Owners' textField='OwnerText' idField='OwnerId' colorField='Color'>
+                </e-resource>
+             </e-resources>
+            </ejs-schedule>
+
+
+            <mat-grid-list *ngIf="desktop" cols="4" rowHeight="3:1">
+                <mat-grid-tile *ngFor="let employee of ownerCollections; i" [ngStyle]="{'color': employee.Color}">
+                  {{ employee.OwnerText }}
+                </mat-grid-tile>
+            </mat-grid-list>
+
   </mat-card>
+

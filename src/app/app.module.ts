@@ -22,7 +22,31 @@ import { ExportComponent } from './components/admin/export/export.component';
 import { AddEmployeeComponent } from './components/admin/employees/add-employee/add-employee.component';
 import { ViewAvailabilityComponent } from './components/admin/availabilities/view-availability/view-availability.component';
 import { EmployeeAvailabilityComponent } from './components/employee/employee-availability/employee-availability.component';
+
 import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
+import { ScheduleAllModule, RecurrenceEditorAllModule } from '@syncfusion/ej2-angular-schedule';
+import { TreeViewModule } from '@syncfusion/ej2-angular-navigations';
+
+import { DropDownListAllModule, MultiSelectAllModule } from '@syncfusion/ej2-angular-dropdowns';
+
+import { MaskedTextBoxModule, UploaderAllModule } from '@syncfusion/ej2-angular-inputs';
+
+import { ToolbarAllModule, ContextMenuAllModule } from '@syncfusion/ej2-angular-navigations';
+
+import { ButtonAllModule } from '@syncfusion/ej2-angular-buttons';
+
+import { CheckBoxAllModule } from '@syncfusion/ej2-angular-buttons';
+
+import { DatePickerAllModule, TimePickerAllModule, DateTimePickerAllModule } from '@syncfusion/ej2-angular-calendars';
+
+import { NumericTextBoxAllModule } from '@syncfusion/ej2-angular-inputs';
+
+// import { RouterModule } from '@angular/router';
+
+// import { CommonModule } from '@angular/common';
+
+
+
 
 
 @NgModule({
@@ -47,6 +71,16 @@ import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
     FormsModule,
     ReactiveFormsModule,
     CalendarModule,
+    ScheduleAllModule,
+    RecurrenceEditorAllModule,
+    DatePickerAllModule,
+    TimePickerAllModule,
+    DateTimePickerAllModule,
+    TreeViewModule,
+    ToolbarAllModule,
+    ContextMenuAllModule,
+    DropDownListAllModule, MultiSelectAllModule, MaskedTextBoxModule, UploaderAllModule, NumericTextBoxAllModule,
+    ButtonAllModule, CheckBoxAllModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AppMaterialModule,

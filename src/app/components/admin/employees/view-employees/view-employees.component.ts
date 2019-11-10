@@ -1,4 +1,3 @@
-import { User } from './../../../auth/user';
 import { AuthService } from './../../../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
