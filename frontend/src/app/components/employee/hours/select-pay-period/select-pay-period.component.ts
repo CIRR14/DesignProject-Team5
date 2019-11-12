@@ -1,5 +1,7 @@
+import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit } from '@angular/core';
 import { getDefaultDateObject } from '@syncfusion/ej2-base';
+import { of, Observable } from 'rxjs';
 
 export interface PeriodicElement {
   dateClock: any;
@@ -10,12 +12,14 @@ export interface PeriodicElement {
 }
 
 const element: PeriodicElement[] = [
-  {Job: "1234", 
+  {Job: "1234",
   dateClock:"1/1/2019",
   clockI:'8:00',
   clockO:'15:00',
   Hoursworked: 7}
 ];
+
+
 
 
 @Component({
@@ -26,11 +30,10 @@ const element: PeriodicElement[] = [
 
 
 
-export class SelectPayPeriodComponent implements OnInit { 
+export class SelectPayPeriodComponent implements OnInit {
 
   displayedColumns: string[] = ['Job', 'dateClock', 'clockI', 'clockO','Hoursworked'];
-  dataSource = element;
-  selectedJob;
+  dataSource = new MatTableDataSource<PeriodicElement>([]);
   clockedIn;
   clockedOut;
 
@@ -38,11 +41,20 @@ export class SelectPayPeriodComponent implements OnInit {
   disableClockIn: boolean = false;
   disableClockOut: boolean = true;
 
+  jobOptions = [
+    {value: 'job1', viewValue: '#1234'},
+    {value: 'job2', viewValue: '#2345'},
+    {value: 'job3', viewValue: '#3456'},
+    {value: 'job4', viewValue: '#4567'}
+  ];
 
-  constructor() {  
+  selectedJob = 'job1';
 
 
-    
+  constructor() {
+
+
+
   }
 
   clockingIn() {
@@ -51,17 +63,19 @@ export class SelectPayPeriodComponent implements OnInit {
     console.log('clockin', this.clockedIn);
     this.disableClockIn = true;
     this.disableClockOut = false;
-    
+
   }
 
-  
-    
-  clockingOut() {   
+
+
+  clockingOut() {
     var dt = new Date();
     this.clockedOut= new Date().getHours()+':'+ new Date().getHours()+':'+ new Date().getSeconds();
     console.log('clockout', this.clockedOut);
     this.disableClockIn = false;
     this.disableClockOut = true;
+
+    this.test();
 
   }
 
@@ -72,34 +86,44 @@ export class SelectPayPeriodComponent implements OnInit {
 
   // }
 
-  dateobj(){
-
-    var dateObj = new Date();
-    new Date().toLocaleDateString;
-
+  dateobj() {
+    const dateObj = new Date().toLocaleDateString();
+    return dateObj;
   }
 
-  
+
+  refresh() {
+    this.refreshTable().subscribe((data: PeriodicElement[]) => {
+      this.dataSource.data = data;
+    });
+  }
+
+  refreshTable(): Observable<PeriodicElement[]> {
+      return of(this.dataSource.data);
+    }
+
+
 
   test() {
     const data = {
-      dateClock: this.dateobj,
+      dateClock: this.dateobj(),
       Job: this.selectedJob,
       clockI: this.clockedIn,
       clockO:  this.clockedOut,
       Hoursworked: this.clockedOut - this.clockedIn
-    }
+    };
 
-    this.dataSource.push(data);
+    this.dataSource.data.push(data);
+    this.refresh();
     console.table(this.dataSource);
 
   }
 
   // element:any
-  
+
   ngOnInit() {
-    
-    
+
+
     // this.element=
     // [
     //   {
@@ -112,7 +136,7 @@ export class SelectPayPeriodComponent implements OnInit {
 
     // ]
   }
-  
+
 
 
 }

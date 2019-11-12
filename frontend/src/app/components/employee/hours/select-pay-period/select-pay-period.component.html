@@ -1,19 +1,20 @@
 <mat-card class="example-card">
-    
+
 <p class="form-inline1">
     <mat-form-field>
     <mat-label>Jobs</mat-label>
-    <select matNativeControl required>
-        <option value="job1">#1234</option>
-        <option value="job2">#2345</option>
-        <option value="job3">#3456</option>
-        <option value="job4">#4567</option>
-    </select>
+    <mat-select [(value)]="selectedJob" required>
+      <mat-option *ngFor="let job of jobOptions" [value]="job.value">
+        {{job.viewValue}}
+      </mat-option>
+    </mat-select>
     </mat-form-field>
-            
+
+    <div> you selected: {{selectedJob}} </div>
+
     <button class="Job number" ng-click="reset()" id="JobID">Select</button>
-    
-</p>
+
+  <!-- </p> -->
 
 
 
@@ -26,23 +27,23 @@
 </p>
 </div>
 
-<button mat-raised-button (click)="test()">show test button</button>
+<!-- <button mat-raised-button (click)="test()">show test button</button> -->
 
-<button *ngFor="let element of dataSource"> 
-</button>
- 
+<!-- <button *ngFor="let element of dataSource.data">
+</button> -->
+
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    
+
     <ng-container matColumnDef="Job">
     <th mat-header-cell *matHeaderCellDef> Job ID</th>
     <!-- <tr *ngFor = "let element in element"> -->
     <td mat-cell *matCellDef="let element"> {{element.Job}} </td>
     <!-- </tr> -->
     </ng-container>
-          
-    
+
+
     <ng-container matColumnDef="dateClock">
     <th mat-header-cell *matHeaderCellDef> Date </th>
     <!-- <tr *ngFor = "let element in element"> -->
@@ -50,7 +51,7 @@
     <!-- </tr> -->
     </ng-container>
 
-   
+
     <ng-container matColumnDef="clockI">
     <th mat-header-cell *matHeaderCellDef> Clock In </th>
     <!-- <tr *ngFor = "let element in element"> -->
@@ -58,7 +59,7 @@
     <!-- </tr> -->
     </ng-container>
 
-  
+
     <ng-container matColumnDef="clockO">
     <th mat-header-cell *matHeaderCellDef> Clock Out </th>
     <!-- <tr *ngFor = "let element in element"> -->
@@ -72,13 +73,44 @@
     <td mat-cell *matCellDef="let element"> {{element.Hoursworked}} </td>
     <!-- </tr> -->
     </ng-container>
-    
+
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-</table>  
+</table>
 
+
+<!-- <div #TABLE>
+  <table mat-table #table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+      <ng-container matColumnDef="employee">
+        <th mat-header-cell *matHeaderCellDef> Employee </th>
+        <td mat-cell *matCellDef="let employee"> {{employee.displayName}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="rate">
+        <th mat-header-cell *matHeaderCellDef> Rate </th>
+        <td mat-cell *matCellDef="let employee"> $ {{employee.hourlyRate}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="hrs">
+        <th mat-header-cell *matHeaderCellDef> Hours </th>
+        <td mat-cell *matCellDef="let employee"> {{employee.hours}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef> Total </th>
+        <td mat-cell *matCellDef="let employee"> $ {{employee.hours * employee.hourlyRate}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div> -->
 
 
 </mat-card>
