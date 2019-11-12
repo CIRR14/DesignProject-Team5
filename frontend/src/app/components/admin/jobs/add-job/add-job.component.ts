@@ -25,4 +25,16 @@ export class AddJobComponent implements OnInit {
     });
   }
 
+  onChange(e){
+    this.job.id = this.generateJobId(e);
+  }
+
+  generateJobId(address){
+    const regex = /\d+ [a-zA-Z]{3}/g;
+
+    const match = address.match(regex);
+
+    return match && match[0] ? match[0].replace(/\s+/g, '').toUpperCase() : '';
+  }
+
 }

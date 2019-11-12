@@ -16,7 +16,7 @@
       </mat-form-field>
 
       <mat-form-field>
-        <textarea placeholder="Enter client address..." rows="3" maxlength="300" matInput [(ngModel)]="job.address" name="address"></textarea>
+        <textarea placeholder="Enter client address..." (ngModelChange)="onChange($event)" rows="3" maxlength="300" matInput [(ngModel)]="job.address" name="address"></textarea>
       </mat-form-field>
 
       <mat-form-field>
