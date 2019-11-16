@@ -44,13 +44,13 @@ constructor(
 
   //  Columns displayed in the table. Columns IDs can be added, removed, or reordered.
   // displayedColumns = ['date', 'text'];
-private job(jobID) {
-  const job = this.db.doc(`jobs/${jobID.jobID}`);
-  const viewJob: Jobs = {
-    jobid: jobID,
-    name:  
-  }
-}
+// private job(jobID) {
+//   const job = this.db.doc(`jobs/${jobID.jobID}`);
+//   const viewJob: Jobs = {
+//     jobid: jobID,
+//     name:  
+  //}
+//}
 
   ngOnInit() {
     this.subscription = this.db.list<ViewjobsItem>('jobs').valueChanges().subscribe(d => {
