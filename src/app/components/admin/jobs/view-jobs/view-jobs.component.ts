@@ -23,7 +23,7 @@ export class ViewJobsComponent implements OnInit, OnDestroy{
   dataSource: ViewjobsDataSource; 
 
 // private jobs$: Observable<Job[]>;
- displayedColumns = ['created', 'clientName', 'address', 'status'];
+ displayedColumns = ['created', 'clientName', 'address'];
  subscription: Subscription;
 
 constructor(
