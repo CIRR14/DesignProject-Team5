@@ -17,12 +17,18 @@ export class AddJobComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.job);
     this.job.created = new Date(this.job.created).valueOf();
     this.db.list('jobs').push(this.job)
     .then(_ => {
       this.job = {};
       console.log('success');
     });
+
+  }
+
+  cancel() {
+    this.job = {};
   }
 
   onChange(e){
