@@ -1,7 +1,9 @@
+import { Subscription } from 'rxjs';
 
 import { AuthService } from './../../auth/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-employee-availability',
@@ -9,6 +11,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./employee-availability.component.scss']
 })
 export class EmployeeAvailabilityComponent implements OnInit {
+
+  constructor(private afs: AngularFirestore, private authService: AuthService, public dialog: MatDialog) {
+    this.getEmployeesAvail();
+   }
+
   public month: number = new Date().getMonth();
   public fullYear: number = new Date().getFullYear();
   public today: number = new Date().getDate();
@@ -20,16 +27,13 @@ export class EmployeeAvailabilityComponent implements OnInit {
 
   availableDates = [];
   selectedDate;
-  currentUser: firebase.User;
+  currentUser: firebase.User = this.authService.currentUser;
   currentDate: Date = new Date();
   currentMonth = this.currentDate.getMonth() + 1;
 
-
-  constructor(private afs: AngularFirestore, private authService: AuthService) { }
+  getAvail: Subscription;
 
   ngOnInit() {
-    this.currentUser = this.authService.currentUser;
-    // TODO: get dates from the db and show on the frontend dates that are already in the db
   }
 
 
@@ -45,9 +49,6 @@ export class EmployeeAvailabilityComponent implements OnInit {
 
 
     this.availableDates.forEach(selectedDate => {
-
-      console.log(selectedDate);
-
     });
   }
 
@@ -61,13 +62,59 @@ export class EmployeeAvailabilityComponent implements OnInit {
       available: this.availableDates
     };
 
-    if( this.availableDates.length > 0 ){
-      availabilityRef.set(data, {merge: true});
+    if (this.availableDates.length > 0 ) {
+        availabilityRef.set(data, {merge: true}).then(() => {
+          this.openDialog();
+        }).catch(() => {
+          alert('AVAILABILITY NOT SUBMITTED. PLEASE TRY AGAIN')
+        });
     } else {
       console.log('please select dates that you are available');
     }
 
   }
 
+
+  getEmployeesAvail() {
+    const employeeAvailRef = this.afs.doc(`users/${this.currentUser.uid}/available/${this.currentMonth}`);
+    const myAvailability = [];
+
+    this.getAvail = employeeAvailRef.get()
+      .subscribe((data) => {
+        data.data().available.forEach(timestamp => {
+          const timestamps = new Date(timestamp.seconds * 1000);
+          myAvailability.push(timestamps);
+        });
+        this.dateValues = myAvailability;
+      });
+    return myAvailability;
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogOverview, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+}
+
+
+
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: 'dialog.html',
+})
+export class DialogOverview {
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverview>) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 }

@@ -17,12 +17,30 @@ export class AddJobComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.job);
     this.job.created = new Date(this.job.created).valueOf();
     this.db.list('jobs').push(this.job)
     .then(_ => {
       this.job = {};
       console.log('success');
     });
+
+  }
+
+  cancel() {
+    this.job = {};
+  }
+
+  onChange(e){
+    this.job.id = this.generateJobId(e);
+  }
+
+  generateJobId(address){
+    const regex = /\d+ [a-zA-Z]{3}/g;
+
+    const match = address.match(regex);
+
+    return match && match[0] ? match[0].replace(/\s+/g, '').toUpperCase() : '';
   }
 
 }

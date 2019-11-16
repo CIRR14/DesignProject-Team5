@@ -149,35 +149,7 @@ if (width > 730) {
   }
 
   onPopupOpen() {
-    console.log('hello')
-  }
-
-
-  onChange(): void {
-    // let predicate: Predicate;
-    // const checkBoxes: CheckBoxComponent[] = [this.ownerOneObj, this.ownerTwoObj, this.ownerThreeObj];
-    // checkBoxes.forEach((checkBoxObj: CheckBoxComponent) => {
-    //     if (checkBoxObj.checked) {
-    //         if (predicate) {
-    //             predicate = predicate.or('OwnerId', 'equal', parseInt(checkBoxObj.value, 10));
-    //         } else {
-    //             predicate = new Predicate('OwnerId', 'equal', parseInt(checkBoxObj.value, 10));
-    //         }
-    //     }
-    // });
-    // this.scheduleObj.eventSettings.query = new Query().where(predicate);
-}
-
-// onPopupOpen(args: PopupOpenEventArgs): void {
-//   if (args.type === 'Editor' || args.type === 'QuickInfo')  {
-//       args.cancel = true;
-//   }
-// }
-
-  test2() {
-   console.log(this.ownerCollections);
-   this.ownerCollections.shift();
-   console.log(this.ownerCollections);
+    console.log('hello');
   }
 
   ngOnDestroy() {

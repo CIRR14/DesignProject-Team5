@@ -21,7 +21,7 @@ import { AvailabilitiesComponent } from './components/admin/availabilities/avail
 import { ExportComponent } from './components/admin/export/export.component';
 import { AddEmployeeComponent } from './components/admin/employees/add-employee/add-employee.component';
 import { ViewAvailabilityComponent } from './components/admin/availabilities/view-availability/view-availability.component';
-import { EmployeeAvailabilityComponent } from './components/employee/employee-availability/employee-availability.component';
+import { EmployeeAvailabilityComponent, DialogOverview } from './components/employee/employee-availability/employee-availability.component';
 
 import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
 import { ScheduleAllModule, RecurrenceEditorAllModule } from '@syncfusion/ej2-angular-schedule';
@@ -59,7 +59,8 @@ import { NumericTextBoxAllModule } from '@syncfusion/ej2-angular-inputs';
     ExportComponent,
     AddEmployeeComponent,
     ViewAvailabilityComponent,
-    EmployeeAvailabilityComponent
+    EmployeeAvailabilityComponent,
+    DialogOverview
   ],
   imports: [
     BrowserModule,
@@ -85,6 +86,9 @@ import { NumericTextBoxAllModule } from '@syncfusion/ej2-angular-inputs';
     AngularFireAuthModule,
     AppMaterialModule,
     AngularFireModule.initializeApp(environment.firebase)
+  ],
+  entryComponents: [
+    DialogOverview
   ],
   providers: [],
   bootstrap: [AppComponent]

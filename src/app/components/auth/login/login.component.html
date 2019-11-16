@@ -1,9 +1,12 @@
 <mat-card *ngIf="!isLoggedIn">
-<mat-card-header>
+  <mat-card-content>
+<mat-card-title>
   Login to Garage Designs STL
-</mat-card-header>
+</mat-card-title>
+<mat-card-subtitle>
+  Please log in with your google account or create one to access.
+</mat-card-subtitle>
 
-<mat-card-content>
   <!-- <form [formGroup]="credentials" class="loginForm">
           <table cellspacing="0">
 
@@ -27,7 +30,7 @@
         </form> -->
 
 
-        </mat-card-content>
+
 
         <!-- <mat-card-actions>
           <button mat-raised-button [disabled]="!credentials.valid" (click)="authService.logIn(credentials.value.email, credentials.value.password)" color="primary">Login</button>
@@ -39,6 +42,11 @@
               Log in with Google
             </button>
          </mat-card-actions>
+
+         <mat-card-subtitle>
+            ** Your administrator will approve you as an admin or an employee if this is your first time logging in **
+         </mat-card-subtitle>
+        </mat-card-content>
 
          <!-- <mat-card-actions>
             <button mat-raised-button color="primary" (click)="authService.signOut()" [routerLink]="['/login']">
