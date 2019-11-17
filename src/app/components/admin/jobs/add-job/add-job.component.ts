@@ -1,3 +1,4 @@
+import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,28 +12,31 @@ export class AddJobComponent implements OnInit {
   job: any = [];
   formIsFilledOut = false;
 
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private as: AngularFirestore) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
+
     console.log(this.job);
-    this.job.created = new Date(this.job.created).valueOf();
-    this.db.list('jobs').push(this.job)
-    .then(_ => {
-      this.job = {};
-      console.log('success');
-    });
+
+    // console.log(this.job);
+    // this.job.created = new Date(this.job.created).valueOf();
+    // this.db.list('jobs').push(this.job)
+    // .then(_ => {
+    //   this.job = {};
+    //   console.log('success');
+    // });
 
   }
 
   cancel() {
-    this.job = {};
+    // this.job = {};
   }
 
   onChange(e){
-    this.job.id = this.generateJobId(e);
+    // this.job.id = this.generateJobId(e);
   }
 
   generateJobId(address){
