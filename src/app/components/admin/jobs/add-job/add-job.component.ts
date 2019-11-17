@@ -39,7 +39,7 @@ export class AddJobComponent implements OnInit {
     // this.job.id = this.generateJobId(e);
   }
 
-  generateJobId(address){
+  generateJobId(address) {
     const regex = /\d+ [a-zA-Z]{3}/g;
 
     const match = address.match(regex);
