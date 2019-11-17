@@ -29,11 +29,7 @@
 
     </mat-card-content>
     <mat-card-actions>
-<<<<<<< Updated upstream:frontend/src/app/components/admin/jobs/add-job/add-job.component.html
       <button mat-button [routerLink]="['/admin-jobs']" routerDirection="backward" color="warn" type="cancel">Cancel</button>
-=======
-      <button mat-button (click)="cancel()" [routerLink]="['/admin-jobs']" routerDirection="backward" color="warn" type="cancel">Cancel</button>
->>>>>>> Stashed changes:src/app/components/admin/jobs/add-job/add-job.component.html
       <button mat-button [routerLink]="['/admin-jobs']" position="end" [disabled]="!form.form.valid" type="submit">Submit</button>
     </mat-card-actions>
   </mat-card>

@@ -1,9 +1,14 @@
 export interface Job {
-    created: Date;
-    clientName: string;
-    address: string;
-    id: string;
-    description: string;
-    jobHours: number;
-  }
-  
+  id: number;
+  clientName: {
+    firstName: string,
+    lastName: string
+  };
+  jobAddress: {
+    street: string,
+    city: string,
+    zipCode: number
+  };
+  status: string;
+  created: Date;
+}

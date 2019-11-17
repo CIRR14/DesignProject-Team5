@@ -1,10 +1,23 @@
-import { Job } from './../job';
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
+export interface ViewjobsItem {
+  id: number;
+  clientName: {
+    firstName: string,
+    lastName: string
+  };
+  jobAddress: {
+    street: string,
+    city: string,
+    zipCode: number
+  };
+  status: string;
+  created: Date;
+}
 
 // TODO: replace this with real data from your application
 
@@ -14,8 +27,8 @@ import { Observable, of as observableOf, merge } from 'rxjs';
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class ViewjobsDataSource extends DataSource<Job> {
-  data: Job[] = [];
+export class ViewjobsDataSource extends DataSource<ViewjobsItem> {
+  data: ViewjobsItem[] = [];
 
   constructor(private paginator: MatPaginator, private sort: MatSort) {
     super();
@@ -26,7 +39,7 @@ export class ViewjobsDataSource extends DataSource<Job> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<Job[]> {
+  connect(): Observable<ViewjobsItem[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -53,7 +66,7 @@ export class ViewjobsDataSource extends DataSource<Job> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: Job[]) {
+  private getPagedData(data: ViewjobsItem[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -62,7 +75,7 @@ export class ViewjobsDataSource extends DataSource<Job> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: Job[]) {
+  private getSortedData(data: ViewjobsItem[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }

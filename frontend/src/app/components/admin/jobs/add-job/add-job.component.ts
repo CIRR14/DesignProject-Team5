@@ -1,8 +1,3 @@
-<<<<<<< Updated upstream:frontend/src/app/components/admin/jobs/add-job/add-job.component.ts
-=======
-import { Job } from './../job';
-import { AngularFirestore } from '@angular/fire/firestore';
->>>>>>> Stashed changes:src/app/components/admin/jobs/add-job/add-job.component.ts
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Component, OnInit } from '@angular/core';
 
@@ -23,32 +18,13 @@ export class AddJobComponent implements OnInit {
 
   onSubmit() {
     console.log(this.job);
-<<<<<<< Updated upstream:frontend/src/app/components/admin/jobs/add-job/add-job.component.ts
     this.job.created = new Date(this.job.created).valueOf();
     this.db.list('jobs').push(this.job)
     .then(_ => {
       this.job = {};
       console.log('success');
     });
-=======
 
-    const jobRef = this.as.doc(`jobs/${this.job.id}`);
->>>>>>> Stashed changes:src/app/components/admin/jobs/add-job/add-job.component.ts
-
-    const jobInfo: Job = {
-      created: this.job.created,
-      clientName: this.job.clientName,
-      address: this.job.address,
-      id: this.job.id,
-      description: this.job.description,
-      jobHours: this.getJobHours(this.job.id)
-    };
-
-    jobRef.set(jobInfo, {merge: true});
-  }
-
-  getJobHours(id) {
-    return 5;
   }
 
   cancel() {
