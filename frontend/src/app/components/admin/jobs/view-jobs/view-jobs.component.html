@@ -12,7 +12,7 @@
     <!-- Date Column -->
     <ng-container matColumnDef = 'created'>
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-      <td mat-cell *matCellDef="let row"> {{row.created | date: 'MM/dd/yyyy'}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.created.seconds * 1000 | date: 'MM/dd/yyyy'}} </td>
     </ng-container>
     <!-- Client Name Column -->
     <ng-container matColumnDef="clientName">
@@ -23,6 +23,11 @@
     <ng-container matColumnDef="address">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
         <td mat-cell *matCellDef="let row">{{row.address}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="jobHours">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Hours</th>
+        <td mat-cell *matCellDef="let row">{{row.jobHours}}</td>
       </ng-container>
 
 

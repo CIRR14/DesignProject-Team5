@@ -1,12 +1,10 @@
-import { JobService } from '../job.service';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { JobService } from './../job.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
-import { ViewjobsDataSource, ViewjobsItem } from './view-jobs-datasource';
-import { Subscription, Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ViewjobsDataSource } from './view-jobs-datasource';
+import { Subscription } from 'rxjs';
 import { Job } from '../job';
-import { switchMap } from 'rxjs/operators';
 
 
 
@@ -23,15 +21,18 @@ export class ViewJobsComponent implements OnInit, OnDestroy{
   dataSource: ViewjobsDataSource;
 
 // private jobs$: Observable<Job[]>;
+<<<<<<< Updated upstream:frontend/src/app/components/admin/jobs/view-jobs/view-jobs.component.ts
  displayedColumns = ['jobId', 'created', 'clientName', 'address'];
+=======
+ displayedColumns = ['created', 'clientName', 'address', 'jobHours'];
+>>>>>>> Stashed changes:src/app/components/admin/jobs/view-jobs/view-jobs.component.ts
  subscription: Subscription;
 
 constructor(
-  // private service: JobService,
-  // private route: ActivatedRoute,
-  private db: AngularFireDatabase
+  private afs: AngularFirestore, public service: JobService
 ) {}
 
+<<<<<<< Updated upstream:frontend/src/app/components/admin/jobs/view-jobs/view-jobs.component.ts
 // ngOnInit() {
 //   this.jobs$ = this.route.paramMap.pipe(
 //     switchMap(() => {
@@ -46,11 +47,14 @@ constructor(
   // displayedColumns = ['date', 'text'];
 
 
+=======
+>>>>>>> Stashed changes:src/app/components/admin/jobs/view-jobs/view-jobs.component.ts
   ngOnInit() {
-    this.subscription = this.db.list<ViewjobsItem>('jobs').valueChanges().subscribe(d => {
+    this.subscription = this.afs.collection<Job>('jobs').valueChanges().subscribe((job) => {
       this.dataSource = new ViewjobsDataSource(this.paginator, this.sort);
-      this.dataSource.data = d;
+      this.dataSource.data = job;
     });
+
   }
 
   ngOnDestroy(): void {

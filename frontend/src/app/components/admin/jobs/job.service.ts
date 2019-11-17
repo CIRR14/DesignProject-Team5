@@ -1,7 +1,11 @@
+import { Subscription, Observable } from 'rxjs';
+import { ViewjobsDataSource } from './view-jobs/view-jobs-datasource';
 import { Job } from './job';
-import { Observable, of } from 'rxjs';
-import { Injectable } from '@angular/core';
-import { JOBS } from './mock.jobs';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Injectable, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort } from '@angular/material';
+
+
 
 
 @Injectable({
@@ -9,14 +13,11 @@ import { JOBS } from './mock.jobs';
 })
 export class JobService {
 
-  constructor() { }
+  job: Job;
 
-  getJobs(): Observable<Job[]> {
-    return of(JOBS);
-  }
+  constructor(public afs: AngularFirestore) { }
 
-  getJobById(id: number): Job {
-    const job = JOBS.find( x => x.id === +id );
-    return job;
+  getJobById(id): Observable<any> {
+    return this.afs.doc(`jobs/${id}`).valueChanges();
   }
 }
