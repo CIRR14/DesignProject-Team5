@@ -221,6 +221,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_admin_availabilities_view_availability_view_availability_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/admin/availabilities/view-availability/view-availability.component */ "./src/app/components/admin/availabilities/view-availability/view-availability.component.ts");
 /* harmony import */ var _components_employee_employee_availability_employee_availability_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/employee/employee-availability/employee-availability.component */ "./src/app/components/employee/employee-availability/employee-availability.component.ts");
 /* harmony import */ var _syncfusion_ej2_angular_calendars__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @syncfusion/ej2-angular-calendars */ "./node_modules/@syncfusion/ej2-angular-calendars/@syncfusion/ej2-angular-calendars.es5.js");
+/* harmony import */ var _syncfusion_ej2_angular_schedule__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @syncfusion/ej2-angular-schedule */ "./node_modules/@syncfusion/ej2-angular-schedule/@syncfusion/ej2-angular-schedule.es5.js");
+/* harmony import */ var _syncfusion_ej2_angular_navigations__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @syncfusion/ej2-angular-navigations */ "./node_modules/@syncfusion/ej2-angular-navigations/@syncfusion/ej2-angular-navigations.es5.js");
+/* harmony import */ var _syncfusion_ej2_angular_dropdowns__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @syncfusion/ej2-angular-dropdowns */ "./node_modules/@syncfusion/ej2-angular-dropdowns/@syncfusion/ej2-angular-dropdowns.es5.js");
+/* harmony import */ var _syncfusion_ej2_angular_inputs__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @syncfusion/ej2-angular-inputs */ "./node_modules/@syncfusion/ej2-angular-inputs/@syncfusion/ej2-angular-inputs.es5.js");
+/* harmony import */ var _syncfusion_ej2_angular_buttons__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @syncfusion/ej2-angular-buttons */ "./node_modules/@syncfusion/ej2-angular-buttons/@syncfusion/ej2-angular-buttons.es5.js");
 
 
 
@@ -245,6 +250,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+// import { RouterModule } from '@angular/router';
+// import { CommonModule } from '@angular/common';
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -259,7 +275,8 @@ var AppModule = /** @class */ (function () {
                 _components_admin_export_export_component__WEBPACK_IMPORTED_MODULE_19__["ExportComponent"],
                 _components_admin_employees_add_employee_add_employee_component__WEBPACK_IMPORTED_MODULE_20__["AddEmployeeComponent"],
                 _components_admin_availabilities_view_availability_view_availability_component__WEBPACK_IMPORTED_MODULE_21__["ViewAvailabilityComponent"],
-                _components_employee_employee_availability_employee_availability_component__WEBPACK_IMPORTED_MODULE_22__["EmployeeAvailabilityComponent"]
+                _components_employee_employee_availability_employee_availability_component__WEBPACK_IMPORTED_MODULE_22__["EmployeeAvailabilityComponent"],
+                _components_employee_employee_availability_employee_availability_component__WEBPACK_IMPORTED_MODULE_22__["DialogOverview"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__["BrowserModule"],
@@ -271,16 +288,76 @@ var AppModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_12__["ReactiveFormsModule"],
                 _syncfusion_ej2_angular_calendars__WEBPACK_IMPORTED_MODULE_23__["CalendarModule"],
+                _syncfusion_ej2_angular_schedule__WEBPACK_IMPORTED_MODULE_24__["ScheduleAllModule"],
+                _syncfusion_ej2_angular_schedule__WEBPACK_IMPORTED_MODULE_24__["RecurrenceEditorAllModule"],
+                _syncfusion_ej2_angular_calendars__WEBPACK_IMPORTED_MODULE_23__["DatePickerAllModule"],
+                _syncfusion_ej2_angular_calendars__WEBPACK_IMPORTED_MODULE_23__["TimePickerAllModule"],
+                _syncfusion_ej2_angular_calendars__WEBPACK_IMPORTED_MODULE_23__["DateTimePickerAllModule"],
+                _syncfusion_ej2_angular_navigations__WEBPACK_IMPORTED_MODULE_25__["TreeViewModule"],
+                _syncfusion_ej2_angular_navigations__WEBPACK_IMPORTED_MODULE_25__["ToolbarAllModule"],
+                _syncfusion_ej2_angular_navigations__WEBPACK_IMPORTED_MODULE_25__["ContextMenuAllModule"],
+                _syncfusion_ej2_angular_dropdowns__WEBPACK_IMPORTED_MODULE_26__["DropDownListAllModule"], _syncfusion_ej2_angular_dropdowns__WEBPACK_IMPORTED_MODULE_26__["MultiSelectAllModule"], _syncfusion_ej2_angular_inputs__WEBPACK_IMPORTED_MODULE_27__["MaskedTextBoxModule"], _syncfusion_ej2_angular_inputs__WEBPACK_IMPORTED_MODULE_27__["UploaderAllModule"], _syncfusion_ej2_angular_inputs__WEBPACK_IMPORTED_MODULE_27__["NumericTextBoxAllModule"],
+                _syncfusion_ej2_angular_buttons__WEBPACK_IMPORTED_MODULE_28__["ButtonAllModule"], _syncfusion_ej2_angular_buttons__WEBPACK_IMPORTED_MODULE_28__["CheckBoxAllModule"],
                 _angular_fire_database__WEBPACK_IMPORTED_MODULE_14__["AngularFireDatabaseModule"],
                 _angular_fire_auth__WEBPACK_IMPORTED_MODULE_1__["AngularFireAuthModule"],
                 _shared_app_material_module__WEBPACK_IMPORTED_MODULE_2__["AppMaterialModule"],
                 _angular_fire__WEBPACK_IMPORTED_MODULE_13__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].firebase)
+            ],
+            entryComponents: [
+                _components_employee_employee_availability_employee_availability_component__WEBPACK_IMPORTED_MODULE_22__["DialogOverview"]
             ],
             providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/admin/availabilities/availabilities.service.ts":
+/*!***************************************************************************!*\
+  !*** ./src/app/components/admin/availabilities/availabilities.service.ts ***!
+  \***************************************************************************/
+/*! exports provided: AvailabilitiesService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AvailabilitiesService", function() { return AvailabilitiesService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _auth_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../auth/auth.service */ "./src/app/components/auth/auth.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+
+
+
+
+
+var AvailabilitiesService = /** @class */ (function () {
+    function AvailabilitiesService(as, route, afs) {
+        this.as = as;
+        this.route = route;
+        this.afs = afs;
+    }
+    AvailabilitiesService.prototype.ngOnInit = function () {
+    };
+    AvailabilitiesService.prototype.getUsers = function () {
+        return this.afs.collectionGroup("users").valueChanges();
+    };
+    AvailabilitiesService.prototype.getEvents = function () {
+        return this.afs.collectionGroup("available").valueChanges();
+    };
+    AvailabilitiesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_auth_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__["AngularFirestore"]])
+    ], AvailabilitiesService);
+    return AvailabilitiesService;
 }());
 
 
@@ -294,7 +371,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"mat-elevation-z8\">\n    <mat-card-title> AVAILABILITIES </mat-card-title>\n  </mat-card>\n"
+module.exports = "<mat-card class=\"mat-elevation-z8\">\n    <mat-card-title> AVAILABILITIES </mat-card-title>\n    <mat-card-subtitle> These are the dates your employees are available in the month </mat-card-subtitle>\n    <ejs-datepicker #datepicker [(value)]='selectedDate' [showClearButton]=false></ejs-datepicker>\n\n            <ejs-schedule *ngIf=\"eventsLoaded && usersLoaded\" #scheduleObj cssClass='schedule-resource' width='100%' height='650px' [selectedDate]=\"selectedDate\"\n            [eventSettings]=\"eventSettings\" [currentView]=\"currentView\" (dataBinding)=\"getEvents($event)\" [showHeaderBar]=\"showHeaderBar\">\n            <e-resources>\n                <e-resource field='OwnerId' title='Owners' [dataSource]='ownerCollections' [allowMultiple]='allowMultiple'\n                    name='Owners' textField='OwnerText' idField='OwnerId' colorField='Color'>\n                </e-resource>\n             </e-resources>\n            </ejs-schedule>\n\n  </mat-card>\n\n"
 
 /***/ }),
 
@@ -305,7 +382,7 @@ module.exports = "<mat-card class=\"mat-elevation-z8\">\n    <mat-card-title> AV
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvYWRtaW4vYXZhaWxhYmlsaXRpZXMvYXZhaWxhYmlsaXRpZXMvYXZhaWxhYmlsaXRpZXMuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = ".checkbox-alignment {\n  padding-left: 30px;\n  padding-top: 20px; }\n\n.e-checkbox-wrapper.margaret .e-frame {\n  background-color: #ea7a57;\n  border-color: transparent; }\n\n.e-checkbox-wrapper.robert .e-frame {\n  background-color: #df5286;\n  border-color: transparent; }\n\n.e-checkbox-wrapper.laura .e-frame {\n  background-color: #865fcf;\n  border-color: transparent; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zYW1pYWJyYWhpbS9Eb2N1bWVudHMvR2l0SHViL1BheXJvbGxQcm9qZWN0L3NyYy9hcHAvY29tcG9uZW50cy9hZG1pbi9hdmFpbGFiaWxpdGllcy9hdmFpbGFiaWxpdGllcy9hdmFpbGFiaWxpdGllcy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGtCQUFrQjtFQUNsQixpQkFBaUIsRUFBQTs7QUFHbkI7RUFDRSx5QkFBeUI7RUFDekIseUJBQXlCLEVBQUE7O0FBRzNCO0VBQ0UseUJBQXlCO0VBQ3pCLHlCQUF5QixFQUFBOztBQUczQjtFQUNFLHlCQUF5QjtFQUN6Qix5QkFBeUIsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvYWRtaW4vYXZhaWxhYmlsaXRpZXMvYXZhaWxhYmlsaXRpZXMvYXZhaWxhYmlsaXRpZXMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2hlY2tib3gtYWxpZ25tZW50IHtcbiAgICBwYWRkaW5nLWxlZnQ6IDMwcHg7XG4gICAgcGFkZGluZy10b3A6IDIwcHg7XG4gIH1cbiAgXG4gIC5lLWNoZWNrYm94LXdyYXBwZXIubWFyZ2FyZXQgLmUtZnJhbWUge1xuICAgIGJhY2tncm91bmQtY29sb3I6ICNlYTdhNTc7XG4gICAgYm9yZGVyLWNvbG9yOiB0cmFuc3BhcmVudDtcbiAgfVxuICBcbiAgLmUtY2hlY2tib3gtd3JhcHBlci5yb2JlcnQgLmUtZnJhbWUge1xuICAgIGJhY2tncm91bmQtY29sb3I6ICNkZjUyODY7XG4gICAgYm9yZGVyLWNvbG9yOiB0cmFuc3BhcmVudDtcbiAgfVxuICBcbiAgLmUtY2hlY2tib3gtd3JhcHBlci5sYXVyYSAuZS1mcmFtZSB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzg2NWZjZjtcbiAgICBib3JkZXItY29sb3I6IHRyYW5zcGFyZW50O1xuICB9XG4gICJdfQ== */"
 
 /***/ }),
 
@@ -320,21 +397,133 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AvailabilitiesComponent", function() { return AvailabilitiesComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _auth_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../auth/auth.service */ "./src/app/components/auth/auth.service.ts");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var _availabilities_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../availabilities.service */ "./src/app/components/admin/availabilities/availabilities.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _syncfusion_ej2_angular_schedule__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @syncfusion/ej2-angular-schedule */ "./node_modules/@syncfusion/ej2-angular-schedule/@syncfusion/ej2-angular-schedule.es5.js");
+/* harmony import */ var _syncfusion_ej2_data__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @syncfusion/ej2-data */ "./node_modules/@syncfusion/ej2-data/index.js");
+
+
+
+
+
 
 
 var AvailabilitiesComponent = /** @class */ (function () {
-    function AvailabilitiesComponent() {
+    function AvailabilitiesComponent(aService, afs, as) {
+        this.aService = aService;
+        this.afs = afs;
+        this.as = as;
+        this.today = new Date();
+        this.eventCollection = [];
+        this.eventDataSource = this.getEvents();
+        this.ownerCollections = [];
+        this.ownerDataSource = this.getEmployees();
+        this.allowMultiple = true;
+        this.selectedDate = new Date();
+        this.dataManger = new _syncfusion_ej2_data__WEBPACK_IMPORTED_MODULE_6__["DataManager"]({
+            json: this.eventDataSource,
+            crossDomain: true
+        });
+        this.eventSettings = { dataSource: this.dataManger };
+        this.showHeaderBar = true;
+        this.currentView = 'Month';
     }
     AvailabilitiesComponent.prototype.ngOnInit = function () {
+        var width = window.innerWidth;
+        if (width > 730) {
+            this.desktop = true;
+        }
+        else {
+            this.desktop = false;
+        }
     };
+    AvailabilitiesComponent.prototype.getEmployees = function () {
+        var _this = this;
+        // GETS EMPLOYEES FROM 'USERS' IN FIREBASE //
+        this.employees$ = this.aService.getUsers();
+        this.employeeSubscription = this.employees$.subscribe(function (data) {
+            _this.users = data;
+            _this.users.forEach(function (element, i) {
+                var generatedColor = _this.generateColor(i);
+                _this.users = {
+                    OwnerText: element.displayName,
+                    OwnerId: element.uid,
+                    Color: generatedColor
+                };
+                _this.ownerCollections.push(_this.users);
+            });
+            _this.usersLoaded = Promise.resolve(true);
+        });
+        return this.ownerCollections;
+    };
+    AvailabilitiesComponent.prototype.generateColor = function (index) {
+        // RETURN COLOR FROM ARRAY OF THE INDEX
+        var colors = [
+            '#7986CB',
+            '#4DD0E1',
+            '#64B5F6',
+            '#4DB6AC',
+            '#FFD54F',
+            '#DCE775',
+            '#90A4AE',
+            '#FFB74D',
+            '#81C784',
+            '#5d4037',
+            '#ffc107'
+        ];
+        return colors[index];
+    };
+    AvailabilitiesComponent.prototype.getEvents = function () {
+        var _this = this;
+        /// GETS EVENTS FROM 'AVAILABILITY' IN FIREBASE //
+        if (this.eventCollection.length === 0) {
+            this.availableEvents$ = this.aService.getEvents();
+            this.eventSubscription = this.availableEvents$.subscribe(function (events) {
+                _this.availableEvents = events;
+                _this.availableEvents.forEach(function (event, index) {
+                    event.available.forEach(function (timestamp) {
+                        _this.availableEvents = {
+                            Id: index,
+                            OwnerId: event.userId,
+                            Subject: event.title,
+                            StartTime: new Date(timestamp.seconds * 1000),
+                            EndTime: new Date((timestamp.seconds + 1) * 1000),
+                            IsAllDay: true,
+                            IsReadonly: true
+                        };
+                        _this.eventCollection.push(_this.availableEvents);
+                    });
+                });
+                _this.eventsLoaded = Promise.resolve(true);
+            });
+            return this.eventCollection;
+        }
+        else {
+            console.log('events already loaded');
+        }
+    };
+    AvailabilitiesComponent.prototype.onPopupOpen = function () {
+        console.log('hello');
+    };
+    AvailabilitiesComponent.prototype.ngOnDestroy = function () {
+        this.employeeSubscription.unsubscribe();
+        this.eventSubscription.unsubscribe();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"])('scheduleObj'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _syncfusion_ej2_angular_schedule__WEBPACK_IMPORTED_MODULE_5__["ScheduleComponent"])
+    ], AvailabilitiesComponent.prototype, "scheduleObj", void 0);
     AvailabilitiesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
             selector: 'app-availabilities',
             template: __webpack_require__(/*! ./availabilities.component.html */ "./src/app/components/admin/availabilities/availabilities/availabilities.component.html"),
+            encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewEncapsulation"].None,
+            providers: [_syncfusion_ej2_angular_schedule__WEBPACK_IMPORTED_MODULE_5__["DayService"], _syncfusion_ej2_angular_schedule__WEBPACK_IMPORTED_MODULE_5__["WeekService"], _syncfusion_ej2_angular_schedule__WEBPACK_IMPORTED_MODULE_5__["WorkWeekService"], _syncfusion_ej2_angular_schedule__WEBPACK_IMPORTED_MODULE_5__["MonthService"], _syncfusion_ej2_angular_schedule__WEBPACK_IMPORTED_MODULE_5__["AgendaService"], _syncfusion_ej2_angular_schedule__WEBPACK_IMPORTED_MODULE_5__["ResizeService"], _syncfusion_ej2_angular_schedule__WEBPACK_IMPORTED_MODULE_5__["DragAndDropService"]],
             styles: [__webpack_require__(/*! ./availabilities.component.scss */ "./src/app/components/admin/availabilities/availabilities/availabilities.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_availabilities_service__WEBPACK_IMPORTED_MODULE_3__["AvailabilitiesService"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__["AngularFirestore"], _auth_auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"]])
     ], AvailabilitiesComponent);
     return AvailabilitiesComponent;
 }());
@@ -406,7 +595,7 @@ var ViewAvailabilityComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"mat-elevation-z8\">\n    <mat-card-title> DASHBOARD </mat-card-title>\n\n\n    <mat-card-content *ngIf=\"post$ | async as post\">\n      <mat-card-subtitle>{{ post.title }} </mat-card-subtitle>\n      <p> {{ post.content}} </p>\n\n      <button mat-raised-button color=\"warn\" (click)=\"deletePost()\" *ngIf=\"auth.canDelete(user)\">\n        Delete Post\n      </button>\n\n      <button mat-raised-button (click)=\"editPost()\" *ngIf=\"auth.canUpdate(user)\">\n          Edit Post\n        </button>\n\n        <button mat-raised-button (click)=\"createPost()\" *ngIf=\"auth.canCreate(user)\">\n            Create Post\n          </button>\n\n    </mat-card-content>\n  </mat-card>\n"
+module.exports = "<mat-card class=\"mat-elevation-z8\">\n    <mat-card-title>\n       DASHBOARD\n\n        <button style=\"float: right\" mat-raised-button (click)=\"exportAsExcel()\">\n            <mat-icon class=\"sidebar-icon\">file_upload</mat-icon>\n            EXPORT\n        </button>\n\n    </mat-card-title>\n    <mat-card-subtitle>\n      Current Pay Period:\n    <br/>\n      {{currentPayPeriod}}\n    </mat-card-subtitle>\n\n  <mat-card-content>\n    <div #TABLE>\n    <table *ngIf=\"payrollData.length > 1\" mat-table #table [dataSource]=\"dataSource\" class=\"mat-elevation-z8\">\n        <ng-container matColumnDef=\"name\">\n            <th mat-header-cell *matHeaderCellDef> Name </th>\n            <td mat-cell *matCellDef=\"let element\" style=\"font-weight: bold;\"> {{element.name}} </td>\n          </ng-container>\n\n          <!-- Name Column -->\n          <ng-container matColumnDef=\"rate\">\n            <th mat-header-cell *matHeaderCellDef> Rate </th>\n            <td mat-cell *matCellDef=\"let element\"> {{element.rate}} </td>\n          </ng-container>\n\n          <!-- Weight Column -->\n          <ng-container matColumnDef=\"hours\">\n            <th mat-header-cell *matHeaderCellDef> Hours </th>\n            <td mat-cell *matCellDef=\"let element\"> {{element.hours}} </td>\n          </ng-container>\n\n          <!-- Symbol Column -->\n          <ng-container matColumnDef=\"total\">\n            <th mat-header-cell *matHeaderCellDef> Total </th>\n            <td mat-cell *matCellDef=\"let element\" style=\"font-weight: bold;\"> $ {{element.rate * element.hours}} </td>\n          </ng-container>\n\n          <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n          <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n    </table>\n  </div>\n  </mat-card-content>\n\n  </mat-card>\n"
 
 /***/ }),
 
@@ -417,7 +606,7 @@ module.exports = "<mat-card class=\"mat-elevation-z8\">\n    <mat-card-title> DA
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvYWRtaW4vZGFzaC9kYXNoLmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = "table {\n  width: 100%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zYW1pYWJyYWhpbS9Eb2N1bWVudHMvR2l0SHViL1BheXJvbGxQcm9qZWN0L3NyYy9hcHAvY29tcG9uZW50cy9hZG1pbi9kYXNoL2Rhc2guY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFXLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2FkbWluL2Rhc2gvZGFzaC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRhYmxlIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgfVxuICAiXX0= */"
 
 /***/ }),
 
@@ -435,6 +624,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _auth_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../auth/auth.service */ "./src/app/components/auth/auth.service.ts");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! xlsx */ "./node_modules/xlsx/xlsx.js");
+/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(xlsx__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
@@ -443,33 +635,107 @@ var DashComponent = /** @class */ (function () {
     function DashComponent(afs, auth) {
         this.afs = afs;
         this.auth = auth;
-        this.documentId = 'testPost';
+        this.payPeriodData = [];
+        this.userData = [];
+        this.payrollData = [];
+        this.displayedColumns = ['name', 'rate', 'hours', 'total'];
+        this.dataSource = this.payrollData;
+        this.currentDate = new Date();
+        this.currentMonth = new Date().getMonth() + 1;
     }
     DashComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.postRef = this.afs.doc("examplePost/" + this.documentId);
-        this.post$ = this.postRef.valueChanges();
-        this.subscription = this.auth.user$.subscribe(function (user) { return _this.user = user; });
+        this.payPeriodRef = this.afs.collectionGroup("payPeriod");
+        this.payPeriod$ = this.payPeriodRef.valueChanges();
+        this.usersRef = this.afs.collection('users');
+        this.user$ = this.usersRef.valueChanges();
+        this.loggedInUserSubscription = this.auth.user$.subscribe(function (user) {
+            _this.loggedInUser = user;
+        });
+        this.getInfo();
+    };
+    DashComponent.prototype.getInfo = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getAllEmployees()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.getAllPayPeriods()];
+                    case 2:
+                        _a.sent();
+                        this.matchEmpAndPayPeriod();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    DashComponent.prototype.exportAsExcel = function () {
+        var ws = xlsx__WEBPACK_IMPORTED_MODULE_4__["utils"].table_to_sheet(this.table.nativeElement);
+        var wb = xlsx__WEBPACK_IMPORTED_MODULE_4__["utils"].book_new();
+        xlsx__WEBPACK_IMPORTED_MODULE_4__["utils"].book_append_sheet(wb, ws, 'payroll');
+        xlsx__WEBPACK_IMPORTED_MODULE_4__["writeFile"](wb, 'PayrollReport.xlsx');
     };
     DashComponent.prototype.ngOnDestroy = function () {
-        this.subscription.unsubscribe();
+        this.loggedInUserSubscription.unsubscribe();
     };
-    DashComponent.prototype.editPost = function () {
-        if (this.auth.canUpdate(this.user)) {
-            this.postRef.update({ title: 'Edited Title!' });
-        }
+    DashComponent.prototype.getCurrentPayPeriod = function (endDate, startDate) {
+        endDate = endDate.toLocaleDateString();
+        startDate = startDate.toLocaleDateString();
+        return startDate + " - " + endDate;
     };
-    DashComponent.prototype.createPost = function () {
-        if (this.auth.canCreate(this.user)) {
-            this.postRef.set({
-                title: 'hello',
-                content: 'this is content'
+    DashComponent.prototype.getAllEmployees = function () {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.user$.subscribe(function (users) {
+                users.forEach(function (user) {
+                    var data = {
+                        uid: user.uid,
+                        name: user.displayName,
+                        rate: user.hourlyRate,
+                    };
+                    _this.userData.push(data);
+                    resolve();
+                });
             });
-        }
+        });
     };
-    DashComponent.prototype.deletePost = function () {
-        this.postRef.delete();
+    DashComponent.prototype.getAllPayPeriods = function () {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.payPeriod$.subscribe(function (payPeriods) {
+                payPeriods.forEach(function (payPeriod) {
+                    var pPEndDate = new Date(payPeriod.endDate.seconds * 1000);
+                    var pPStartDate = new Date(payPeriod.startDate.seconds * 1000);
+                    _this.currentPayPeriod = _this.getCurrentPayPeriod(pPEndDate, pPStartDate);
+                    if (_this.currentDate > pPStartDate && _this.currentDate <= pPEndDate) {
+                        _this.payPeriodData.push(payPeriod);
+                        resolve();
+                    }
+                });
+            });
+        });
     };
+    DashComponent.prototype.matchEmpAndPayPeriod = function () {
+        var _this = this;
+        this.userData.forEach(function (user) {
+            _this.payPeriodData.forEach(function (payP) {
+                if (user.uid === payP.uid) {
+                    var data = {
+                        name: user.name,
+                        rate: user.rate,
+                        hours: payP.hours,
+                        uid: user.uid
+                    };
+                    _this.payrollData.push(data);
+                }
+            });
+        });
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('TABLE'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ElementRef"])
+    ], DashComponent.prototype, "table", void 0);
     DashComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'app-dash',
@@ -986,7 +1252,7 @@ var EmployeeGuard = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card *ngIf=\"!isLoggedIn\">\n<mat-card-header>\n  Login to Garage Designs STL\n</mat-card-header>\n\n<mat-card-content>\n  <!-- <form [formGroup]=\"credentials\" class=\"loginForm\">\n          <table cellspacing=\"0\">\n\n            <tr>\n              <td>\n                <mat-form-field class=\"field-full-width\">\n                  <input matInput formControlName=\"email\" type=\"email\" id=\"email\" placeholder=\"Enter email\" aria-describedby=\"emailHelp\" #userEmail required>\n                </mat-form-field>\n              </td>\n            </tr>\n\n            <tr>\n                <td>\n                  <mat-form-field class=\"field-full-width\">\n                  <input matInput formControlName=\"password\" type=\"password\" id=\"password\" placeholder=\"Password\" #userPassword required>\n                  </mat-form-field>\n              </td>\n            </tr>\n\n          </table>\n        </form> -->\n\n\n        </mat-card-content>\n\n        <!-- <mat-card-actions>\n          <button mat-raised-button [disabled]=\"!credentials.valid\" (click)=\"authService.logIn(credentials.value.email, credentials.value.password)\" color=\"primary\">Login</button>\n        </mat-card-actions> -->\n\n          <!-- Calling GoogleAuth Api from AuthService -->\n         <mat-card-actions>\n            <button mat-raised-button color=\"primary\" (click)=\"authService.googleLogin()\">\n              Log in with Google\n            </button>\n         </mat-card-actions>\n\n         <!-- <mat-card-actions>\n            <button mat-raised-button color=\"primary\" (click)=\"authService.signOut()\" [routerLink]=\"['/login']\">\n              Log Out\n            </button>\n         </mat-card-actions> -->\n\n    </mat-card>\n\n\n\n\n<mat-card *ngIf=\"isLoggedIn\">\n    <mat-card-content>\n      You are logged in as {{user.displayName}}! You are an\n      <span *ngIf=\"user.roles.admin\"> Admin!</span>\n      <span *ngIf=\"user.roles.employee\">Employee!</span>\n        <form>\n    <button mat-raised-button (click)=\"authService.signOut()\" [routerLink]=\"['/login']\" color=\"warn\">Logout</button>\n      </form>\n    </mat-card-content>\n</mat-card>\n"
+module.exports = "<mat-card *ngIf=\"!isLoggedIn\">\n  <mat-card-content>\n<mat-card-title>\n  Login to Garage Designs STL\n</mat-card-title>\n<mat-card-subtitle>\n  Please log in with your google account or create one to access.\n</mat-card-subtitle>\n\n  <!-- <form [formGroup]=\"credentials\" class=\"loginForm\">\n          <table cellspacing=\"0\">\n\n            <tr>\n              <td>\n                <mat-form-field class=\"field-full-width\">\n                  <input matInput formControlName=\"email\" type=\"email\" id=\"email\" placeholder=\"Enter email\" aria-describedby=\"emailHelp\" #userEmail required>\n                </mat-form-field>\n              </td>\n            </tr>\n\n            <tr>\n                <td>\n                  <mat-form-field class=\"field-full-width\">\n                  <input matInput formControlName=\"password\" type=\"password\" id=\"password\" placeholder=\"Password\" #userPassword required>\n                  </mat-form-field>\n              </td>\n            </tr>\n\n          </table>\n        </form> -->\n\n\n\n\n        <!-- <mat-card-actions>\n          <button mat-raised-button [disabled]=\"!credentials.valid\" (click)=\"authService.logIn(credentials.value.email, credentials.value.password)\" color=\"primary\">Login</button>\n        </mat-card-actions> -->\n\n          <!-- Calling GoogleAuth Api from AuthService -->\n         <mat-card-actions>\n            <button mat-raised-button color=\"primary\" (click)=\"authService.googleLogin()\">\n              Log in with Google\n            </button>\n         </mat-card-actions>\n\n         <mat-card-subtitle>\n            ** Your administrator will approve you as an admin or an employee if this is your first time logging in **\n         </mat-card-subtitle>\n        </mat-card-content>\n\n         <!-- <mat-card-actions>\n            <button mat-raised-button color=\"primary\" (click)=\"authService.signOut()\" [routerLink]=\"['/login']\">\n              Log Out\n            </button>\n         </mat-card-actions> -->\n\n    </mat-card>\n\n\n\n\n<mat-card *ngIf=\"isLoggedIn\">\n    <mat-card-content>\n      You are logged in as {{user.displayName}}! You are an\n      <span *ngIf=\"user.roles.admin\"> Admin!</span>\n      <span *ngIf=\"user.roles.employee\">Employee!</span>\n        <form>\n    <button mat-raised-button (click)=\"authService.signOut()\" [routerLink]=\"['/login']\" color=\"warn\">Logout</button>\n      </form>\n    </mat-card-content>\n</mat-card>\n"
 
 /***/ }),
 
@@ -997,7 +1263,7 @@ module.exports = "<mat-card *ngIf=\"!isLoggedIn\">\n<mat-card-header>\n  Login t
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "mat-car-content {\n  flex: 1 1 auto;\n  text-align: center; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zYW1pYWJyYWhpbS9Eb2N1bWVudHMvR2l0SHViL1BheXJvbGxQcm9qZWN0L3NyYy9hcHAvY29tcG9uZW50cy9hdXRoL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsY0FBYztFQUNkLGtCQUFrQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9hdXRoL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsibWF0LWNhci1jb250ZW50IHtcbiAgZmxleDogMSAxIGF1dG87XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuXG4ubG9naW5Gb3JtIHtcbiAgLy8gY2VudGVyIGZvcm1cbn1cblxuLmZpZWxkLWZ1bGwtd2lkdGgge1xuICAvLyBtYWtlIGZpZWxkIGZ1bGwgd2lkdGhcbn1cbiJdfQ== */"
+module.exports = "mat-card-content {\n  flex: 1 1 auto;\n  text-align: center; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zYW1pYWJyYWhpbS9Eb2N1bWVudHMvR2l0SHViL1BheXJvbGxQcm9qZWN0L3NyYy9hcHAvY29tcG9uZW50cy9hdXRoL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsY0FBYztFQUNkLGtCQUFrQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9hdXRoL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsibWF0LWNhcmQtY29udGVudCB7XG4gIGZsZXg6IDEgMSBhdXRvO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cblxuLmxvZ2luRm9ybSB7XG4gIC8vIGNlbnRlciBmb3JtXG59XG5cbi5maWVsZC1mdWxsLXdpZHRoIHtcbiAgLy8gbWFrZSBmaWVsZCBmdWxsIHdpZHRoXG59XG4iXX0= */"
 
 /***/ }),
 
@@ -1055,6 +1321,17 @@ var LoginComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/employee/employee-availability/dialog.html":
+/*!***********************************************************************!*\
+  !*** ./src/app/components/employee/employee-availability/dialog.html ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>Hi</h1>\n<div mat-dialog-content>\n  <p>What's your favorite animal?</p>\n  <mat-form-field>\n    <input matInput>\n  </mat-form-field>\n</div>\n<div mat-dialog-actions>\n  <button mat-button (click)=\"onNoClick()\">No Thanks</button>\n  <button mat-button [mat-dialog-close]=\"data.animal\" cdkFocusInitial>Ok</button>\n</div>"
+
+/***/ }),
+
 /***/ "./src/app/components/employee/employee-availability/employee-availability.component.html":
 /*!************************************************************************************************!*\
   !*** ./src/app/components/employee/employee-availability/employee-availability.component.html ***!
@@ -1062,7 +1339,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card>\n  <mat-card-title>Click the dates that you are available</mat-card-title>\n<ejs-calendar [value]='dateValue' [min]='minDate' [values]='dateValues' \n[isMultiSelection]='multiSelect'  (change)='setAvailable($event)'>\n</ejs-calendar>\n<button mat-button>Submit Availability</button>\n\n<div *ngFor=\"let date of availableDates\">\n  {{ date | date:\"MM/dd/yyy\" }}\n</div>\n\n</mat-card>\n"
+module.exports = "<mat-card>\n  <mat-card-title>What days are you available in {{currentDate | date:\"MMMM\"}} ? </mat-card-title>\n  <mat-card-subtitle> <mat-icon class=\"icon\">radio_button_checked</mat-icon> - current availabilities</mat-card-subtitle>\n  <mat-card-content>\n\n\n            <ejs-calendar [value]='dateValue' [min]='minDate' [max]='maxDate' [values]='dateValues'\n            [isMultiSelection]='multiSelect'  (change)='setAvailable($event)' (renderDayCell)='disabledDate($event)' style=\"width: 100%\">\n            </ejs-calendar>\n            <button  mat-button color=\"primary\" (click)=\"submit()\"> SUBMIT </button>\n      </mat-card-content>\n\n</mat-card>\n"
 
 /***/ }),
 
@@ -1073,7 +1350,7 @@ module.exports = "<mat-card>\n  <mat-card-title>Click the dates that you are ava
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZW1wbG95ZWUvZW1wbG95ZWUtYXZhaWxhYmlsaXR5L2VtcGxveWVlLWF2YWlsYWJpbGl0eS5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "ejs-calendar {\n  margin: auto; }\n\nbutton {\n  width: 100%;\n  flex: 1 1 auto;\n  text-align: center; }\n\nmat-card-title {\n  text-align: center; }\n\nmat-card-subtitle {\n  text-align: center; }\n\n.icon {\n  color: #e3165b;\n  vertical-align: middle; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zYW1pYWJyYWhpbS9Eb2N1bWVudHMvR2l0SHViL1BheXJvbGxQcm9qZWN0L3NyYy9hcHAvY29tcG9uZW50cy9lbXBsb3llZS9lbXBsb3llZS1hdmFpbGFiaWxpdHkvZW1wbG95ZWUtYXZhaWxhYmlsaXR5LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksWUFBWSxFQUFBOztBQUdkO0VBQ0UsV0FBVztFQUNYLGNBQWM7RUFDZCxrQkFBa0IsRUFBQTs7QUFHcEI7RUFDRSxrQkFBa0IsRUFBQTs7QUFHcEI7RUFDRSxrQkFBa0IsRUFBQTs7QUFHcEI7RUFDRSxjQUFhO0VBQ2Isc0JBQXNCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2VtcGxveWVlL2VtcGxveWVlLWF2YWlsYWJpbGl0eS9lbXBsb3llZS1hdmFpbGFiaWxpdHkuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJlanMtY2FsZW5kYXJ7XG4gICAgbWFyZ2luOiBhdXRvO1xuICB9XG4gIFxuICBidXR0b24ge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGZsZXg6IDEgMSBhdXRvO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgfVxuICBcbiAgbWF0LWNhcmQtdGl0bGUge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgfVxuICBcbiAgbWF0LWNhcmQtc3VidGl0bGUge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgfVxuICBcbiAgLmljb257XG4gICAgY29sb3I6I2UzMTY1YjtcbiAgICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xuICBcbiAgfVxuICAiXX0= */"
 
 /***/ }),
 
@@ -1081,18 +1358,28 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*!**********************************************************************************************!*\
   !*** ./src/app/components/employee/employee-availability/employee-availability.component.ts ***!
   \**********************************************************************************************/
-/*! exports provided: EmployeeAvailabilityComponent */
+/*! exports provided: EmployeeAvailabilityComponent, DialogOverview */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EmployeeAvailabilityComponent", function() { return EmployeeAvailabilityComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DialogOverview", function() { return DialogOverview; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _auth_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../auth/auth.service */ "./src/app/components/auth/auth.service.ts");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+
+
+
 
 
 var EmployeeAvailabilityComponent = /** @class */ (function () {
-    function EmployeeAvailabilityComponent() {
+    function EmployeeAvailabilityComponent(afs, authService, dialog) {
+        this.afs = afs;
+        this.authService = authService;
+        this.dialog = dialog;
         this.month = new Date().getMonth();
         this.fullYear = new Date().getFullYear();
         this.today = new Date().getDate();
@@ -1100,26 +1387,93 @@ var EmployeeAvailabilityComponent = /** @class */ (function () {
         this.multiSelect = true;
         this.dateValue = new Date(this.fullYear, this.month, 11);
         this.minDate = new Date(this.fullYear, this.month, this.today + 1);
+        this.maxDate = new Date(this.fullYear, this.month, 31);
         this.availableDates = [];
+        this.currentUser = this.authService.currentUser;
+        this.currentDate = new Date();
+        this.currentMonth = this.currentDate.getMonth() + 1;
+        this.getEmployeesAvail();
     }
     EmployeeAvailabilityComponent.prototype.ngOnInit = function () {
+    };
+    EmployeeAvailabilityComponent.prototype.disabledDate = function (args) {
+        if (args.date.getDay() === 0 || args.date.getDay() === 6) {
+            args.isDisabled = true;
+        }
     };
     EmployeeAvailabilityComponent.prototype.setAvailable = function (args) {
         this.selectedDate = args.value;
         this.availableDates = args.values;
         this.availableDates.forEach(function (selectedDate) {
-            console.log(selectedDate);
+        });
+    };
+    EmployeeAvailabilityComponent.prototype.submit = function () {
+        var _this = this;
+        var availabilityRef = this.afs.doc("users/" + this.currentUser.uid + "/available/" + this.currentMonth);
+        var data = {
+            title: this.currentUser.displayName,
+            userId: this.currentUser.uid,
+            available: this.availableDates
+        };
+        if (this.availableDates.length > 0) {
+            availabilityRef.set(data, { merge: true }).then(function () {
+                _this.openDialog();
+            }).catch(function () {
+                alert('AVAILABILITY NOT SUBMITTED. PLEASE TRY AGAIN');
+            });
+        }
+        else {
+            console.log('please select dates that you are available');
+        }
+    };
+    EmployeeAvailabilityComponent.prototype.getEmployeesAvail = function () {
+        var _this = this;
+        var employeeAvailRef = this.afs.doc("users/" + this.currentUser.uid + "/available/" + this.currentMonth);
+        var myAvailability = [];
+        this.getAvail = employeeAvailRef.get()
+            .subscribe(function (data) {
+            data.data().available.forEach(function (timestamp) {
+                var timestamps = new Date(timestamp.seconds * 1000);
+                myAvailability.push(timestamps);
+            });
+            _this.dateValues = myAvailability;
+        });
+        return myAvailability;
+    };
+    EmployeeAvailabilityComponent.prototype.openDialog = function () {
+        var dialogRef = this.dialog.open(DialogOverview, {
+            width: '250px'
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            console.log('The dialog was closed');
         });
     };
     EmployeeAvailabilityComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
             selector: 'app-employee-availability',
             template: __webpack_require__(/*! ./employee-availability.component.html */ "./src/app/components/employee/employee-availability/employee-availability.component.html"),
             styles: [__webpack_require__(/*! ./employee-availability.component.scss */ "./src/app/components/employee/employee-availability/employee-availability.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__["AngularFirestore"], _auth_auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"]])
     ], EmployeeAvailabilityComponent);
     return EmployeeAvailabilityComponent;
+}());
+
+var DialogOverview = /** @class */ (function () {
+    function DialogOverview(dialogRef) {
+        this.dialogRef = dialogRef;
+    }
+    DialogOverview.prototype.onNoClick = function () {
+        this.dialogRef.close();
+    };
+    DialogOverview = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+            selector: 'dialog-overview-example-dialog',
+            template: __webpack_require__(/*! ./dialog.html */ "./src/app/components/employee/employee-availability/dialog.html"),
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialogRef"]])
+    ], DialogOverview);
+    return DialogOverview;
 }());
 
 
@@ -1165,7 +1519,9 @@ var AppMaterialModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDatepickerModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatNativeDateModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatProgressSpinnerModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatProgressSpinnerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatGridListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogModule"]
             ],
             exports: [
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatInputModule"],
@@ -1182,7 +1538,9 @@ var AppMaterialModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDatepickerModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatNativeDateModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatProgressSpinnerModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatProgressSpinnerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatGridListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogModule"]
             ]
         })
     ], AppMaterialModule);
@@ -1200,7 +1558,7 @@ var AppMaterialModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav position=\"start\" #leftDrawer class=\"sidenav\" fixedInViewport=\"true\"\n      [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n      [mode]=\"(isHandset$ | async) ? 'over' : 'side'\"\n      [opened]=\"!(isHandset$ | async)\">\n    <mat-toolbar>\n      <img mat-card-avatar src='{{profilePicture}}'>\n    </mat-toolbar>\n    <mat-card-title *ngIf=\"user\">\n      Logged in as {{ user.displayName }}\n    </mat-card-title>\n    <br/>\n      <mat-card-subtitle>\n        Admin: {{ authService.isAdmin(user) }}\n        <br/>\n        Employee: {{ authService.isEmployee(user)}}\n      </mat-card-subtitle>\n\n    <mat-nav-list *ngIf=\"authService.isAdmin(user)\">\n      <a mat-list-item routerLink=\"/admin-dash\" routerLinkActive=\"active\"> <mat-icon class=\"sidebar-icon\">dashboard</mat-icon>Dashboard </a>\n      <a mat-list-item routerLink=\"/admin-view-employees\" routerLinkActive=\"active\"><mat-icon class=\"sidebar-icon\">people_alt</mat-icon>Employees</a>\n      <a mat-list-item routerLink=\"/admin-availabilities\" routerLinkActive=\"active\"><mat-icon class=\"sidebar-icon\">calendar_today</mat-icon>Availabilities</a>\n      <a mat-list-item routerLink=\"/admin-jobs\" routerLinkActive=\"active\"><mat-icon class=\"sidebar-icon\">card_travel</mat-icon>Jobs</a>\n      <a mat-list-item routerLink=\"/admin-export\" routerLinkActive=\"active\"><mat-icon class=\"sidebar-icon\">file_upload</mat-icon>EXPORT</a>\n    </mat-nav-list>\n\n    <mat-nav-list *ngIf=\"!authService.isAdmin(user) && authService.isEmployee(user)\">\n        <a mat-list-item routerLink=\"/employee-availability\" routerLinkActive=\"active\"> <mat-icon class=\"sidebar-icon\">calendar_today</mat-icon>Availability </a>\n        <a mat-list-item routerLink=\"/employee-hours\" routerLinkActive=\"active\"><mat-icon class=\"sidebar-icon\">watch_later</mat-icon>Clock Hours</a>\n      </mat-nav-list>\n\n      <mat-nav-list class=\"rightDrawer-list\">\n        <a mat-list-item *ngIf=\"user\" routerLink=\"/login\"> <mat-icon class=\"sidebar-icon\">arrow_back</mat-icon>Logout </a>\n        <a mat-list-item *ngIf=\"!user\" routerLink=\"/login\" routerLinkActive=\"active\"> <mat-icon class=\"sidebar-icon\">exit_to_app</mat-icon>Login </a>\n        <a mat-list-item routerLink=\"/help\" routerLinkActive=\"active\"><mat-icon class=\"sidebar-icon\">help</mat-icon>Help</a>\n    </mat-nav-list>\n\n\n  </mat-sidenav>\n\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button mat-button\n        type=\"button\"\n        aria-label=\"Toggle sidenav\"\n        mat-icon-button\n        (click)=\"leftDrawer.toggle()\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span class=\"title\">{{title}}</span>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n\n"
+module.exports = "<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav position=\"start\" #leftDrawer class=\"sidenav\" fixedInViewport=\"true\"\n      [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n      [mode]=\"(isHandset$ | async) ? 'over' : 'side'\"\n      [opened]=\"!(isHandset$ | async)\">\n    <mat-toolbar>\n      <img mat-card-avatar src='{{profilePicture}}'>\n    </mat-toolbar>\n    <mat-card-title *ngIf=\"user\">\n      {{ user.displayName }}\n    </mat-card-title>\n    <br/>\n      <mat-card-subtitle>\n        Admin: {{ authService.isAdmin(user) }}\n        <br/>\n        Employee: {{ authService.isEmployee(user)}}\n      </mat-card-subtitle>\n\n    <mat-nav-list *ngIf=\"authService.isAdmin(user)\">\n      <a mat-list-item routerLink=\"/admin-dash\" routerLinkActive=\"active\"> <mat-icon class=\"sidebar-icon\">dashboard</mat-icon>Dashboard </a>\n      <a mat-list-item routerLink=\"/admin-view-employees\" routerLinkActive=\"active\"><mat-icon class=\"sidebar-icon\">people_alt</mat-icon>Employees</a>\n      <a mat-list-item routerLink=\"/admin-availabilities\" routerLinkActive=\"active\"><mat-icon class=\"sidebar-icon\">calendar_today</mat-icon>Availabilities</a>\n      <a mat-list-item routerLink=\"/admin-jobs\" routerLinkActive=\"active\"><mat-icon class=\"sidebar-icon\">card_travel</mat-icon>Jobs</a>\n      <!-- <a mat-list-item routerLink=\"/admin-export\" routerLinkActive=\"active\"><mat-icon class=\"sidebar-icon\">file_upload</mat-icon>EXPORT</a> -->\n    </mat-nav-list>\n\n    <mat-nav-list *ngIf=\"!authService.isAdmin(user) && authService.isEmployee(user)\">\n        <a mat-list-item routerLink=\"/employee-availability\" routerLinkActive=\"active\"> <mat-icon class=\"sidebar-icon\">calendar_today</mat-icon>Availability </a>\n        <a mat-list-item routerLink=\"/employee-hours\" routerLinkActive=\"active\"><mat-icon class=\"sidebar-icon\">watch_later</mat-icon>Clock Hours</a>\n      </mat-nav-list>\n\n      <mat-nav-list class=\"rightDrawer-list\">\n        <a mat-list-item *ngIf=\"user\" routerLink=\"/login\"> <mat-icon class=\"sidebar-icon\">arrow_back</mat-icon>Logout </a>\n        <a mat-list-item *ngIf=\"!user\" routerLink=\"/login\" routerLinkActive=\"active\"> <mat-icon class=\"sidebar-icon\">exit_to_app</mat-icon>Login </a>\n        <a mat-list-item routerLink=\"/help\" routerLinkActive=\"active\"><mat-icon class=\"sidebar-icon\">help</mat-icon>Help</a>\n    </mat-nav-list>\n\n\n  </mat-sidenav>\n\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button mat-button\n        type=\"button\"\n        aria-label=\"Toggle sidenav\"\n        mat-icon-button\n        (click)=\"leftDrawer.toggle()\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span class=\"title\">{{title}}</span>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n\n"
 
 /***/ }),
 
@@ -1211,7 +1569,7 @@ module.exports = "<mat-sidenav-container class=\"sidenav-container\">\n  <mat-si
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".sidenav-container {\n  height: 100%; }\n\n.sidenav {\n  width: 200px; }\n\n.sidenav .mat-toolbar {\n  background: inherit; }\n\n.mat-toolbar.mat-primary {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  z-index: 1; }\n\nmat-toolbar {\n  height: auto;\n  padding: 16px; }\n\nimg {\n  height: 100%;\n  width: 100%; }\n\n.title {\n  flex: 1 1 auto;\n  text-align: center; }\n\n.rightDrawer-list {\n  padding-top: 88px; }\n\n.active {\n  background-color: #103C6E;\n  color: #C7E5FD;\n  font-weight: bold; }\n\n.active .sidebar-icon {\n    padding-right: 10px;\n    color: #C7E5FD; }\n\n.sidebar-icon {\n  padding-right: 10px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zYW1pYWJyYWhpbS9Eb2N1bWVudHMvR2l0SHViL1BheXJvbGxQcm9qZWN0L3NyYy9hcHAvc2hhcmVkL215LW5hdi9teS1uYXYuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxZQUFZLEVBQUE7O0FBR2Q7RUFDRSxZQUFZLEVBQUE7O0FBR2Q7RUFDRSxtQkFBbUIsRUFBQTs7QUFHckI7RUFDRSx3QkFBZ0I7RUFBaEIsZ0JBQWdCO0VBQ2hCLE1BQU07RUFDTixVQUFVLEVBQUE7O0FBR1o7RUFDRSxZQUFZO0VBQ1osYUFBYSxFQUFBOztBQUdmO0VBQ0UsWUFBWTtFQUNaLFdBQVcsRUFBQTs7QUFHYjtFQUNFLGNBQWM7RUFDZCxrQkFBa0IsRUFBQTs7QUFHcEI7RUFDRSxpQkFBaUIsRUFBQTs7QUFHbkI7RUFDRSx5QkFBeUI7RUFDekIsY0FBYztFQUNkLGlCQUFpQixFQUFBOztBQUhuQjtJQUtJLG1CQUFtQjtJQUNuQixjQUFlLEVBQUE7O0FBS25CO0VBQ0UsbUJBQW1CLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvbXktbmF2L215LW5hdi5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5zaWRlbmF2LWNvbnRhaW5lciB7XG4gIGhlaWdodDogMTAwJTtcbn1cblxuLnNpZGVuYXYge1xuICB3aWR0aDogMjAwcHg7XG59XG5cbi5zaWRlbmF2IC5tYXQtdG9vbGJhciB7XG4gIGJhY2tncm91bmQ6IGluaGVyaXQ7XG59XG5cbi5tYXQtdG9vbGJhci5tYXQtcHJpbWFyeSB7XG4gIHBvc2l0aW9uOiBzdGlja3k7XG4gIHRvcDogMDtcbiAgei1pbmRleDogMTtcbn1cblxubWF0LXRvb2xiYXIge1xuICBoZWlnaHQ6IGF1dG87XG4gIHBhZGRpbmc6IDE2cHg7XG59XG5cbmltZyB7XG4gIGhlaWdodDogMTAwJTtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbi50aXRsZSB7XG4gIGZsZXg6IDEgMSBhdXRvO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5yaWdodERyYXdlci1saXN0IHtcbiAgcGFkZGluZy10b3A6IDg4cHg7XG59XG5cbi5hY3RpdmUge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMTAzQzZFO1xuICBjb2xvcjogI0M3RTVGRDtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gIC5zaWRlYmFyLWljb24ge1xuICAgIHBhZGRpbmctcmlnaHQ6IDEwcHg7XG4gICAgY29sb3I6ICAjQzdFNUZEO1xuICB9XG59XG5cblxuLnNpZGViYXItaWNvbiB7XG4gIHBhZGRpbmctcmlnaHQ6IDEwcHg7XG59XG4iXX0= */"
+module.exports = "mat-card-title {\n  text-align: center; }\n\n.sidenav-container {\n  height: 100%; }\n\n.sidenav {\n  width: 200px; }\n\n.sidenav .mat-toolbar {\n  background: inherit; }\n\n.mat-toolbar.mat-primary {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  z-index: 1; }\n\nmat-toolbar {\n  height: auto;\n  padding: 16px; }\n\nimg {\n  height: 100%;\n  width: 100%; }\n\n.title {\n  flex: 1 1 auto;\n  text-align: center; }\n\n.rightDrawer-list {\n  padding-top: 88px; }\n\n.active {\n  background-color: #103C6E;\n  color: #C7E5FD;\n  font-weight: bold; }\n\n.active .sidebar-icon {\n    padding-right: 10px;\n    color: #C7E5FD; }\n\n.sidebar-icon {\n  padding-right: 10px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zYW1pYWJyYWhpbS9Eb2N1bWVudHMvR2l0SHViL1BheXJvbGxQcm9qZWN0L3NyYy9hcHAvc2hhcmVkL215LW5hdi9teS1uYXYuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxrQkFBa0IsRUFBQTs7QUFHcEI7RUFDRSxZQUFZLEVBQUE7O0FBR2Q7RUFDRSxZQUFZLEVBQUE7O0FBR2Q7RUFDRSxtQkFBbUIsRUFBQTs7QUFHckI7RUFDRSx3QkFBZ0I7RUFBaEIsZ0JBQWdCO0VBQ2hCLE1BQU07RUFDTixVQUFVLEVBQUE7O0FBR1o7RUFDRSxZQUFZO0VBQ1osYUFBYSxFQUFBOztBQUdmO0VBQ0UsWUFBWTtFQUNaLFdBQVcsRUFBQTs7QUFHYjtFQUNFLGNBQWM7RUFDZCxrQkFBa0IsRUFBQTs7QUFHcEI7RUFDRSxpQkFBaUIsRUFBQTs7QUFHbkI7RUFDRSx5QkFBeUI7RUFDekIsY0FBYztFQUNkLGlCQUFpQixFQUFBOztBQUhuQjtJQUtJLG1CQUFtQjtJQUNuQixjQUFlLEVBQUE7O0FBS25CO0VBQ0UsbUJBQW1CLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvbXktbmF2L215LW5hdi5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIm1hdC1jYXJkLXRpdGxlIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4uc2lkZW5hdi1jb250YWluZXIge1xuICBoZWlnaHQ6IDEwMCU7XG59XG5cbi5zaWRlbmF2IHtcbiAgd2lkdGg6IDIwMHB4O1xufVxuXG4uc2lkZW5hdiAubWF0LXRvb2xiYXIge1xuICBiYWNrZ3JvdW5kOiBpbmhlcml0O1xufVxuXG4ubWF0LXRvb2xiYXIubWF0LXByaW1hcnkge1xuICBwb3NpdGlvbjogc3RpY2t5O1xuICB0b3A6IDA7XG4gIHotaW5kZXg6IDE7XG59XG5cbm1hdC10b29sYmFyIHtcbiAgaGVpZ2h0OiBhdXRvO1xuICBwYWRkaW5nOiAxNnB4O1xufVxuXG5pbWcge1xuICBoZWlnaHQ6IDEwMCU7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4udGl0bGUge1xuICBmbGV4OiAxIDEgYXV0bztcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4ucmlnaHREcmF3ZXItbGlzdCB7XG4gIHBhZGRpbmctdG9wOiA4OHB4O1xufVxuXG4uYWN0aXZlIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzEwM0M2RTtcbiAgY29sb3I6ICNDN0U1RkQ7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAuc2lkZWJhci1pY29uIHtcbiAgICBwYWRkaW5nLXJpZ2h0OiAxMHB4O1xuICAgIGNvbG9yOiAgI0M3RTVGRDtcbiAgfVxufVxuXG5cbi5zaWRlYmFyLWljb24ge1xuICBwYWRkaW5nLXJpZ2h0OiAxMHB4O1xufVxuIl19 */"
 
 /***/ }),
 
@@ -1454,6 +1812,39 @@ else {
 
 module.exports = __webpack_require__(/*! /Users/samiabrahim/Documents/GitHub/PayrollProject/src/main.ts */"./src/main.ts");
 
+
+/***/ }),
+
+/***/ 1:
+/*!********************!*\
+  !*** fs (ignored) ***!
+  \********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 2:
+/*!************************!*\
+  !*** crypto (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 3:
+/*!************************!*\
+  !*** stream (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
 
 /***/ })
 

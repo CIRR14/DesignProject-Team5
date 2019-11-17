@@ -16,11 +16,11 @@ import { switchMap } from 'rxjs/operators';
   templateUrl: './view-jobs.component.html',
   styleUrls: ['./view-jobs.component.scss']
 })
-export class ViewJobsComponent implements OnInit, OnDestroy{
+export class ViewJobsComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  dataSource: ViewjobsDataSource; 
+  dataSource: ViewjobsDataSource;
 
 // private jobs$: Observable<Job[]>;
  displayedColumns = ['created', 'clientName', 'address'];
@@ -48,9 +48,9 @@ constructor(
 //   const job = this.db.doc(`jobs/${jobID.jobID}`);
 //   const viewJob: Jobs = {
 //     jobid: jobID,
-//     name:  
-  //}
-//}
+//     name:
+  // }
+// }
 
   ngOnInit() {
     this.subscription = this.db.list<ViewjobsItem>('jobs').valueChanges().subscribe(d => {

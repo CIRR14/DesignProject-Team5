@@ -1,5 +1,6 @@
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-add-job',
@@ -31,11 +32,11 @@ export class AddJobComponent implements OnInit {
     this.job = {};
   }
 
-  onChange(e){
+  onChange(e) {
     this.job.id = this.generateJobId(e);
   }
 
-  generateJobId(address){
+  generateJobId(address) {
     const regex = /\d+ [a-zA-Z]{3}/g;
 
     const match = address.match(regex);

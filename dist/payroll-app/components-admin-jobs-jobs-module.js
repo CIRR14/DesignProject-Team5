@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form #form=\"ngForm\" (ngSubmit)=\"onSubmit()\">\n  <mat-card class=\"job-card\">\n    <mat-card-title>\n      Add\n    </mat-card-title>\n    <mat-card-content>\n\n      <mat-form-field>\n        <input disabled matInput placeholder=\"Select when job was created...\"  name=\"created\" [(ngModel)]=\"job.created\" [matDatepicker]=\"created\">\n        <mat-datepicker-toggle matSuffix [for]=\"created\"></mat-datepicker-toggle>\n        <mat-datepicker disabled=\"false\" #created></mat-datepicker>\n      </mat-form-field>\n\n      <mat-form-field>\n        <textarea placeholder=\"Enter client first name...\" rows=\"3\" maxlength=\"300\" matInput [(ngModel)]=\"job.clientName\" name=\"firstName\"></textarea>\n      </mat-form-field>\n\n      <mat-form-field>\n        <textarea placeholder=\"Enter client address...\" rows=\"3\" maxlength=\"300\" matInput [(ngModel)]=\"job.address\" name=\"address\"></textarea>\n      </mat-form-field>\n\n      <mat-form-field>\n          <textarea placeholder=\"Enter job status...\" rows=\"3\" maxlength=\"300\" matInput [(ngModel)]=\"job.status\" name=\"status\"></textarea>\n      </mat-form-field>\n\n      <mat-form-field>\n          <textarea placeholder=\"Enter job id...\" rows=\"3\" maxlength=\"300\" matInput [(ngModel)]=\"job.id\" name=\"id\"></textarea>\n      </mat-form-field>\n\n    </mat-card-content>\n    <mat-card-actions>\n      <button mat-button [routerLink]=\"['/admin-jobs']\" routerDirection=\"backward\" color=\"warn\" type=\"cancel\">Cancel</button>\n      <button mat-button position=\"end\" [disabled]=\"!formIsFilledOut\" type=\"submit\">Submit</button>\n    </mat-card-actions>\n  </mat-card>\n </form>\n"
+module.exports = "<form #form=\"ngForm\" (ngSubmit)=\"onSubmit()\">\n  <mat-card class=\"job-card\">\n    <mat-card-title>\n      Add\n    </mat-card-title>\n    <mat-card-content>\n\n      <mat-form-field>\n        <input disabled matInput placeholder=\"Select when job was created...\"  name=\"created\" [(ngModel)]=\"job.created\" [matDatepicker]=\"created\">\n        <mat-datepicker-toggle matSuffix [for]=\"created\"></mat-datepicker-toggle>\n        <mat-datepicker disabled=\"false\" #created></mat-datepicker>\n      </mat-form-field>\n\n      <mat-form-field>\n        <textarea placeholder=\"Enter client first name...\" rows=\"3\" maxlength=\"300\" matInput [(ngModel)]=\"job.clientName\" name=\"firstName\"></textarea>\n      </mat-form-field>\n\n      <mat-form-field>\n        <textarea placeholder=\"Enter client address...\" (ngModelChange)=\"onChange($event)\" rows=\"3\" maxlength=\"300\" matInput [(ngModel)]=\"job.address\" name=\"address\"></textarea>\n      </mat-form-field>\n\n      <!-- <mat-form-field>\n          <textarea placeholder=\"Enter job status...\" rows=\"3\" maxlength=\"300\" matInput [(ngModel)]=\"job.status\" name=\"status\"></textarea>\n      </mat-form-field> -->\n\n      <mat-form-field>\n          <textarea placeholder=\"Enter job id...\" rows=\"3\" maxlength=\"300\" matInput [(ngModel)]=\"job.id\" name=\"id\"></textarea>\n      </mat-form-field>\n\n    </mat-card-content>\n    <mat-card-actions>\n      <button mat-button [routerLink]=\"['/admin-jobs']\" routerDirection=\"backward\" color=\"warn\" type=\"cancel\">Cancel</button>\n      <button mat-button [routerLink]=\"['/admin-jobs']\" position=\"end\" [disabled]=\"!form.form.valid\" type=\"submit\">Submit</button>\n    </mat-card-actions>\n  </mat-card>\n </form>\n"
 
 /***/ }),
 
@@ -48,12 +48,24 @@ var AddJobComponent = /** @class */ (function () {
     };
     AddJobComponent.prototype.onSubmit = function () {
         var _this = this;
+        console.log(this.job);
         this.job.created = new Date(this.job.created).valueOf();
         this.db.list('jobs').push(this.job)
             .then(function (_) {
             _this.job = {};
             console.log('success');
         });
+    };
+    AddJobComponent.prototype.cancel = function () {
+        this.job = {};
+    };
+    AddJobComponent.prototype.onChange = function (e) {
+        this.job.id = this.generateJobId(e);
+    };
+    AddJobComponent.prototype.generateJobId = function (address) {
+        var regex = /\d+ [a-zA-Z]{3}/g;
+        var match = address.match(regex);
+        return match && match[0] ? match[0].replace(/\s+/g, '').toUpperCase() : '';
     };
     AddJobComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
@@ -511,7 +523,7 @@ function compare(a, b, isAsc) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"mat-elevation-z8\">\n  <mat-card-title> JOBS\n    <button mat-raised-button class=\"add-job-button\" [routerLink]=\"['/admin-jobs/addJob']\"> Add Job </button>\n  </mat-card-title>\n  <table mat-table #table [dataSource]='dataSource' matSort aria-label=\"Elements\">\n    <!-- Date Column -->\n    <ng-container matColumnDef = 'created'>\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>\n      <td mat-cell *matCellDef=\"let row\"> {{row.created | date: 'MM/dd/yyyy'}} </td>\n    </ng-container>\n    <!-- Client Name Column -->\n    <ng-container matColumnDef=\"clientName\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Client Name</th>\n      <td mat-cell *matCellDef=\"let row\">{{row.clientName}}</td>\n    </ng-container>\n    <!-- Address Column -->\n    <ng-container matColumnDef=\"address\">\n        <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>\n        <td mat-cell *matCellDef=\"let row\">{{row.jobAddress}}</td>\n      </ng-container>\n      <!-- Address Column -->\n    <ng-container matColumnDef=\"status\">\n        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>\n        <td mat-cell *matCellDef=\"let row\" [ngStyle]=\"{'color': row.status === 'not started' ? 'red': row.status === 'in progress' ? 'yellow': row.status === 'done' ? 'green': ''}\" >{{row.status}}</td>\n      </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\" [routerLink]=\"['/admin-jobs', row.id]\"></tr>\n  </table>\n\n    <mat-paginator #paginator\n      [pageIndex]=\"0\"\n      [pageSize]=\"50\"\n      [pageSizeOptions]=\"[25, 50, 100, 250]\">\n  </mat-paginator>\n\n</mat-card>\n"
+module.exports = "<mat-card class=\"mat-elevation-z8\">\n  <mat-card-title> JOBS\n    <button mat-raised-button class=\"add-job-button\" [routerLink]=\"['/admin-jobs/addJob']\"> Add Job </button>\n  </mat-card-title>\n  <table mat-table #table [dataSource]='dataSource' matSort aria-label=\"Elements\">\n\n     <!-- Status Column -->\n     <ng-container matColumnDef=\"jobId\">\n        <th mat-header-cell *matHeaderCellDef mat-sort-header>Job ID</th>\n        <td mat-cell *matCellDef=\"let row\">{{row.id}}</td>\n      </ng-container>\n    <!-- Date Column -->\n    <ng-container matColumnDef = 'created'>\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>\n      <td mat-cell *matCellDef=\"let row\"> {{row.created | date: 'MM/dd/yyyy'}} </td>\n    </ng-container>\n    <!-- Client Name Column -->\n    <ng-container matColumnDef=\"clientName\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header>Client Name</th>\n      <td mat-cell *matCellDef=\"let row\">{{row.clientName}}</td>\n    </ng-container>\n    <!-- Address Column -->\n    <ng-container matColumnDef=\"address\">\n        <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>\n        <td mat-cell *matCellDef=\"let row\">{{row.address}}</td>\n      </ng-container>\n\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\" [routerLink]=\"['/admin-jobs', row.id]\"></tr>\n  </table>\n\n    <mat-paginator #paginator\n      [pageIndex]=\"0\"\n      [pageSize]=\"50\"\n      [pageSizeOptions]=\"[25, 50, 100, 250]\">\n  </mat-paginator>\n\n</mat-card>\n"
 
 /***/ }),
 
@@ -553,7 +565,7 @@ var ViewJobsComponent = /** @class */ (function () {
     db) {
         this.db = db;
         // private jobs$: Observable<Job[]>;
-        this.displayedColumns = ['created', 'clientName', 'address', 'status'];
+        this.displayedColumns = ['created', 'clientName', 'address'];
     }
     // ngOnInit() {
     //   this.jobs$ = this.route.paramMap.pipe(
@@ -564,6 +576,13 @@ var ViewJobsComponent = /** @class */ (function () {
     // }
     //  Columns displayed in the table. Columns IDs can be added, removed, or reordered.
     // displayedColumns = ['date', 'text'];
+    // private job(jobID) {
+    //   const job = this.db.doc(`jobs/${jobID.jobID}`);
+    //   const viewJob: Jobs = {
+    //     jobid: jobID,
+    //     name:
+    // }
+    // }
     ViewJobsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.subscription = this.db.list('jobs').valueChanges().subscribe(function (d) {
