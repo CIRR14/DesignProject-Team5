@@ -30,11 +30,6 @@ export class ViewEmployeesComponent implements OnInit, OnDestroy {
       this.loggedInUser = res;
     });
 
-// get all employees
-// display employees
-
-
-
     this.subscription = this.afs.collection<ViewEmployeesItem>('users').valueChanges().subscribe( res => {
       this.dataSource = new ViewEmployeesDataSource(this.paginator, this.sort);
       this.dataSource.employeesData = res;

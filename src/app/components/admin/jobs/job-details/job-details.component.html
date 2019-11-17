@@ -1,29 +1,19 @@
-<mat-card>
+<mat-card *ngIf="theJob">
   <button mat-stroked-button [routerLink]= "['/admin-jobs']" routerDirection="backward">
     back
   </button>
 <mat-card-header>
   JOB ID: {{id}}
+  <br/>
+  CREATED: {{this.theJob.created.seconds * 1000 | date:'MM/dd/yyy'}}
+  <br/>
+  CLIENT NAME: {{this.theJob.clientName}}
+  <br/>
+  ADDRESS: {{this.theJob.address}}
+  <br/>
+  DESCRIPTION: {{this.theJob.description}}
+  <br/>
+  TOTAL JOB HOURS: {{this.theJob.jobHours}}
 </mat-card-header>
-<!-- <mat-card-content>
-  <mat-card-title>
-    {{theJob.clientName.firstName}} {{theJob.clientName.lastName}}
-  </mat-card-title>
-  <mat-card-subtitle [ngStyle]="{'color': theJob.status === 'not started' ? 'red': theJob.status === 'in progress' ? 'yellow': theJob.status === 'done' ? 'green': ''}">
-    status
-  </mat-card-subtitle>
-  {{theJob.created | date: 'MM/dd/yyyy'}}
-  <br>
-  {{theJob.jobAddress.street}}
-  <br>
-  {{theJob.jobAddress.city}}, {{theJob.jobAddress.zipCode}}
-
-</mat-card-content> -->
-
-
-
-
-
-
 
 </mat-card>

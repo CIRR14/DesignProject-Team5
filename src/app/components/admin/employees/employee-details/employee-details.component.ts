@@ -1,4 +1,3 @@
-import { element } from 'protractor';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from './../../../auth/auth.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';

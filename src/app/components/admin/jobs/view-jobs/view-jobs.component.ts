@@ -1,12 +1,13 @@
+import { Job } from './../job';
 import { JobService } from '../job.service';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
-import { ViewjobsDataSource, ViewjobsItem } from './view-jobs-datasource';
+import { ViewjobsDataSource } from './view-jobs-datasource';
 import { Subscription, Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { Job } from '../job';
-import { switchMap } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/firestore';
+
+
+
 
 
 
@@ -22,40 +23,18 @@ export class ViewJobsComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   dataSource: ViewjobsDataSource;
 
-// private jobs$: Observable<Job[]>;
- displayedColumns = ['created', 'clientName', 'address'];
+  displayedColumns = ['created', 'clientName', 'address', 'jobHours'];
  subscription: Subscription;
 
 constructor(
-  // private service: JobService,
-  // private route: ActivatedRoute,
-  private db: AngularFireDatabase
+  private afs: AngularFirestore, public service: JobService
 ) {}
 
-// ngOnInit() {
-//   this.jobs$ = this.route.paramMap.pipe(
-//     switchMap(() => {
-//       return this.service.getJobs();
-//     })
-//   )
-// }
-
-
-
-  //  Columns displayed in the table. Columns IDs can be added, removed, or reordered.
-  // displayedColumns = ['date', 'text'];
-// private job(jobID) {
-//   const job = this.db.doc(`jobs/${jobID.jobID}`);
-//   const viewJob: Jobs = {
-//     jobid: jobID,
-//     name:
-  // }
-// }
 
   ngOnInit() {
-    this.subscription = this.db.list<ViewjobsItem>('jobs').valueChanges().subscribe(d => {
+    this.subscription = this.afs.collection<Job>(`jobs`).valueChanges().subscribe( jobs => {
       this.dataSource = new ViewjobsDataSource(this.paginator, this.sort);
-      this.dataSource.data = d;
+      this.dataSource.data = jobs;
     });
   }
 

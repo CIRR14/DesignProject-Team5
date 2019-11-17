@@ -1,3 +1,4 @@
+import { Job } from './../job';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Component, OnInit } from '@angular/core';
@@ -21,22 +22,28 @@ export class AddJobComponent implements OnInit {
 
     console.log(this.job);
 
-    // console.log(this.job);
-    // this.job.created = new Date(this.job.created).valueOf();
-    // this.db.list('jobs').push(this.job)
-    // .then(_ => {
-    //   this.job = {};
-    //   console.log('success');
-    // });
+    const jobRef = this.as.doc(`jobs/${this.job.id}`);
+    const data: Job = {
+      created: this.job.created,
+      clientName: this.job.clientName,
+      address: this.job.address,
+      id: this.job.id,
+      description: this.job.description,
+      jobHours: this.getJobHours(this.job.id)
+    };
+    jobRef.set(data, {merge: true});
+  }
 
+  getJobHours(id) {
+    return 5;
   }
 
   cancel() {
-    // this.job = {};
+    this.job = {};
   }
 
   onChange(e){
-    // this.job.id = this.generateJobId(e);
+    this.job.id = this.generateJobId(e);
   }
 
   generateJobId(address) {
