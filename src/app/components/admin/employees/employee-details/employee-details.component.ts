@@ -118,9 +118,16 @@ ngOnDestroy() {
     };
 
     console.log(data);
-    userRef.set(data, {merge: true} );
+    userRef.set(data, {merge: true})
+    .then(() => {
+      this.service.successMessage('Successfully updated!', 'dismiss');
+      this.router.navigateByUrl('/admin-view-employees');
+    }).catch((err) => {
+      console.log(err);
+      this.service.errorMessage('Error updating!', 'dismiss');
+    });
 
-    this.router.navigateByUrl('/admin-view-employees');
+    
   }
 
 
