@@ -1,4 +1,5 @@
-import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddJobComponent } from './add-job/add-job.component';
 import { AppMaterialModule } from '../../../shared/app-material.module';
 import { ViewJobsComponent } from './view-jobs/view-jobs.component';
@@ -11,12 +12,15 @@ import { JobDetailsComponent } from './job-details/job-details.component';
 
 
 
+
 @NgModule({
   imports: [
     CommonModule,
     JobsRoutingModule,
     AppMaterialModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule
   ],
   declarations: [JobComponent, ViewJobsComponent, AddJobComponent, JobDetailsComponent],
   exports: [JobComponent, ViewJobsComponent, AddJobComponent, JobDetailsComponent]
