@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "gd-management-system",
+    "dev": "dev-gdstl"
+  }
+}

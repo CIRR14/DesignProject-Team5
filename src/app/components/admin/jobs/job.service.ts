@@ -1,7 +1,7 @@
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Job } from './job';
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { JOBS } from './mock.jobs';
 
 
 @Injectable({
@@ -9,14 +9,11 @@ import { JOBS } from './mock.jobs';
 })
 export class JobService {
 
-  constructor() { }
+  job: Job;
 
-  getJobs(): Observable<Job[]> {
-    return of(JOBS);
-  }
+  constructor(private afs: AngularFirestore) { }
 
-  getJobById(id: number): Job {
-    const job = JOBS.find( x => x.id === +id );
-    return job;
+  getJobById(id): Observable<any> {
+    return this.afs.doc(`jobs/${id}`).valueChanges();
   }
 }

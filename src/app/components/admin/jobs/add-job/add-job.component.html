@@ -1,7 +1,7 @@
 <form #form="ngForm" (ngSubmit)="onSubmit()">
   <mat-card class="job-card">
     <mat-card-title>
-      Add
+      Add Job
     </mat-card-title>
     <mat-card-content>
 
@@ -12,11 +12,11 @@
       </mat-form-field>
 
       <mat-form-field>
-        <textarea placeholder="Enter client first name..." rows="3" maxlength="300" matInput [(ngModel)]="job.clientName" name="firstName"></textarea>
+        <textarea placeholder="Enter client first name..." rows="3" maxlength="25" matInput [(ngModel)]="job.clientName" name="firstName"></textarea>
       </mat-form-field>
 
       <mat-form-field>
-        <textarea placeholder="Enter client address..." (ngModelChange)="onChange($event)" rows="3" maxlength="300" matInput [(ngModel)]="job.address" name="address"></textarea>
+        <textarea placeholder="Enter client address..." (ngModelChange)="onChange($event)" rows="3" maxlength="25" matInput [(ngModel)]="job.address" name="address"></textarea>
       </mat-form-field>
 
       <!-- <mat-form-field>
@@ -24,8 +24,12 @@
       </mat-form-field> -->
 
       <mat-form-field>
-          <textarea placeholder="Enter job id..." rows="3" maxlength="300" matInput [(ngModel)]="job.id" name="id"></textarea>
+          <textarea placeholder="Enter job id..." rows="3" maxlength="10" matInput [(ngModel)]="job.id" name="id"></textarea>
       </mat-form-field>
+
+      <mat-form-field>
+        <textarea placeholder="Enter job description..." rows="6" maxlength="500" matInput [(ngModel)]="job.description" name="description"></textarea>
+    </mat-form-field>
 
     </mat-card-content>
     <mat-card-actions>
