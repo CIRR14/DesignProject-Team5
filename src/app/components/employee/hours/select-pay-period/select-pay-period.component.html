@@ -1,116 +1,115 @@
 <mat-card class="example-card">
 
-<p class="form-inline1">
-    <mat-form-field>
-    <mat-label>Jobs</mat-label>
-    <mat-select [(value)]="selectedJob" required>
-      <mat-option *ngFor="let job of jobOptions" [value]="job.value">
-        {{job.viewValue}}
-      </mat-option>
-    </mat-select>
-    </mat-form-field>
-
-    <div> you selected: {{selectedJob}} </div>
-
-    <button class="Job number" ng-click="reset()" id="JobID">Select</button>
-
-  <!-- </p> -->
-
-
-
-<div ng-app="" ng-init="mySwitch=true">
-<p>
-    <button mat-raised-button  id="clockIn" (click)="clockingIn()" [disabled]="disableClockIn">Clock In</button>
-</p>
-<p>
-    <button mat-raised-button  id="clockOut"  (click)="clockingOut()" [disabled]="disableClockOut">Clock Out</button>
-</p>
-</div>
-
-<!-- <button mat-raised-button (click)="test()">show test button</button> -->
-
-<!-- <button *ngFor="let element of dataSource.data">
-</button> -->
-
-
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-
-    <ng-container matColumnDef="Job">
-    <th mat-header-cell *matHeaderCellDef> Job ID</th>
-    <!-- <tr *ngFor = "let element in element"> -->
-    <td mat-cell *matCellDef="let element"> {{element.Job}} </td>
-    <!-- </tr> -->
-    </ng-container>
-
-
-    <ng-container matColumnDef="dateClock">
-    <th mat-header-cell *matHeaderCellDef> Date </th>
-    <!-- <tr *ngFor = "let element in element"> -->
-    <td mat-cell *matCellDef="let element"> {{element.dateClock}} </td>
-    <!-- </tr> -->
-    </ng-container>
-
-
-    <ng-container matColumnDef="clockI">
-    <th mat-header-cell *matHeaderCellDef> Clock In </th>
-    <!-- <tr *ngFor = "let element in element"> -->
-    <td mat-cell *matCellDef="let element"> {{element.clockI}} </td>
-    <!-- </tr> -->
-    </ng-container>
-
-
-    <ng-container matColumnDef="clockO">
-    <th mat-header-cell *matHeaderCellDef> Clock Out </th>
-    <!-- <tr *ngFor = "let element in element"> -->
-    <td mat-cell *matCellDef="let element"> {{element.clockO}} </td>
-    <!-- </tr> -->
-    </ng-container>
-
-    <ng-container matColumnDef="Hoursworked">
-    <th mat-header-cell *matHeaderCellDef> Hours Worked </th>
-    <!-- <tr *ngFor = "let element in element"> -->
-    <td mat-cell *matCellDef="let element"> {{element.Hoursworked}} </td>
-    <!-- </tr> -->
-    </ng-container>
-
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-</table>
-
-
-<!-- <div #TABLE>
-  <table mat-table #table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-
-      <ng-container matColumnDef="employee">
-        <th mat-header-cell *matHeaderCellDef> Employee </th>
-        <td mat-cell *matCellDef="let employee"> {{employee.displayName}} </td>
+  <p class="form-inline1">
+      <mat-form-field>
+      <mat-label>Jobs</mat-label>
+      <mat-select [(value)]="selectedJob" required>
+        <mat-option *ngFor="let job of jobOptions" [value]="job.value">
+          {{job.viewValue}}
+        </mat-option>
+      </mat-select>
+      </mat-form-field>
+  
+      <!-- <div> you selected: {{selectedJob}} </div>
+  
+      <button mat-raised-button>Select</button> -->
+  
+  
+  <div>
+  <p>
+      <button mat-raised-button  id="clockIn" (click)="clockingIn()"  [disabled]="disableClockIn">Clock In</button>
+             
+  </p>
+  
+  <p>
+      <button mat-raised-button  id="clockOut"  (click)="clockingOut()" [disabled]="disableClockOut">Clock Out</button>
+  </p>
+  </div>
+  
+  
+  <!-- <button mat-raised-button (click) ="subtraction()"> test </button> -->
+  <!-- <button *ngFor="let element of dataSource.data">
+      {{element.Hoursworked}}
+  </button> -->
+  
+  <!-- <button mat-raised-button (click)="test()">show test button</button> -->
+  
+  <!-- <button *ngFor="let element of dataSource.data">
+  </button> -->
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  
+  <div class="example-container mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  
+  
+      <ng-container matColumnDef="Job" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Job ID</th>
+      <td mat-cell *matCellDef="let element"> {{element.Job}} </td>
       </ng-container>
-
-
-      <ng-container matColumnDef="rate">
-        <th mat-header-cell *matHeaderCellDef> Rate </th>
-        <td mat-cell *matCellDef="let employee"> $ {{employee.hourlyRate}} </td>
+  
+  
+      <ng-container matColumnDef="dateClock" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.dateClock}} </td>
       </ng-container>
-
-
-      <ng-container matColumnDef="hrs">
-        <th mat-header-cell *matHeaderCellDef> Hours </th>
-        <td mat-cell *matCellDef="let employee"> {{employee.hours}} </td>
+  
+  
+      <ng-container matColumnDef="clockI" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Clock In </th>
+      <td mat-cell *matCellDef="let element"> {{element.clockI}} </td>
       </ng-container>
-
-
-      <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef> Total </th>
-        <td mat-cell *matCellDef="let employee"> $ {{employee.hours * employee.hourlyRate}} </td>
+  
+  
+      <ng-container matColumnDef="clockO" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Clock Out </th>
+      <td mat-cell *matCellDef="let element"> {{element.clockO}} </td>
       </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  
+      <ng-container matColumnDef="Hoursworked" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Hours Worked </th>
+      <td mat-cell *matCellDef="let element"> {{element.Hoursworked}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
   </table>
-</div> -->
-
-
-</mat-card>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+  
+  <!-- <div #TABLE>
+    <table mat-table #table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  
+        <ng-container matColumnDef="employee">
+          <th mat-header-cell *matHeaderCellDef> Employee </th>
+          <td mat-cell *matCellDef="let employee"> {{employee.displayName}} </td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="rate">
+          <th mat-header-cell *matHeaderCellDef> Rate </th>
+          <td mat-cell *matCellDef="let employee"> $ {{employee.hourlyRate}} </td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="hrs">
+          <th mat-header-cell *matHeaderCellDef> Hours </th>
+          <td mat-cell *matCellDef="let employee"> {{employee.hours}} </td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef> Total </th>
+          <td mat-cell *matCellDef="let employee"> $ {{employee.hours * employee.hourlyRate}} </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div> -->
+  
+  
+  </mat-card>
+  

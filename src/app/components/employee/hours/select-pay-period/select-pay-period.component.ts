@@ -1,23 +1,22 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, OnInit } from '@angular/core';
-import { getDefaultDateObject } from '@syncfusion/ej2-base';
-import { of, Observable } from 'rxjs';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import { Observable, of, from } from 'rxjs';
+import * as moment from 'moment';
+import { actionBegin } from '@syncfusion/ej2-schedule';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 
 export interface PeriodicElement {
   dateClock: any;
   Job: string;
   clockI: any;
   clockO: any;
-  Hoursworked: Number;
+  Hoursworked: any;
 }
 
-const element: PeriodicElement[] = [
-  {Job: "1234",
-  dateClock:"1/1/2019",
-  clockI:'8:00',
-  clockO:'15:00',
-  Hoursworked: 7}
-];
+const element: PeriodicElement[] = [];
 
 
 
@@ -33,7 +32,14 @@ const element: PeriodicElement[] = [
 export class SelectPayPeriodComponent implements OnInit {
 
   displayedColumns: string[] = ['Job', 'dateClock', 'clockI', 'clockO','Hoursworked'];
-  dataSource = new MatTableDataSource<PeriodicElement>([]);
+  dataSource = new MatTableDataSource<PeriodicElement>(element);
+
+ 
+
+
+  applyFilter(filterValue: string) {
+  this.dataSource.filter = filterValue.trim().toLowerCase();}
+
   clockedIn;
   clockedOut;
 
@@ -51,27 +57,34 @@ export class SelectPayPeriodComponent implements OnInit {
   selectedJob = 'job1';
 
 
-  constructor() {
+  constructor(private _snackBar: MatSnackBar) {}
 
 
+  clockingIn(message: string, action: string) {
 
-  }
+    var dt = moment();
+    this.clockedIn=  moment().format("hh:mm:ss");
+    
 
-  clockingIn() {
-    var dt = new Date()
-    this.clockedIn= new Date().getHours()+':'+ new Date().getHours()+':'+ new Date().getSeconds();
-    console.log('clockin', this.clockedIn);
     this.disableClockIn = true;
     this.disableClockOut = false;
 
+    message = 'hello';
+   action = 'okay'
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+
   }
 
-
+ 
 
   clockingOut() {
-    var dt = new Date();
-    this.clockedOut= new Date().getHours()+':'+ new Date().getHours()+':'+ new Date().getSeconds();
-    console.log('clockout', this.clockedOut);
+
+    var dt2 = moment();
+    this.clockedOut= moment().format("hh:mm:ss");
+    
+    
     this.disableClockIn = false;
     this.disableClockOut = true;
 
@@ -79,12 +92,6 @@ export class SelectPayPeriodComponent implements OnInit {
 
   }
 
-  // JobID(){
-  //   var job = new Option();
-  //   this.selectedJob ='job1';
-  //   console.log('job ID', this.selectedJob)
-
-  // }
 
   dateobj() {
     const dateObj = new Date().toLocaleDateString();
@@ -94,7 +101,7 @@ export class SelectPayPeriodComponent implements OnInit {
 
   refresh() {
     this.refreshTable().subscribe((data: PeriodicElement[]) => {
-      this.dataSource.data = data;
+    this.dataSource.data = data;
     });
   }
 
@@ -103,41 +110,37 @@ export class SelectPayPeriodComponent implements OnInit {
     }
 
 
-
   test() {
     const data = {
       dateClock: this.dateobj(),
       Job: this.selectedJob,
       clockI: this.clockedIn,
       clockO:  this.clockedOut,
-      Hoursworked: this.clockedOut - this.clockedIn
+      Hoursworked: moment.duration(moment(this.clockedOut,"hh:mm:ss").diff(moment(this.clockedIn,"hh:mm:ss"))).hours() + ' Hours ' +  moment.duration(moment(this.clockedOut,"hh:mm:ss").diff(moment(this.clockedIn,"hh:mm:ss"))).minutes() + ' Minutes ' +  moment.duration(moment(this.clockedOut,"hh:mm:ss").diff(moment(this.clockedIn,"hh:mm:ss"))).seconds() +' Seconds'
     };
 
     this.dataSource.data.push(data);
     this.refresh();
-    console.table(this.dataSource);
+    console.log(this.dataSource);
+
+    if(this.clockedOut<= 1){
+
+    }
 
   }
 
-  // element:any
+  static:boolean = true;
+
+
+  @ViewChild(MatPaginator, {}) paginator: MatPaginator;
+  @ViewChild(MatSort, {}) sort: MatSort;
 
   ngOnInit() {
-
-
-    // this.element=
-    // [
-    //   {
-    //     Job:'1234',
-    //     dateClock:new Date().toLocaleDateString,
-    //     clockI:this.clockedIn,
-    //     clockO:this.clockedOut,
-    //     Hoursworked: 0
-    //   }
-
-    // ]
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
-
+  
 
 }
 
