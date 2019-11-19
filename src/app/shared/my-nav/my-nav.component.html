@@ -4,7 +4,7 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
     <mat-toolbar>
-      <img mat-card-avatar src='{{profilePicture}}'>
+      <img mat-card-avatar class="proPic" src='{{profilePicture}}'>
     </mat-toolbar>
     <mat-card-title *ngIf="user">
       {{ user.displayName }}
@@ -36,9 +36,13 @@
     </mat-nav-list>
 
 
+    <img class="logo" src='{{gdLogo}}'>
   </mat-sidenav>
 
+
   <mat-sidenav-content>
+
+
     <mat-toolbar color="primary">
       <button mat-button
         type="button"
