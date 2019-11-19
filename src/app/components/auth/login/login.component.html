@@ -61,9 +61,18 @@
 
 <mat-card *ngIf="isLoggedIn">
     <mat-card-content>
-      You are logged in as {{user.displayName}}! You are an
-      <span *ngIf="user.roles.admin"> Admin!</span>
-      <span *ngIf="user.roles.employee">Employee!</span>
+      <mat-card-title>
+          You are logged in as {{user.displayName}}! 
+      </mat-card-title>
+      <mat-card-subtitle>
+        <span *ngIf="user.roles.admin"> Admin</span>
+        <span *ngIf="user.roles.employee"> Employee</span>
+        <div *ngIf="!user.roles.employee && !user.roles.admin"> 
+          Looks like this is your first time logging in. 
+          <br/>
+          Your administrator will have to grant you access to the system.
+        </div>
+      </mat-card-subtitle>
         <form>
     <button mat-raised-button (click)="authService.signOut()" [routerLink]="['/login']" color="warn">Logout</button>
       </form>
