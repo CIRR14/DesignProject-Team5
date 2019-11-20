@@ -30,9 +30,10 @@
       </mat-nav-list>
 
       <mat-nav-list class="rightDrawer-list">
-        <a mat-list-item *ngIf="user" routerLink="/login"> <mat-icon class="sidebar-icon">arrow_back</mat-icon>Logout </a>
+        <a mat-list-item *ngIf="user" routerLink="/login" routerLinkActive="active"> <mat-icon class="sidebar-icon">arrow_back</mat-icon>Logout </a>
         <a mat-list-item *ngIf="!user" routerLink="/login" routerLinkActive="active"> <mat-icon class="sidebar-icon">exit_to_app</mat-icon>Login </a>
-        <a mat-list-item routerLink="/help" routerLinkActive="active"><mat-icon class="sidebar-icon">help</mat-icon>Help</a>
+        <a mat-list-item *ngIf="authService.isEmployee(user) && !authService.isAdmin(user)" routerLink="/employee-help" routerLinkActive="active"><mat-icon class="sidebar-icon">help</mat-icon>Help</a>
+        <a mat-list-item *ngIf="!authService.isEmployee(user) && authService.isAdmin(user)" routerLink="/admin-help" routerLinkActive="active"><mat-icon class="sidebar-icon">help</mat-icon>Help</a>
     </mat-nav-list>
 
 
