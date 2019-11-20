@@ -8,7 +8,8 @@ import { DashComponent } from './components/admin/dash/dash.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, CanActivate } from '@angular/router';
 import { ViewEmployeesComponent } from './components/admin/employees/view-employees/view-employees.component';
-
+import { AdminHelpComponent } from './components/admin/admin-help/admin-help.component';
+import { EmployeeHelpComponent } from './components/employee/employee-help/employee-help.component';
 
 
 
@@ -38,6 +39,11 @@ const appRoutes: Routes = [
     canActivate: [AdminGuard]
   },
   {
+    path: 'admin-help',
+    component: AdminHelpComponent,
+    canActivate: [AdminGuard]
+  },
+  {
     path: 'employee-availability',
     component: EmployeeAvailabilityComponent,
     canActivate: [EmployeeGuard]
@@ -45,6 +51,11 @@ const appRoutes: Routes = [
   {
     path: 'employee-hours',
     loadChildren: './components/employee/hours/employee-hours.module#EmployeeHoursModule'
+  },
+  {
+    path: 'employee-help',
+    component: EmployeeHelpComponent,
+    canActivate: [EmployeeGuard]
   },
   {
     path: '',
