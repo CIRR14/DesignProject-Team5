@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Job } from './../../../admin/jobs/job';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import { Observable, of, from } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { actionBegin } from '@syncfusion/ej2-schedule';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -16,9 +18,12 @@ export interface PeriodicElement {
   Hoursworked: any;
 }
 
+interface JobOption {
+  value: string;
+  viewValue: string;
+}
+
 const element: PeriodicElement[] = [];
-
-
 
 
 @Component({
@@ -29,62 +34,76 @@ const element: PeriodicElement[] = [];
 
 
 
-export class SelectPayPeriodComponent implements OnInit {
-
-  displayedColumns: string[] = ['Job', 'dateClock', 'clockI', 'clockO','Hoursworked'];
+export class SelectPayPeriodComponent implements OnInit, OnDestroy {
+  @ViewChild(MatPaginator, {}) paginator: MatPaginator;
+  @ViewChild(MatSort, {}) sort: MatSort;
+  subscription: Subscription;
+  displayedColumns: string[] = ['Job', 'dateClock', 'clockI', 'clockO', 'Hoursworked'];
   dataSource = new MatTableDataSource<PeriodicElement>(element);
 
- 
-
-
-  applyFilter(filterValue: string) {
-  this.dataSource.filter = filterValue.trim().toLowerCase();}
+// TODO: get jobs from database
+  jobOptions: JobOption[] = [
+    {value: 'default', viewValue: 'Any Job'}
+  ];
 
   clockedIn;
   clockedOut;
 
 
-  disableClockIn: boolean = false;
-  disableClockOut: boolean = true;
+  disableClockIn = false;
+  disableClockOut = true;
 
-  jobOptions = [
-    {value: 'job1', viewValue: '#1234'},
-    {value: 'job2', viewValue: '#2345'},
-    {value: 'job3', viewValue: '#3456'},
-    {value: 'job4', viewValue: '#4567'}
-  ];
+  selectedJob = 'AnyJob';
 
-  selectedJob = 'job1';
+  static = true;
+
+  constructor(private _snackBar: MatSnackBar, private afs: AngularFirestore) {}
 
 
-  constructor(private _snackBar: MatSnackBar) {}
+  ngOnInit() {
+    this.subscription = this.afs.collection<Job>(`jobs`).valueChanges().subscribe( jobs => {
+      jobs.forEach((job) => {
+        const data: JobOption = {
+          value: job.id,
+          viewValue: job.address
+        };
+        this.jobOptions.push(data);
+      });
+    });
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+
+
+  applyFilter(filterValue: string) {
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+}
+
 
 
   clockingIn(message: string, action: string) {
-
-    var dt = moment();
-    this.clockedIn=  moment().format("hh:mm:ss");
-    
-
+    const dt = moment();
+    this.clockedIn =  moment().format('hh:mm:ss');
     this.disableClockIn = true;
     this.disableClockOut = false;
 
-    message = 'hello';
-   action = 'okay'
+    message = `Clocked in at ${this.clockedIn}`;
+    action = 'GOT IT!';
     this._snackBar.open(message, action, {
-      duration: 2000,
+      duration: 5000,
     });
 
   }
 
- 
+
 
   clockingOut() {
 
-    var dt2 = moment();
-    this.clockedOut= moment().format("hh:mm:ss");
-    
-    
+    const dt2 = moment();
+    this.clockedOut = moment().format('hh:mm:ss');
+
+
     this.disableClockIn = false;
     this.disableClockOut = true;
 
@@ -116,31 +135,26 @@ export class SelectPayPeriodComponent implements OnInit {
       Job: this.selectedJob,
       clockI: this.clockedIn,
       clockO:  this.clockedOut,
-      Hoursworked: moment.duration(moment(this.clockedOut,"hh:mm:ss").diff(moment(this.clockedIn,"hh:mm:ss"))).hours() + ' Hours ' +  moment.duration(moment(this.clockedOut,"hh:mm:ss").diff(moment(this.clockedIn,"hh:mm:ss"))).minutes() + ' Minutes ' +  moment.duration(moment(this.clockedOut,"hh:mm:ss").diff(moment(this.clockedIn,"hh:mm:ss"))).seconds() +' Seconds'
+      Hoursworked: moment.duration(
+            moment(this.clockedOut, 'hh:mm:ss').diff(moment(this.clockedIn, 'hh:mm:ss'))
+            ).hours() + ' Hours ' +  moment.duration(moment(this.clockedOut, 'hh:mm:ss')
+            .diff(moment(this.clockedIn, 'hh:mm:ss'))).minutes() + ' Minutes ' +  moment.duration(
+            moment(this.clockedOut, 'hh:mm:ss').diff(moment(this.clockedIn, 'hh:mm:ss'))
+            ).seconds() + ' Seconds'
     };
 
     this.dataSource.data.push(data);
     this.refresh();
     console.log(this.dataSource);
 
-    if(this.clockedOut<= 1){
+    if (this.clockedOut <= 1) {
 
     }
-
   }
 
-  static:boolean = true;
-
-
-  @ViewChild(MatPaginator, {}) paginator: MatPaginator;
-  @ViewChild(MatSort, {}) sort: MatSort;
-
-  ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
-
-  
 
 }
 
