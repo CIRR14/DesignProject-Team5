@@ -6,8 +6,8 @@
       </mat-card-actions>
 
   <mat-card-title > {{ employee.displayName }} / {{employee.empID}}</mat-card-title>
-  <mat-card-subtitle style="color: blue" *ngIf="employee.roles.admin"> ADMIN </mat-card-subtitle>
-  <mat-card-subtitle style="color: green" *ngIf="employee.roles.employee"> EMPLOYEE </mat-card-subtitle>
+  <mat-card-subtitle style="color: #64b5f6" *ngIf="employee.roles.admin"> ADMIN </mat-card-subtitle>
+  <mat-card-subtitle style="color: #4db6ac" *ngIf="employee.roles.employee"> EMPLOYEE </mat-card-subtitle>
 
   <mat-card-content>
 

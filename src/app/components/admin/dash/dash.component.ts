@@ -104,8 +104,8 @@ export class DashComponent implements OnInit, OnDestroy {
         payPeriods.forEach((payPeriod) => {
           const pPEndDate = new Date(payPeriod.endDate.seconds * 1000);
           const pPStartDate = new Date(payPeriod.startDate.seconds * 1000);
-          this.currentPayPeriod = this.getCurrentPayPeriod(pPEndDate, pPStartDate);
           if (this.currentDate > pPStartDate && this.currentDate <= pPEndDate) {
+            this.currentPayPeriod = this.getCurrentPayPeriod(pPEndDate, pPStartDate);
             this.payPeriodData.push(payPeriod);
             resolve();
           }
