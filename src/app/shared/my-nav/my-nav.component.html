@@ -21,7 +21,8 @@
 
 
     <mat-nav-list *ngIf="authService.isAdmin(user)">
-      <a mat-list-item routerLink="/admin-dash" routerLinkActive="active"> <mat-icon class="sidebar-icon">dashboard</mat-icon>Dashboard </a>
+      <a mat-list-item routerLink="/admin-dash" routerLinkActive="active"> <mat-icon class="sidebar-icon" aria-hidden="false" routerLink="/admin-dash" aria-label="sidebar-icon">home</mat-icon>Dashboard</a>
+      <!-- <a mat-list-item routerLink="/admin-dash" routerLinkActive="active"> <mat-icon class="sidebar-icon">dashboard</mat-icon>Dashboard </a>-->
       <a mat-list-item routerLink="/admin-view-employees" routerLinkActive="active"><mat-icon class="sidebar-icon">people_alt</mat-icon>Employees</a>
       <a mat-list-item routerLink="/admin-availabilities" routerLinkActive="active"><mat-icon class="sidebar-icon">calendar_today</mat-icon>Availabilities</a>
       <a mat-list-item routerLink="/admin-jobs" routerLinkActive="active"><mat-icon class="sidebar-icon">card_travel</mat-icon>Jobs</a>
