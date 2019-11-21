@@ -8,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class EmployeeHelpComponent implements OnInit {
 
   constructor() { }
-
+  scrollToElement($element): void {
+    $element.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+    inline: 'start'
+    });
+  }
   ngOnInit() {
   }
 
