@@ -9,12 +9,16 @@
     <mat-card-title *ngIf="user">
       {{ user.displayName }}
     </mat-card-title>
-    <br/>
-      <mat-card-subtitle>
-        Admin: {{ authService.isAdmin(user) }}
-        <br/>
-        Employee: {{ authService.isEmployee(user)}}
+      <mat-card-subtitle *ngIf="authService.isAdmin(user) && !authService.isEmployee(user)" style="color: #64b5f6">
+        Admin
       </mat-card-subtitle>
+      <mat-card-subtitle *ngIf="authService.isEmployee(user) && !authService.isAdmin(user)" style="color: #4db6ac">
+          Employee
+      </mat-card-subtitle>
+      <mat-card-subtitle *ngIf="!authService.isEmployee(user) && !authService.isAdmin(user)" style="color: #ff8a65">
+          Not Approved
+      </mat-card-subtitle>
+
 
     <mat-nav-list *ngIf="authService.isAdmin(user)">
       <a mat-list-item routerLink="/admin-dash" routerLinkActive="active"> <mat-icon class="sidebar-icon">dashboard</mat-icon>Dashboard </a>

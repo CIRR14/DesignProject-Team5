@@ -1,3 +1,4 @@
+import { AuthService } from './../../../auth/auth.service';
 import { Job } from './../../../admin/jobs/job';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
@@ -6,11 +7,10 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import { Observable, of, Subscription } from 'rxjs';
 import * as moment from 'moment';
-import { actionBegin } from '@syncfusion/ej2-schedule';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 
-export interface PeriodicElement {
+interface JobElement {
   dateClock: any;
   Job: string;
   clockI: any;
@@ -23,7 +23,15 @@ interface JobOption {
   viewValue: string;
 }
 
-const element: PeriodicElement[] = [];
+interface ClockHours {
+  isClockedIn: boolean;
+  totalHours: number;
+  clockInDate: Date;
+  clockOutDate: Date;
+  job: string;
+}
+
+const element: JobElement[] = [];
 
 
 @Component({
@@ -38,29 +46,40 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {}) paginator: MatPaginator;
   @ViewChild(MatSort, {}) sort: MatSort;
   subscription: Subscription;
+  userSubscription: Subscription;
+  clockedInSubscription: Subscription;
   displayedColumns: string[] = ['Job', 'dateClock', 'clockI', 'clockO', 'Hoursworked'];
-  dataSource = new MatTableDataSource<PeriodicElement>(element);
+  dataSource = new MatTableDataSource<JobElement>(element);
+  user = this.auth.currentUser;
+  userId = this.auth.currentUser.uid;
 
-// TODO: get jobs from database
   jobOptions: JobOption[] = [
-    {value: 'default', viewValue: 'Any Job'}
+    {value: 'Default', viewValue: 'Any Job'}
   ];
 
   clockedIn;
   clockedOut;
+  hoursWorked;
 
+  isClockedIn: boolean;
+  userClockInfo: ClockHours;
 
-  disableClockIn = false;
-  disableClockOut = true;
-
-  selectedJob = 'AnyJob';
+  selectedJob = 'Any Job';
 
   static = true;
 
-  constructor(private _snackBar: MatSnackBar, private afs: AngularFirestore) {}
+
+  constructor(private _snackBar: MatSnackBar, private afs: AngularFirestore, private auth: AuthService) {}
 
 
   ngOnInit() {
+    this.clockedInSubscription = this.afs.doc<ClockHours>(`clockHours/${this.userId}`).valueChanges().subscribe((clockHours) => {
+      this.userClockInfo = clockHours;
+      this.isClockedIn = clockHours.isClockedIn;
+      console.log(this.userClockInfo);
+      this.selectedJob = clockHours.job;
+    });
+
     this.subscription = this.afs.collection<Job>(`jobs`).valueChanges().subscribe( jobs => {
       jobs.forEach((job) => {
         const data: JobOption = {
@@ -75,40 +94,65 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
   }
 
 
-
   applyFilter(filterValue: string) {
   this.dataSource.filter = filterValue.trim().toLowerCase();
 }
 
 
 
-  clockingIn(message: string, action: string) {
-    const dt = moment();
-    this.clockedIn =  moment().format('hh:mm:ss');
-    this.disableClockIn = true;
-    this.disableClockOut = false;
+  clockingIn() {
+    const clockRef = this.afs.doc(`clockHours/${this.userId}`);
+    const data = {
+      job: this.selectedJob,
+      isClockedIn: true,
+      totalHours: 0, // TODO CHANGE
+      clockInDate: new Date(),
+      clockOutDate: new Date()
+    };
+    clockRef.set(data, {merge: true}).then(() => {
+      this.openSnackBar();
+    }).catch((err) => {
+      alert('COULD NOT CLOCK IN' + err);
+    });
 
-    message = `Clocked in at ${this.clockedIn}`;
-    action = 'GOT IT!';
+    this.clockedIn =  moment().format('hh:mm:ss');
+  }
+
+  openSnackBar() {
+    const message = `Clocked in at ${this.clockedIn}`;
+    const action = 'GOT IT!';
     this._snackBar.open(message, action, {
       duration: 5000,
     });
-
   }
 
 
 
   clockingOut() {
+    const clockRef = this.afs.doc(`clockHours/${this.userId}`);
+    const data = {
+      isClockedIn: false,
+      clockOutDate: new Date(),
+      totalHours: this.getDifference()
+    };
+    clockRef.set(data, {merge: true}).then(() => {
+      this.addToTable();
+    }).catch((err) => {
+      alert('COULD NOT CLOCK IN' + err);
+    });
+  }
 
-    const dt2 = moment();
+  getDifference(): number {
+    const clockedIn = this.userClockInfo.clockInDate;
+    const clockedOut = this.userClockInfo.clockOutDate;
+    console.log('in', clockedIn);
+    console.log('out', clockedOut);
+
     this.clockedOut = moment().format('hh:mm:ss');
-
-
-    this.disableClockIn = false;
-    this.disableClockOut = true;
-
-    this.test();
-
+    this.hoursWorked = moment.duration(
+      moment(this.clockedOut, 'hh:mm:ss').diff(moment(this.clockedIn, 'hh:mm:ss'))
+      ).asHours().toFixed(2);
+    return this.hoursWorked;
   }
 
 
@@ -119,41 +163,33 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
 
 
   refresh() {
-    this.refreshTable().subscribe((data: PeriodicElement[]) => {
+    this.refreshTable().subscribe((data: JobElement[]) => {
     this.dataSource.data = data;
     });
   }
 
-  refreshTable(): Observable<PeriodicElement[]> {
+  refreshTable(): Observable<JobElement[]> {
       return of(this.dataSource.data);
     }
 
 
-  test() {
+  addToTable() {
     const data = {
       dateClock: this.dateobj(),
       Job: this.selectedJob,
       clockI: this.clockedIn,
       clockO:  this.clockedOut,
-      Hoursworked: moment.duration(
-            moment(this.clockedOut, 'hh:mm:ss').diff(moment(this.clockedIn, 'hh:mm:ss'))
-            ).hours() + ' Hours ' +  moment.duration(moment(this.clockedOut, 'hh:mm:ss')
-            .diff(moment(this.clockedIn, 'hh:mm:ss'))).minutes() + ' Minutes ' +  moment.duration(
-            moment(this.clockedOut, 'hh:mm:ss').diff(moment(this.clockedIn, 'hh:mm:ss'))
-            ).seconds() + ' Seconds'
+      Hoursworked: this.hoursWorked
     };
 
     this.dataSource.data.push(data);
     this.refresh();
     console.log(this.dataSource);
-
-    if (this.clockedOut <= 1) {
-
-    }
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.clockedInSubscription.unsubscribe();
   }
 
 }
