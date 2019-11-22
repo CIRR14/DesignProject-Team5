@@ -69,6 +69,8 @@ export class DashComponent implements OnInit, OnDestroy {
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'payroll');
     XLSX.writeFile(wb, 'PayrollReport.xlsx');
+
+    // CHECK IF THE PAY PERIOD EXISTS, IF NOT, CREATE ONE WITH THE APPROPRIATE VALUES
   }
 
   ngOnDestroy() {

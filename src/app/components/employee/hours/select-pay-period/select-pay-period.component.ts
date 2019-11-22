@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 
+
 interface JobElement {
   dateClock: any;
   Job: string;
@@ -26,7 +27,7 @@ interface JobOption {
 interface ClockHours {
   isClockedIn: boolean;
   totalHours: number;
-  clockInDate: Date;
+  clockInDate: any;
   clockOutDate: Date;
   job: string;
 }
@@ -68,6 +69,8 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
 
   static = true;
 
+  reference = this.getHalf();
+
 
   constructor(private _snackBar: MatSnackBar, private afs: AngularFirestore, private auth: AuthService) {}
 
@@ -105,21 +108,29 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
     const data = {
       job: this.selectedJob,
       isClockedIn: true,
-      totalHours: 0, // TODO CHANGE
+      totalHours: 0,
       clockInDate: new Date(),
       clockOutDate: new Date()
     };
     clockRef.set(data, {merge: true}).then(() => {
-      this.openSnackBar();
+      const message = `Clocked in at ${moment().format('hh:mm:ss')}`;
+      this.openSnackBar(message);
     }).catch((err) => {
       alert('COULD NOT CLOCK IN' + err);
     });
 
-    this.clockedIn =  moment().format('hh:mm:ss');
+
+    // const payPeriodRef = this.afs.doc(`users/${this.userId}/payPeriod/11-2`);
+    // const pPDate = {
+    //   endDate: new Date(),
+    //   startDate: new Date(),
+    //   hours: 0,
+    //   uid: this.userId
+    // };
+    // payPeriodRef.set(pP, {merge: true});
   }
 
-  openSnackBar() {
-    const message = `Clocked in at ${this.clockedIn}`;
+  openSnackBar(message: string) {
     const action = 'GOT IT!';
     this._snackBar.open(message, action, {
       duration: 5000,
@@ -130,50 +141,106 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
 
   clockingOut() {
     const clockRef = this.afs.doc(`clockHours/${this.userId}`);
+    const totHrs = this.getDifference();
     const data = {
       isClockedIn: false,
       clockOutDate: new Date(),
-      totalHours: this.getDifference()
+      totalHours: totHrs,
+      job: this.selectedJob
     };
     clockRef.set(data, {merge: true}).then(() => {
+      const message = `Clocked out at ${moment().format('hh:mm:ss')}`;
+      this.openSnackBar(message);
       this.addToTable();
+      // ADD this.hoursWorked to job id totalHours;
+      this.addHrsToJob(this.hoursWorked, data.job);
+      // ADD this.hoursWorked to employee -> payroll -> [month-half] -> hours
+      this.addHrsToEmployee(this.hoursWorked, this.userId);
     }).catch((err) => {
       alert('COULD NOT CLOCK IN' + err);
     });
   }
 
-  getDifference(): number {
-    const clockedIn = this.userClockInfo.clockInDate;
-    const clockedOut = this.userClockInfo.clockOutDate;
+  getDifference(): number { // convert timestamp to date
+    const clockedIn: any = new Date(this.userClockInfo.clockInDate.seconds * 1000);
+    const clockedOut: any = new Date();
     console.log('in', clockedIn);
     console.log('out', clockedOut);
 
-    this.clockedOut = moment().format('hh:mm:ss');
-    this.hoursWorked = moment.duration(
-      moment(this.clockedOut, 'hh:mm:ss').diff(moment(this.clockedIn, 'hh:mm:ss'))
-      ).asHours().toFixed(2);
+    const difference = (Math.abs(clockedIn - clockedOut) / 36e5).toFixed(2);
+    this.hoursWorked = parseFloat(difference);
+    console.log('hours worked', this.hoursWorked);
+
+
+    // this.clockedOut = moment().format('hh:mm:ss');
+    // this.hoursWorked = moment.duration(
+    //   moment(this.clockedOut, 'hh:mm:ss').diff(moment(this.clockedIn, 'hh:mm:ss'))
+    //   ).asHours().toFixed(2);
     return this.hoursWorked;
   }
 
+  addHrsToJob(totalHours, jobId) {
+    console.log(totalHours, 'AND', jobId);
+    const jobRef = this.afs.doc(`jobs/${jobId}`);
+    jobRef.get().subscribe((job) => {
+      // console.log(job.data());
+      const data = {
+          jobHours: job.data().jobHours + totalHours
+        };
 
-  dateobj() {
+      jobRef.set(data, {merge: true});
+    });
+    }
+
+
+   async addHrsToEmployee(totalHours, empId) {
+      console.log(totalHours, 'AND', empId);
+      const month = new Date().getMonth() + 1;
+      const half = this.reference;
+      const empRef = this.afs.doc(`users/${empId}/payPeriod/${half}`);
+
+      empRef.get().subscribe((emp) => {
+        // console.log(emp.data());
+        const data = {
+          hours: emp.data().hours + totalHours
+        };
+        empRef.set(data, {merge: true});
+      });
+    }
+
+    getHalf() {
+      const today = new Date();
+      this.afs.collection(`users/${this.userId}/payPeriod`).valueChanges().subscribe((info) => {
+          console.log(info);
+          info.forEach((eachPP: any) => {
+            const endDate = new Date(eachPP.endDate.seconds * 1000);
+            const startDate = new Date(eachPP.startDate.seconds * 1000);
+            if (today > startDate && today <= endDate) {
+              this.reference = eachPP.ref;
+            }
+        });
+      });
+    }
+
+
+dateobj() {
     const dateObj = new Date().toLocaleDateString();
     return dateObj;
   }
 
 
-  refresh() {
+refresh() {
     this.refreshTable().subscribe((data: JobElement[]) => {
     this.dataSource.data = data;
     });
   }
 
-  refreshTable(): Observable<JobElement[]> {
+refreshTable(): Observable<JobElement[]> {
       return of(this.dataSource.data);
     }
 
 
-  addToTable() {
+addToTable() {
     const data = {
       dateClock: this.dateobj(),
       Job: this.selectedJob,
@@ -187,7 +254,7 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
     console.log(this.dataSource);
   }
 
-  ngOnDestroy() {
+ngOnDestroy() {
     this.subscription.unsubscribe();
     this.clockedInSubscription.unsubscribe();
   }
