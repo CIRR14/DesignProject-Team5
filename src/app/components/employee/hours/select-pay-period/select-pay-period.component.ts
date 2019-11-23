@@ -77,10 +77,12 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.clockedInSubscription = this.afs.doc<ClockHours>(`clockHours/${this.userId}`).valueChanges().subscribe((clockHours) => {
-      this.userClockInfo = clockHours;
-      this.isClockedIn = clockHours.isClockedIn;
-      console.log(this.userClockInfo);
-      this.selectedJob = clockHours.job;
+      if (clockHours) {
+        this.userClockInfo = clockHours;
+        this.isClockedIn = clockHours.isClockedIn;
+        console.log(this.userClockInfo);
+        this.selectedJob = clockHours.job;
+      }
     });
 
     this.subscription = this.afs.collection<Job>(`jobs`).valueChanges().subscribe( jobs => {
@@ -118,16 +120,6 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
     }).catch((err) => {
       alert('COULD NOT CLOCK IN' + err);
     });
-
-
-    // const payPeriodRef = this.afs.doc(`users/${this.userId}/payPeriod/11-2`);
-    // const pPDate = {
-    //   endDate: new Date(),
-    //   startDate: new Date(),
-    //   hours: 0,
-    //   uid: this.userId
-    // };
-    // payPeriodRef.set(pP, {merge: true});
   }
 
   openSnackBar(message: string) {
@@ -208,19 +200,24 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
       });
     }
 
-    getHalf() {
-      const today = new Date();
-      this.afs.collection(`users/${this.userId}/payPeriod`).valueChanges().subscribe((info) => {
-          console.log(info);
-          info.forEach((eachPP: any) => {
-            const endDate = new Date(eachPP.endDate.seconds * 1000);
-            const startDate = new Date(eachPP.startDate.seconds * 1000);
-            if (today > startDate && today <= endDate) {
-              this.reference = eachPP.ref;
-            }
-        });
-      });
-    }
+      getHalf(): string {
+        const currentMonth = new Date().getMonth() + 1;
+        const oneOrTwo = 2;
+        const ref = `${currentMonth}-${oneOrTwo}`;
+        return ref;
+      }
+      // const today = new Date();
+      // this.afs.collection(`users/${this.userId}/payPeriod`).valueChanges().subscribe((info) => {
+      //     console.log(info);
+      //     info.forEach((eachPP: any) => {
+      //       const endDate = new Date(eachPP.endDate.seconds * 1000);
+      //       const startDate = new Date(eachPP.startDate.seconds * 1000);
+      //       if (today > startDate && today <= endDate) {
+      //         this.reference = eachPP.ref;
+      //       }
+      //   });
+      // });
+
 
 
 dateobj() {

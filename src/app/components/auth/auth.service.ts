@@ -108,6 +108,23 @@ private createDefaultUser(defaultUser) {
   userRef.set(data, { merge: true} );
   console.log('Default user created:', data);
 
+  // TODO: Hardcoded -> change this
+  const payPeriodRef = this.afs.doc(`users/${defaultUser.uid}/payPeriod/11-2`);
+  const pPDate = {
+      endDate: new Date(2019, 10, 30),
+      startDate: new Date(2019, 10, 16),
+      hours: 0,
+      uid: defaultUser.uid,
+      ref: '11-2'
+    };
+  payPeriodRef.set(pPDate, {merge: true});
+
+  // const clockHoursRef = this.afs.collection(`clockHours/${defaultUser.uid}`);
+  // const clockHrs = {
+  //   isClockedIn: false
+  // };
+  // clockHoursRef.add(clockHrs);
+
 }
 
 
