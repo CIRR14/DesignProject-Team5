@@ -109,15 +109,36 @@ private createDefaultUser(defaultUser) {
   console.log('Default user created:', data);
 
   // TODO: Hardcoded -> change this
-  const payPeriodRef = this.afs.doc(`users/${defaultUser.uid}/payPeriod/11-2`);
-  const pPDate = {
+  const pp1ref = this.afs.doc(`users/${defaultUser.uid}/payPeriod/11-2`);
+  const pp1 = {
       endDate: new Date(2019, 10, 30),
       startDate: new Date(2019, 10, 16),
       hours: 0,
       uid: defaultUser.uid,
       ref: '11-2'
     };
-  payPeriodRef.set(pPDate, {merge: true});
+  pp1ref.set(pp1, {merge: true});
+
+  const pp2ref = this.afs.doc(`users/${defaultUser.uid}/payPeriod/12-1`);
+  const pp2 = {
+      endDate: new Date(2019, 11, 15),
+      startDate: new Date(2019, 11, 1),
+      hours: 0,
+      uid: defaultUser.uid,
+      ref: '12-1'
+    };
+  pp2ref.set(pp2, {merge: true});
+
+
+  const pp3ref = this.afs.doc(`users/${defaultUser.uid}/payPeriod/12-2`);
+  const pp3 = {
+      endDate: new Date(2019, 11, 31),
+      startDate: new Date(2019, 11, 16),
+      hours: 0,
+      uid: defaultUser.uid,
+      ref: '12-2'
+    };
+  pp3ref.set(pp3, {merge: true});
 
   // const clockHoursRef = this.afs.collection(`clockHours/${defaultUser.uid}`);
   // const clockHrs = {
