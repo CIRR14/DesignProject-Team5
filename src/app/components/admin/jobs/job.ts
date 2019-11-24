@@ -5,4 +5,5 @@ export interface Job {
   id: string;
   description: string;
   jobHours: number;
+  isActive: boolean;
 }

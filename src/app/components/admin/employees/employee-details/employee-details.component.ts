@@ -142,6 +142,10 @@ ngOnDestroy() {
 
 deleteEmployee() {
   const userRef = this.afs.doc(`users/${this.employee.uid}`);
+  const currentMonth = new Date().getMonth() + 1;
+  const availabilityRef = this.afs.doc(`users/${this.employee.uid}/available/${currentMonth}`);
+  availabilityRef.delete();
+
   this.router.navigateByUrl('/admin-view-employees');
 
   setTimeout(() => {

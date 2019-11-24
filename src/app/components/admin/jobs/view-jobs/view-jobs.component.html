@@ -1,18 +1,13 @@
 <mat-card class="container mat-elevation-z8">
-  <mat-card-title> JOBS
+  <mat-card-title> ACTIVE JOBS
     <button mat-raised-button class="add-job-button" [routerLink]="['/admin-jobs/addJob']"> Add Job </button>
   </mat-card-title>
 
+  <mat-card-subtitle> 
+      <mat-checkbox color="primary" [(ngModel)]="isChecked" (change)='OnChange($event)'> Show Inactive Jobs </mat-checkbox>
+  </mat-card-subtitle>
+
   <mat-table #table [dataSource]='dataSource' matSort aria-label="Elements" [class.isMobile]="isMobile">
-     <!-- Id Column -->
-     <!-- <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Job ID</mat-header-cell>
-        <mat-cell *matCellDef="let row">
-            <span class="mobile-label">Job Id:</span>
-          {{row.id}}
-        </mat-cell>
-      </ng-container> -->
-    <!-- Created Column -->
     <ng-container matColumnDef = 'created'>
       <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
       <mat-cell *matCellDef="let row"> 
@@ -65,3 +60,62 @@
   </mat-paginator>
 
 </mat-card>
+
+
+<mat-card  *ngIf="isChecked" class="container mat-elevation-z8">
+  <mat-card-title> INACTIVE JOBS </mat-card-title>
+
+  <mat-table #inactiveTable [dataSource]='inactiveJobs' matSort aria-label="Elements" [class.isMobile]="isMobile">
+    <ng-container matColumnDef = 'created'>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+      <mat-cell *matCellDef="let row"> 
+          <span class="mobile-label">Created:</span>
+          {{row.created.seconds * 1000 | date:'MM/dd'}} 
+      </mat-cell>
+    </ng-container>
+    <!-- Client Name Column -->
+    <ng-container matColumnDef="clientName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Client Name</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+          <span class="mobile-label">Client Name:</span>
+          {{row.clientName}}
+      </mat-cell>
+    </ng-container>
+    <!-- Address Column -->
+    <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <span class="mobile-label">Address:</span>
+            {{row.address}}
+        </mat-cell>
+      </ng-container>
+    <!-- JobHours Column -->
+      <ng-container matColumnDef="jobHours">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Job Hours</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <span class="mobile-label">Job Hours:</span>
+            {{row.jobHours}}
+        </mat-cell>
+      </ng-container>
+    <!-- Description Column -->
+      <ng-container matColumnDef="description">
+          <mat-header-cell *matHeaderCellDef mat-sort-header >Job Description</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+              <span class="mobile-label">Description:</span>
+              {{row.description}}
+          </mat-cell>
+        </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/admin-jobs', row.id]"></mat-row>
+  </mat-table>
+
+    <mat-paginator #paginator
+      [pageIndex]="0"
+      [pageSize]="50"
+      [pageSizeOptions]="[25, 50, 100, 250]">
+  </mat-paginator>
+
+</mat-card>
+

@@ -15,8 +15,8 @@ import { Observable, of as observableOf, merge } from 'rxjs';
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class ViewjobsDataSource extends DataSource<Job> {
-  data: Job[] = [];
+export class ViewInactiveDataSource extends DataSource<Job> {
+  inactive: Job[] = [];
 
   constructor(private paginator: MatPaginator, private sort: MatSort) {
     super();
@@ -31,16 +31,16 @@ export class ViewjobsDataSource extends DataSource<Job> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
-      observableOf(this.data),
+      observableOf(this.inactive),
       this.paginator.page,
       this.sort.sortChange
     ];
 
     // Set the paginator's length
-    this.paginator.length = this.data.length;
+    this.paginator.length = this.inactive.length;
 
     return merge(...dataMutations).pipe(map(() => {
-      return this.getPagedData(this.getSortedData([...this.data]));
+      return this.getPagedData(this.getSortedData([...this.inactive]));
     }));
   }
 

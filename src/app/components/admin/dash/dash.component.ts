@@ -37,7 +37,7 @@ export class DashComponent implements OnInit, OnDestroy {
   dataSource = this.payrollData;
 
   currentDate = new Date();
-  currentMonth = new Date().getMonth() + 1;
+  // currentMonth = new Date().getMonth() + 1;
   currentPayPeriod: string;
 
   constructor(private afs: AngularFirestore, public auth: AuthService) { }
@@ -61,7 +61,7 @@ export class DashComponent implements OnInit, OnDestroy {
   async getInfo() {
     await this.getAllEmployees();
     await this.getAllPayPeriods();
-    this.matchEmpAndPayPeriod();
+    await this.matchEmpAndPayPeriod();
   }
 
   exportAsExcel() {
@@ -74,7 +74,7 @@ export class DashComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loggedInUserSubscription.unsubscribe();
+    // this.loggedInUserSubscription.unsubscribe();
   }
 
   getCurrentPayPeriod(endDate, startDate) {
@@ -108,6 +108,7 @@ export class DashComponent implements OnInit, OnDestroy {
           const pPStartDate = new Date(payPeriod.startDate.seconds * 1000);
           if (this.currentDate > pPStartDate && this.currentDate <= pPEndDate) {
             this.currentPayPeriod = this.getCurrentPayPeriod(pPEndDate, pPStartDate);
+            console.log(payPeriod);
             this.payPeriodData.push(payPeriod);
             resolve();
           }
@@ -117,18 +118,25 @@ export class DashComponent implements OnInit, OnDestroy {
   }
 
   matchEmpAndPayPeriod() {
-    this.userData.forEach((user) => {
-      this.payPeriodData.forEach((payP) => {
-        if (user.uid === payP.uid) {
-          const data: PayrollElement = {
-            name: user.name,
-            rate: user.rate,
-            hours: payP.hours,
-            uid: user.uid
-          };
-          this.payrollData.push(data);
-        }
+    return new Promise((resolve) => {
+      console.log(this.userData, 'USER');
+      console.log(this.payPeriodData, 'PP DATA');
+      this.userData.forEach((user) => {
+        this.payPeriodData.forEach((payP) => {
+          if (user.uid === payP.uid) {
+            const data: PayrollElement = {
+              name: user.name,
+              rate: user.rate,
+              hours: payP.hours,
+              uid: user.uid
+            };
+            console.log('what is this', data);
+            this.payrollData.push(data);
+            resolve();
+          }
+        });
       });
+
     });
   }
 }

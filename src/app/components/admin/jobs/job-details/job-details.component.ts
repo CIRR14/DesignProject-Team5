@@ -30,6 +30,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   // address = new FormControl('', Validators.required);
   jobHours = new FormControl('', Validators.required);
   description = new FormControl('', Validators.required);
+  isActive = new FormControl('', Validators.required);
 
 
   constructor(
@@ -43,7 +44,8 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       clientName: this.clientName,
       // address: this.address,
       jobHours: this.jobHours,
-      description: this.description
+      description: this.description,
+      isActive: this.isActive
     });
   }
 
@@ -60,6 +62,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
         // this.form.controls.address.setValue(this.theJob.address);
         this.form.controls.jobHours.setValue(this.theJob.jobHours);
         this.form.controls.description.setValue(this.theJob.description);
+        this.form.controls.isActive.setValue(this.theJob.isActive);
       },
       err => {
         console.log(err);
@@ -94,7 +97,8 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       address: this.theJob.address,
       id: this.theJob.id,
       description: this.form.value.description,
-      jobHours: this.form.value.jobHours
+      jobHours: this.form.value.jobHours,
+      isActive: this.form.value.isActive
     };
 
     console.log(data);
