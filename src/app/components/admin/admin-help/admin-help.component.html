@@ -1,18 +1,19 @@
 <mat-card>
   <section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
+    <h1> <strong> Frequently Asked Questions</strong></h1>
    <ul class="cd-faq__categories">
-       <button mat-button (click)="scrollToElement(dashboard)">Dashboard</button>
-       <li><a class="cd-faq__category truncate" href="#Employees">Employees</a></li>
-       <li><a class="cd-faq__category truncate" href="#Check availabilities">Check availabilities</a></li>
-       <li><a class="cd-faq__category truncate" href="#Jobs">Jobs</a></li>
-       <li><a class="cd-faq__category truncate" href="#Export">Export</a></li>
+      <button mat-button (click)="scrollToElement(dashboard)">Dashboard</button>
+      <button mat-button (click)="scrollToElement(employees)">Employees</button>
+      <button mat-button (click)="scrollToElement(checkavailabilities)">Check Availabilities</button>
+      <button mat-button (click)="scrollToElement(jobs)">Jobs</button>
+      <button mat-button (click)="scrollToElement(export)">Export</button>
    </ul> <!-- cd-faq__categories -->
    
    <div class="cd-faq__items">
        <ul #dashboard class="top">
-           <li class="cd-faq__title"><h2>Dashboard</h2></li>
+           <h2>Dashboard</h2>
            <li class="cd-faq__item">
-               <a class="cd-faq__trigger" href="#0"><span>What's in the Dashboard?</span></a>
+               <a class="cd-faq__trigger"><span>What's in the Dashboard?</span></a>
                <div class="cd-faq__content">
          <div class="text-component">
            <p>The Dashboard displays all current employees, their rate of pay, hours worked and their total pay for the hours worked. After everything is verified, you can also export it as a PDF by clicking Export on the top right</p>
@@ -22,10 +23,11 @@
    
        </ul> <!-- cd-faq__group -->
    
-       <ul id="Employees" class="cd-faq__group">
-           <li class="cd-faq__title"><h2>Employees</h2></li>
+
+       <ul #employees class="middle">
+           <h2>Employees</h2>
            <li class="cd-faq__item">
-               <a class="cd-faq__trigger" href="#0"><span>What does the employee tab have?</span></a>
+               <a class="cd-faq__trigger" ><span>What does the employee tab have?</span></a>
                <div class="cd-faq__content">
          <div class="text-component">
            <p>Employees tab is where you can manage your employees. You can assign roles of either an emploee or an admin. This is also the place to verify an employee. Another feature of the Employees tab is to change rate of pay. </p>
@@ -35,10 +37,11 @@
    
        </ul> <!-- cd-faq__group -->
    
-       <ul id="Check availabilities" class="cd-faq__group">
-           <li class="cd-faq__title"><h2>Check availabilities</h2></li>
+
+       <ul #checkavailabilities class="middle1">
+           <h2>Check Availabilities</h2>
            <li class="cd-faq__item">
-               <a class="cd-faq__trigger" href="#0"><span>How do I check availabilities of my employees?</span></a>
+               <a class="cd-faq__trigger" ><span>How do I check availabilities of my employees?</span></a>
                <div class="cd-faq__content">
          <div class="text-component">
            <p>You can check employees availability from the Availabilities tab.</p>
@@ -46,10 +49,12 @@
                </div> <!-- cd-faq__content -->
            </li>
        </ul> <!-- cd-faq__group -->
-       <ul id="Jobs" class="cd-faq__group">
-         <li class="cd-faq__title"><h2>Jobs</h2></li>
+       
+       
+       <ul #jobs class="middle2">
+         <h2>Jobs</h2>
          <li class="cd-faq__item">
-             <a class="cd-faq__trigger" href="#0"><span>How do I create a job?</span></a>
+             <a class="cd-faq__trigger"><span>How do I create a job?</span></a>
              <div class="cd-faq__content">
        <div class="text-component">
          <p>The Jobs tab has all the created jobs. You can also add a new job by clicking add job at the top right corner</p>
@@ -57,10 +62,12 @@
              </div> <!-- cd-faq__content -->
          </li>
        </ul> <!-- cd-faq__group -->
-       <ul id="Export" class="cd-faq__group">
-         <li class="cd-faq__title"><h2>Export</h2></li>
+       
+       
+       <ul #export class="buttom">
+         <h2>Export</h2>
          <li class="cd-faq__item">
-             <a class="cd-faq__trigger" href="#0"><span>How do I export document after everything is verified?</span></a>
+             <a class="cd-faq__trigger"><span>How do I export document after everything is verified?</span></a>
              <div class="cd-faq__content">
        <div class="text-component">
          <p>You can use the export function located in the Dashboard.</p>
