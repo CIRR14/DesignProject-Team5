@@ -51,7 +51,6 @@ constructor(
   }
 
   OnChange($event) {
-
       console.log($event);
       console.log(this.isChecked);
   }

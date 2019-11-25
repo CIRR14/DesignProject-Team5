@@ -1,4 +1,4 @@
-<mat-card class="example-card">
+<mat-card *ngIf="userClockInfo; else spinner" class="example-card">
 
   <p class="form-inline1">
       <mat-form-field>
@@ -10,17 +10,14 @@
       </mat-select>
       </mat-form-field>
 
-  <div>
-  <p>
-      <button mat-raised-button  id="clockIn" (click)="clockingIn()"  [disabled]="isClockedIn">Clock In</button>
-             
-  </p>
-  
-  <p>
-      <button mat-raised-button  id="clockOut"  (click)="clockingOut()" [disabled]="!isClockedIn">Clock Out</button>
-  </p>
+  <div class="clock-buttons">
+      <button mat-raised-button color="primary" id="clockIn" (click)="clockingIn()"  [disabled]="isClockedIn">Clock In</button>
+      <button mat-raised-button color="primary" id="clockOut"  (click)="clockingOut()" [disabled]="!isClockedIn">Clock Out</button>
   </div>
-  
+
+  <mat-card-subtitle style="text-align: center" *ngIf="isClockedIn"> You clocked in at {{ userClockInfo.clockInDate.seconds * 1000 | date: 'hh:mm a' }} on {{ userClockInfo.clockInDate.seconds * 1000 | date: 'MM/dd/yyyy'  }}</mat-card-subtitle>
+  <mat-card-subtitle style="text-align: center" *ngIf="!isClockedIn"> You clocked out at {{ userClockInfo.clockOutDate.seconds * 1000 | date: 'hh:mm a' }} on {{ userClockInfo.clockOutDate.seconds * 1000 | date: 'MM/dd/yyyy' }}</mat-card-subtitle>
+
   
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -66,4 +63,11 @@
   </div>
   
   </mat-card>
+
+  <ng-template #spinner class="spinner">
+    <mat-spinner> Loading </mat-spinner>
+  </ng-template>
+
+
+
   

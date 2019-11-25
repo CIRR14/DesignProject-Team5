@@ -54,9 +54,7 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
   user = this.auth.currentUser;
   userId = this.auth.currentUser.uid;
 
-  jobOptions: JobOption[] = [
-    {value: 'Default', viewValue: 'Any Job'}
-  ];
+  jobOptions: JobOption[] = [];
 
   clockedIn;
   clockedOut;
@@ -65,7 +63,7 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
   isClockedIn: boolean;
   userClockInfo: ClockHours;
 
-  selectedJob = 'Any Job';
+  selectedJob = '1ANY';
 
   static = true;
 
@@ -87,11 +85,13 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
 
     this.subscription = this.afs.collection<Job>(`jobs`).valueChanges().subscribe( jobs => {
       jobs.forEach((job) => {
+        if (job.isActive === true) {
         const data: JobOption = {
           value: job.id,
           viewValue: job.address
         };
         this.jobOptions.push(data);
+        }
       });
     });
     this.dataSource.paginator = this.paginator;
@@ -115,7 +115,7 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
       clockOutDate: new Date()
     };
     clockRef.set(data, {merge: true}).then(() => {
-      const message = `Clocked in at ${moment().format('hh:mm:ss')}`;
+      const message = `Clocked in at ${moment().format('hh:mm:ss a')}`;
       this.openSnackBar(message);
     }).catch((err) => {
       alert('COULD NOT CLOCK IN' + err);
@@ -141,7 +141,7 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
       job: this.selectedJob
     };
     clockRef.set(data, {merge: true}).then(() => {
-      const message = `Clocked out at ${moment().format('hh:mm:ss')}`;
+      const message = `Clocked out at ${moment().format('hh:mm:ss a')}`;
       this.openSnackBar(message);
       this.addToTable();
       // ADD this.hoursWorked to job id totalHours;
