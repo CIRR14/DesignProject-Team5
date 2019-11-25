@@ -29,7 +29,8 @@ export class AddJobComponent implements OnInit {
       address: this.job.address,
       id: this.job.id,
       description: this.job.description,
-      jobHours: this.getJobHours(this.job.id)
+      jobHours: this.getJobHours(this.job.id),
+      isActive: true
     };
     jobRef.set(data, {merge: true})
       .then(() => {

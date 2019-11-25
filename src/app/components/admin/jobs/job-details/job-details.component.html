@@ -31,6 +31,13 @@
         </mat-form-field>
 
         <mat-form-field>
+          <mat-select matInput placeholder="Status" formControlName="isActive" >
+            <mat-option [value]=true> Active </mat-option>
+            <mat-option [value]=false> Inactive </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
             <textarea matInput placeholder="description" formControlName="description" rows="5" maxLength="300"> {{theJob.description}}</textarea>
           </mat-form-field>
 
