@@ -63,6 +63,64 @@
   </div>
   
   </mat-card>
+<!-- TRIS manually enter data -->
+
+
+<mat-card>
+    <p class="form-inline1">
+        <mat-form-field>
+        <mat-label>Please select a job</mat-label>
+        <mat-select [disabled]="isClockedIn" [(value)]="selectedJob" required>
+          <mat-option *ngFor="let job of jobOptions" [value]="job.value">
+            {{job.viewValue}}
+          </mat-option>
+        </mat-select>
+        </mat-form-field>   
+    
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+    
+    <div class="example-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    
+    
+        <ng-container matColumnDef="Job" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Job ID</th>
+        <td mat-cell *matCellDef="let element"> {{element.Job}} </td>
+        </ng-container>
+    
+    
+        <ng-container matColumnDef="dateClock" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.dateClock}} </td>
+        </ng-container>
+    
+    
+        <ng-container matColumnDef="clockI" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Clock In </th>
+        <td mat-cell *matCellDef="let element"> {{element.clockI }} </td>
+        </ng-container>
+    
+    
+        <ng-container matColumnDef="clockO" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Clock Out </th>
+        <td mat-cell *matCellDef="let element"> {{element.clockO}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="Hoursworked" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Hours Worked </th>
+        <td mat-cell *matCellDef="let element"> {{element.Hoursworked}} hours </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+    
+    </mat-card>
 
   <ng-template #spinner class="spinner">
     <mat-spinner> Loading </mat-spinner>
