@@ -1,16 +1,17 @@
+<mat-card>
 <section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
   <ul class="cd-faq__categories">
-      <li><a class="cd-faq__category truncate" >ClockIn/out</a></li>
-      <li><a class="cd-faq__category truncate">Availability</a></li>
-      <li><a class="cd-faq__category truncate">Sign In/Out</a></li>
-     
-  </ul> <!-- cd-faq__categories -->
+    <button mat-button (click)="scrollToElement(clock)">ClockIn/Out</button>
+    <button mat-button (click)="scrollToElement(availability)">Availability</button>
+    <button mat-button (click)="scrollToElement(signout)">SignIn/Out of App</button>
+
+     </ul> <!-- cd-faq__categories -->
   
   <div class="cd-faq__items">
-      <ul id="ClockIn/out" class="cd-faq__group">
-          <li class="cd-faq__title"><h2>ClockIn/Out</h2></li>
+      <ul #clock class="top">
+          <h2>ClockIn/Out</h2>
           <li class="cd-faq__item">
-              <a class="cd-faq__trigger"><span>How do I Clock In and Out?</span></a>
+              <a class="cd-faq__trigger"><span><strong>How do I Clock In and Out?</strong></span></a>
               <div class="cd-faq__content">
         <div class="text-component">
           <p>You Can Clock In from the Clock Hours tab by pressing the Clock In button.</p>
@@ -20,23 +21,32 @@
           </li>
       </ul> <!-- cd-faq__group -->
   
-      <ul id="Availability" class="cd-faq__group">
-          <li class="cd-faq__title"><h2>Availability</h2></li>
+      <ul #availability class="middle">
+          <h2>Availability</h2>
           <li class="cd-faq__item">
-              <a class="cd-faq__trigger"><span>How do I submit my availabilities?</span></a>
+              <a class="cd-faq__trigger"><span><strong>How do I submit my availabilities?</strong></span></a>
               <div class="cd-faq__content">
         <div class="text-component">
           <p>You can submit availabilities by clicking on Availability tab. Just select the dates you are available to work and click submit.</p>
         </div>
               </div> <!-- cd-faq__content -->
           </li>
+          <li class="cd-faq__item">
+            <a class="cd-faq__trigger"><span><strong>How do I change my availabilities after its submitted?</strong></span></a>
+            <div class="cd-faq__content">
+      <div class="text-component">
+        <p>You can change availabilities by clicking on Availability tab. Just unselect the dates you already submitted and select the ones available to work and click submit.</p>
+        <p> The Date automatically turns red once its selected and stays red when submitted.</p>
+      </div>
+            </div> <!-- cd-faq__content -->
+        </li>
   
       </ul> <!-- cd-faq__group -->
   
-      <ul id="Sign In/Out" class="cd-faq__group">
-          <li class="cd-faq__title"><h2>Sign In/Out</h2></li>
+      <ul #signout class="buttom">
+          <h2>Sign In/Out of App</h2>
           <li class="cd-faq__item">
-              <a class="cd-faq__trigger"><span>How do I sign in and out?</span></a>
+              <a class="cd-faq__trigger"><span><strong>How do I sign in and out?</strong></span></a>
               <div class="cd-faq__content">
         <div class="text-component">
           <p>You can sign in to the app using your gmail account.</p>
@@ -55,7 +65,7 @@
   
  <div class="cd-faq__overlay" aria-hidden="true"></div>
  </section> <!-- cd-faq -->
-  
+</mat-card>
   
  
  
