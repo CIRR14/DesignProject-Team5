@@ -59,7 +59,8 @@ export class EmployeeAvailabilityComponent implements OnInit {
     const data = {
       title: this.currentUser.displayName,
       userId: this.currentUser.uid,
-      available: this.availableDates
+      available: this.availableDates,
+      ref: this.currentMonth
     };
 
     if (this.availableDates.length > 0 ) {
@@ -80,12 +81,16 @@ export class EmployeeAvailabilityComponent implements OnInit {
     const myAvailability = [];
 
     this.getAvail = employeeAvailRef.get()
-      .subscribe((data) => {
-        data.data().available.forEach(timestamp => {
-          const timestamps = new Date(timestamp.seconds * 1000);
-          myAvailability.push(timestamps);
-        });
-        this.dateValues = myAvailability;
+      .subscribe((data) => { 
+        if(data.data()) {
+          data.data().available.forEach(timestamp => {
+            const timestamps = new Date(timestamp.seconds * 1000);
+            myAvailability.push(timestamps);
+          });
+          this.dateValues = myAvailability;
+        } else {
+          console.log('no availability yet');
+        }
       });
     return myAvailability;
   }

@@ -20,6 +20,17 @@
   display: none;
 }
 
+mat-card-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+mat-icon {
+  padding-left: 20px;
+  padding-top: 3px;
+}
+
 @media(max-width: 600px) {
   .mobile-label {
     width: 80px;

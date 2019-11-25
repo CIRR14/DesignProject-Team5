@@ -142,9 +142,22 @@ ngOnDestroy() {
 
 deleteEmployee() {
   const userRef = this.afs.doc(`users/${this.employee.uid}`);
-  const currentMonth = new Date().getMonth() + 1;
-  const availabilityRef = this.afs.doc(`users/${this.employee.uid}/available/${currentMonth}`);
-  availabilityRef.delete();
+
+  this.afs.collection(`users/${this.employee.uid}/available`).valueChanges().subscribe((eachAv) => {
+    eachAv.forEach((val: any) => {
+      console.log(val.ref);
+      const availabilityRef = this.afs.doc(`users/${this.employee.uid}/available/${val.ref}`);
+      availabilityRef.delete();
+    });
+    });
+
+  this.afs.collection(`users/${this.employee.uid}/payPeriod`).valueChanges().subscribe((eachPp) => {
+      eachPp.forEach((val: any) => {
+        console.log(val.ref);
+        const payperiodRef = this.afs.doc(`users/${this.employee.uid}/payPeriod/${val.ref}`);
+        payperiodRef.delete();
+      });
+      });
 
   this.router.navigateByUrl('/admin-view-employees');
 

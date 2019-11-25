@@ -82,7 +82,7 @@ export class DashComponent implements OnInit, OnDestroy {
     // this.loggedInUserSubscription.unsubscribe();
   }
 
-  async test($event) {
+  async change($event) {
       // this.payPeriodData = [];
       // this.userData = [];
       this.payPeriodData = [];
@@ -148,7 +148,6 @@ export class DashComponent implements OnInit, OnDestroy {
           }
         });
       });
-
     });
   }
 
