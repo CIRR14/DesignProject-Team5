@@ -67,13 +67,17 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
 
   static = true;
 
-  reference = this.getHalf();
+  currentDate = new Date();
+
+  reference;
+  
 
 
   constructor(private _snackBar: MatSnackBar, private afs: AngularFirestore, private auth: AuthService) {}
 
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.reference = await this.getHalf();
     this.clockedInSubscription = this.afs.doc<ClockHours>(`clockHours/${this.userId}`).valueChanges().subscribe((clockHours) => {
       if (clockHours) {
         this.userClockInfo = clockHours;
@@ -192,7 +196,7 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
       const empRef = this.afs.doc(`users/${empId}/payPeriod/${half}`);
 
       empRef.get().subscribe((emp) => {
-        // console.log(emp.data());
+        console.log(emp.data());
         const data = {
           hours: emp.data().hours + totalHours
         };
@@ -200,11 +204,23 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
       });
     }
 
-      getHalf(): string {
-        const currentMonth = new Date().getMonth() + 1;
-        const oneOrTwo = 2;
-        const ref = `${currentMonth}-${oneOrTwo}`;
-        return ref;
+      async getHalf(): Promise<string> {
+        return new Promise((resolve) => {
+
+          let half;
+          this.afs.collectionGroup(`payPeriod`).valueChanges().subscribe((payPeriods) => {
+            payPeriods.forEach((payPeriod: any) => {
+              const pPEndDate = new Date(payPeriod.endDate.seconds * 1000);
+              const pPStartDate = new Date(payPeriod.startDate.seconds * 1000);
+              if (this.currentDate > pPStartDate && this.currentDate <= pPEndDate) {
+                console.log(payPeriod.ref);
+                half = payPeriod.ref;
+                resolve(half);
+              }
+            });
+          });
+          console.log('this is half', half);
+        });
       }
       // const today = new Date();
       // this.afs.collection(`users/${this.userId}/payPeriod`).valueChanges().subscribe((info) => {

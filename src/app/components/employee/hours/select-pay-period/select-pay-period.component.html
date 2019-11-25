@@ -10,14 +10,16 @@
       </mat-select>
       </mat-form-field>
 
+      
   <div class="clock-buttons">
       <button mat-raised-button color="primary" id="clockIn" (click)="clockingIn()"  [disabled]="isClockedIn">Clock In</button>
       <button mat-raised-button color="primary" id="clockOut"  (click)="clockingOut()" [disabled]="!isClockedIn">Clock Out</button>
   </div>
 
   <mat-card-subtitle style="text-align: center" *ngIf="isClockedIn"> You clocked in at {{ userClockInfo.clockInDate.seconds * 1000 | date: 'hh:mm a' }} on {{ userClockInfo.clockInDate.seconds * 1000 | date: 'MM/dd/yyyy'  }}</mat-card-subtitle>
-  <mat-card-subtitle style="text-align: center" *ngIf="!isClockedIn"> You clocked out at {{ userClockInfo.clockOutDate.seconds * 1000 | date: 'hh:mm a' }} on {{ userClockInfo.clockOutDate.seconds * 1000 | date: 'MM/dd/yyyy' }}</mat-card-subtitle>
-
+  <mat-card-subtitle style="text-align: center" *ngIf="!isClockedIn"> You clocked out at {{ userClockInfo.clockOutDate.seconds * 1000 | date: 'hh:mm a' }} on {{ userClockInfo.clockOutDate.seconds * 1000 | date: 'MM/dd/yyyy' }}
+      <span *ngIf="hoursWorked"> for a total of {{ hoursWorked }} hours </span>
+      </mat-card-subtitle>
   
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
