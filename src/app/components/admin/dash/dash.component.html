@@ -14,6 +14,11 @@
       {{currentPayPeriod}}
     </mat-card-subtitle>
 
+    <mat-card-subtitle>
+      Change pay period
+      <ejs-datepicker #datepicker [(value)]='currentDate' [showClearButton]=false (change)='test($event)'></ejs-datepicker>
+    </mat-card-subtitle>
+
   <mat-card-content>
     <div #TABLE>
     <table *ngIf="payrollData.length > 1" mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
