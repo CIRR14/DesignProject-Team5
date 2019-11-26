@@ -108,6 +108,17 @@ private createDefaultUser(defaultUser) {
   userRef.set(data, { merge: true} );
   console.log('Default user created:', data);
 
+  //Create clockHours 
+  const clockHourRef = this.afs.doc(`clockHours/${defaultUser.uid}`);
+  const clockHrData = {
+    isClockedIn : false,
+    totalHours: 0,
+    clockInDate: new Date(),
+    clockOutDate: new Date(),
+    job: '1ANY'
+  };
+  clockHourRef.set(clockHrData, { merge: true });
+
   // TODO: Hardcoded -> change this
   const pp1ref = this.afs.doc(`users/${defaultUser.uid}/payPeriod/11-2`);
   const pp1 = {
