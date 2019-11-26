@@ -1,7 +1,6 @@
 <mat-card class="mat-elevation-z8">
     <mat-card-title> AVAILABILITIES </mat-card-title>
     <mat-card-subtitle> These are the dates your employees are available in the month </mat-card-subtitle>
-    <ejs-datepicker #datepicker [(value)]='selectedDate' [showClearButton]=false></ejs-datepicker>
 
             <ejs-schedule *ngIf="eventsLoaded && usersLoaded" #scheduleObj cssClass='schedule-resource' width='100%' height='650px' [selectedDate]="selectedDate"
             [eventSettings]="eventSettings" [currentView]="currentView" (dataBinding)="getEvents($event)" [showHeaderBar]="showHeaderBar">
