@@ -21,9 +21,9 @@ export class EmployeeAvailabilityComponent implements OnInit {
   public today: number = new Date().getDate();
   public dateValues: Date[] = [];
   public multiSelect = true;
-  public dateValue: Date = new Date(this.fullYear, this.month , 11);
+  public dateValue: Date = new Date(this.fullYear, this.month , this.today);
   public minDate: Date = new Date(this.fullYear, this.month, this.today + 1);
-  public maxDate: Date = new Date(this.fullYear, this.month, 31);
+  public maxDate: Date = new Date(this.fullYear, this.month + 1, 31);
 
   availableDates = [];
   selectedDate;
