@@ -30,16 +30,16 @@ button {
 	text-align: center;
 }
 
-#daypicker.mat-form-field{
-	width: 50%;
+.created {
+	width: 20%;
+	margin-right: 15%;
 }
 
-#editable td, #editable th{
-    width: auto;
+.job {
+	width: 20%;
+	margin-right: 15%;
 }
 
-#joboption.mat-select {
-	font-size: 14px;
-	width: 50%;
+.hours {
+	width: 20%;
 }
-

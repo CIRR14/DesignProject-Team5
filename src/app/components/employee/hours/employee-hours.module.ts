@@ -1,3 +1,4 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmployeeComponent } from './../employee/employee.component';
 import { AppMaterialModule } from './../../../shared/app-material.module';
 import { NgModule } from '@angular/core';
@@ -12,7 +13,9 @@ import { SelectPayPeriodComponent } from './select-pay-period/select-pay-period.
   imports: [
     CommonModule,
     EmployeeHoursRoutingModule,
-    AppMaterialModule
+    AppMaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [EmployeeComponent, ClockHoursComponent, SelectPayPeriodComponent],
   exports: [EmployeeComponent, ClockHoursComponent, SelectPayPeriodComponent]
