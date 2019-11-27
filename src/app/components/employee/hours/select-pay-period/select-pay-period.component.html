@@ -22,11 +22,11 @@
       <br/>
       <span *ngIf="hoursWorked"> on {{ userClockInfo.job }} </span>
       <br/>
-      <mat-checkbox color="primary" [(ngModel)]="showForm"> Forgot to clock in? Check this box to add hours </mat-checkbox>
+      <mat-checkbox [disabled]="isClockedIn" color="primary" [(ngModel)]="showForm"> Forgot to clock in? Check this box to add hours </mat-checkbox>
       </mat-card-subtitle>
 
 
-      <form *ngIf="showForm" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <form *ngIf="showForm && !isClockedIn" [formGroup]="form" (ngSubmit)="onSubmit()">
         <mat-card class="job-card">
           <mat-card-title>
             Add hours
