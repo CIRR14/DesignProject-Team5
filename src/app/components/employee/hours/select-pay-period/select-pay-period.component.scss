@@ -1,5 +1,6 @@
 table {
 	width: 100%;
+	table-layout: fixed;
   }
 
 button {
@@ -27,5 +28,18 @@ button {
 
 .spinner { 
 	text-align: center;
+}
+
+#daypicker.mat-form-field{
+	width: 50%;
+}
+
+#editable td, #editable th{
+    width: auto;
+}
+
+#joboption.mat-select {
+	font-size: 14px;
+	width: 50%;
 }
 

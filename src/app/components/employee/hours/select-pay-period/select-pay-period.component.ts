@@ -3,19 +3,21 @@ import { Job } from './../../../admin/jobs/job';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { Observable, of, Subscription } from 'rxjs';
 import * as moment from 'moment';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormControl } from '@angular/forms';
+import { supportsWebAnimations } from '@angular/animations/browser/src/render/web_animations/web_animations_driver';
+import { updateBlazorTemplate } from '@syncfusion/ej2-base';
+
 
 
 
 interface JobElement {
   dateClock: any;
   Job: string;
-  clockI: any;
-  clockO: any;
   Hoursworked: any;
 }
 
@@ -44,13 +46,16 @@ const element: JobElement[] = [];
 
 
 export class SelectPayPeriodComponent implements OnInit, OnDestroy {
-  @ViewChild(MatPaginator, {}) paginator: MatPaginator;
-  @ViewChild(MatSort, {}) sort: MatSort;
+
   subscription: Subscription;
   userSubscription: Subscription;
   clockedInSubscription: Subscription;
-  displayedColumns: string[] = ['Job', 'dateClock', 'clockI', 'clockO', 'Hoursworked'];
+  displayedColumns: string[] = ['Job', 'dateClock','Hoursworked'];
   dataSource = new MatTableDataSource<JobElement>(element);
+  @ViewChild(MatPaginator, {}) paginator: MatPaginator;
+  @ViewChild(MatSort, {}) sort: MatSort;
+  static:boolean = true;
+
   user = this.auth.currentUser;
   userId = this.auth.currentUser.uid;
 
@@ -65,18 +70,19 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
 
   selectedJob = '1ANY';
 
-  static = true;
-
   currentDate = new Date();
 
   reference;
   
-
+  date = new FormControl(new Date());
+  serializedDate = new FormControl((new Date()).toISOString());
 
   constructor(private _snackBar: MatSnackBar, private afs: AngularFirestore, private auth: AuthService) {}
 
 
-  async ngOnInit() {
+  async ngOnInit() {   
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     this.reference = await this.getHalf();
     this.clockedInSubscription = this.afs.doc<ClockHours>(`clockHours/${this.userId}`).valueChanges().subscribe((clockHours) => {
       if (clockHours) {
@@ -98,16 +104,17 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
         }
       });
     });
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+ 
   }
+
+
 
 
   applyFilter(filterValue: string) {
   this.dataSource.filter = filterValue.trim().toLowerCase();
 }
-
-
+  
+ 
 
   clockingIn() {
     const clockRef = this.afs.doc(`clockHours/${this.userId}`);
@@ -147,7 +154,7 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
     clockRef.set(data, {merge: true}).then(() => {
       const message = `Clocked out at ${moment().format('hh:mm:ss a')}`;
       this.openSnackBar(message);
-      this.addToTable();
+      // this.addToTable();
       // ADD this.hoursWorked to job id totalHours;
       this.addHrsToJob(this.hoursWorked, data.job);
       // ADD this.hoursWorked to employee -> payroll -> [month-half] -> hours
@@ -255,14 +262,12 @@ refreshTable(): Observable<JobElement[]> {
 
 addToTable() {
     const data = {
-      dateClock: this.dateobj(),
       Job: this.selectedJob,
-      clockI: this.clockedIn,
-      clockO:  this.clockedOut,
+      dateClock: this.dateobj(),
       Hoursworked: this.hoursWorked
     };
 
-    this.dataSource.data.push(data);
+    this.dataSource.data.unshift(data);
     this.refresh();
     console.log(this.dataSource);
   }
@@ -272,5 +277,40 @@ ngOnDestroy() {
     this.clockedInSubscription.unsubscribe();
   }
 
+onKey(event) {
+  const inputValue = event.target.value;
+}
+  
+insubmit(){
+  // console.log(this.);
+
+  // const data:  = {
+
+  };
+  
+  
 }
 
+
+// onSubmit() {
+//   console.log(this.job);
+
+//   const jobRef = this.as.doc(`jobs/${this.job.id}`);
+//   const data: Job = {
+//     created: this.job.created,
+//     clientName: this.job.clientName,
+//     address: this.job.address,
+//     id: this.job.id,
+//     description: this.job.description,
+//     jobHours: this.getJobHours(this.job.id),
+//     isActive: true
+//   };
+//   jobRef.set(data, {merge: true})
+//     .then(() => {
+//     this.service.successMessage('Successfully Added!', 'dismiss');
+//     this.router.navigateByUrl('admin-jobs');
+//   }).catch((err) => {
+//     console.log(err);
+//     this.service.errorMessage('Error adding job!', 'dismiss');
+//   });
+// }
