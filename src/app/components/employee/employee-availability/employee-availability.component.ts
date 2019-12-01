@@ -67,7 +67,7 @@ export class EmployeeAvailabilityComponent implements OnInit {
         availabilityRef.set(data, {merge: true}).then(() => {
           this.openDialog();
         }).catch(() => {
-          alert('AVAILABILITY NOT SUBMITTED. PLEASE TRY AGAIN')
+          alert('AVAILABILITY NOT SUBMITTED. PLEASE TRY AGAIN');
         });
     } else {
       console.log('please select dates that you are available');

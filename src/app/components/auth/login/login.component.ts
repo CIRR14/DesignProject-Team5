@@ -22,15 +22,6 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit() {
-    // this.authService.checkLoginStatus()
-    //   .subscribe(val => this.isLoggedIn = val);
-
-    // this.authService.getLoggedUser()
-    //       .subscribe( user => {
-    //           console.log(user);
-    //           this.user = user;
-    //   });
-
     this.authService.user$.subscribe((userRepsonse) => {
       if (userRepsonse) {
         this.isLoggedIn = true;
@@ -43,20 +34,5 @@ export class LoginComponent implements OnInit {
 
 
   }
-
-  // login() {
-  //   this.authService.login()
-  //   .subscribe((data) => {
-  //     console.log (data);
-  //     this.isLoggedIn = data;
-
-  //     this.router.navigate(['/dash']);
-  //   });
-  // }
-
-  // logout() {
-  //   this.authService.logout();
-  //   this.isLoggedIn = false;
-  // }
 
 }

@@ -2,7 +2,7 @@
 
     <mat-card-actions>
         <button mat-stroked-button [routerLink]="['/admin-view-employees']" routerDirection="backward">Back</button>
-        <button mat-raised-button position="end" class="delete-employee" color="warn" (click)="deleteEmployee()"> DELETE EMPLOYEE </button>
+        <button mat-raised-button position="end" class="delete-employee" color="warn" (click)="openDialog()"> DELETE EMPLOYEE </button>
       </mat-card-actions>
 
   <mat-card-title > {{ employee.displayName }} / {{employee.empID}}</mat-card-title>

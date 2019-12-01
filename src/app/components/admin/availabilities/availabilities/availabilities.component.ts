@@ -152,10 +152,6 @@ if (width > 730) {
   }
   }
 
-  onPopupOpen() {
-    console.log('hello');
-  }
-
   ngOnDestroy() {
    this.employeeSubscription.unsubscribe();
    this.eventSubscription.unsubscribe();
