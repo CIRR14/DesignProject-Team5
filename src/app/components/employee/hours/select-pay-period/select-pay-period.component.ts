@@ -3,19 +3,21 @@ import { Job } from './../../../admin/jobs/job';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { Observable, of, Subscription } from 'rxjs';
 import * as moment from 'moment';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { supportsWebAnimations } from '@angular/animations/browser/src/render/web_animations/web_animations_driver';
+import { updateBlazorTemplate } from '@syncfusion/ej2-base';
+
 
 
 
 interface JobElement {
   dateClock: any;
   Job: string;
-  clockI: any;
-  clockO: any;
   Hoursworked: any;
 }
 
@@ -44,13 +46,16 @@ const element: JobElement[] = [];
 
 
 export class SelectPayPeriodComponent implements OnInit, OnDestroy {
-  @ViewChild(MatPaginator, {}) paginator: MatPaginator;
-  @ViewChild(MatSort, {}) sort: MatSort;
+
   subscription: Subscription;
   userSubscription: Subscription;
   clockedInSubscription: Subscription;
-  displayedColumns: string[] = ['Job', 'dateClock', 'clockI', 'clockO', 'Hoursworked'];
+  displayedColumns: string[] = ['Job', 'dateClock', 'Hoursworked'];
   dataSource = new MatTableDataSource<JobElement>(element);
+  @ViewChild(MatPaginator, {}) paginator: MatPaginator;
+  @ViewChild(MatSort, {}) sort: MatSort;
+  static = true;
+
   user = this.auth.currentUser;
   userId = this.auth.currentUser.uid;
 
@@ -65,18 +70,35 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
 
   selectedJob = '1ANY';
 
-  static = true;
-
   currentDate = new Date();
 
   reference;
-  
 
+  form: FormGroup;
 
-  constructor(private _snackBar: MatSnackBar, private afs: AngularFirestore, private auth: AuthService) {}
+  job = new FormControl('', Validators.required);
+  date = new FormControl('', Validators.required);
+  hours = new FormControl('', Validators.required);
+  showForm: boolean = false;
+
+  // date = new FormControl(new Date(), Validators.required);
+  // job = new FormControl('', Validators.required);
+  // serializedDate = new FormControl((new Date()).toISOString());
+  // inputValue = 0;
+
+  constructor(private _snackBar: MatSnackBar, private afs: AngularFirestore, private auth: AuthService,
+              private fb: FormBuilder) {
+      this.form = fb.group({
+        job: this.job,
+        date: this.date,
+        hours: this.hours
+      });
+    }
 
 
   async ngOnInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     this.reference = await this.getHalf();
     this.clockedInSubscription = this.afs.doc<ClockHours>(`clockHours/${this.userId}`).valueChanges().subscribe((clockHours) => {
       if (clockHours) {
@@ -98,9 +120,10 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
         }
       });
     });
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+
   }
+
+
 
 
   applyFilter(filterValue: string) {
@@ -147,7 +170,7 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
     clockRef.set(data, {merge: true}).then(() => {
       const message = `Clocked out at ${moment().format('hh:mm:ss a')}`;
       this.openSnackBar(message);
-      this.addToTable();
+      // this.addToTable();
       // ADD this.hoursWorked to job id totalHours;
       this.addHrsToJob(this.hoursWorked, data.job);
       // ADD this.hoursWorked to employee -> payroll -> [month-half] -> hours
@@ -189,7 +212,18 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
     }
 
 
-   async addHrsToEmployee(totalHours, empId) {
+   async addHrsToEmployee(totalHours, empId, ref?) {
+     if (ref) {
+      console.log('im in ref');
+      const empRef = this.afs.doc(`users/${empId}/payPeriod/${ref}`);
+      empRef.get().subscribe((emp) => {
+        console.log(emp.data());
+        const data = {
+          hours: emp.data().hours + totalHours
+        };
+        empRef.set(data, {merge: true});
+      });
+     } else {
       console.log(totalHours, 'AND', empId);
       const month = new Date().getMonth() + 1;
       const half = this.reference;
@@ -202,6 +236,7 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
         };
         empRef.set(data, {merge: true});
       });
+    }
     }
 
       async getHalf(): Promise<string> {
@@ -255,14 +290,12 @@ refreshTable(): Observable<JobElement[]> {
 
 addToTable() {
     const data = {
-      dateClock: this.dateobj(),
       Job: this.selectedJob,
-      clockI: this.clockedIn,
-      clockO:  this.clockedOut,
-      Hoursworked: this.hoursWorked
+      dateClock: this.dateobj(),
+      Hoursworked: 0
     };
 
-    this.dataSource.data.push(data);
+    this.dataSource.data.unshift(data);
     this.refresh();
     console.log(this.dataSource);
   }
@@ -272,5 +305,61 @@ ngOnDestroy() {
     this.clockedInSubscription.unsubscribe();
   }
 
+
+async onSubmit() {
+  console.log(this.form.value);
+  const ref = await this.getHalfForSubmittedHours(this.form.value.date);
+  const totalHours = this.form.value.hours;
+  const empId = this.userId;
+  const jobId = this.form.value.job;
+  console.log('HALF', ref);
+  this.addHrsToEmployee(totalHours, empId, ref);
+  this.addHrsToJob(totalHours, jobId);
+  this.form.reset();
+  this.showForm = false;
+
+  }
+
+  getHalfForSubmittedHours(date: Date): Promise<string> {
+    console.log(date);
+    return new Promise((resolve) => {
+
+      let half;
+      this.afs.collectionGroup(`payPeriod`).valueChanges().subscribe((payPeriods) => {
+        payPeriods.forEach((payPeriod: any) => {
+          const pPEndDate = new Date(payPeriod.endDate.seconds * 1000);
+          const pPStartDate = new Date(payPeriod.startDate.seconds * 1000);
+          if (date > pPStartDate && date <= pPEndDate) {
+            console.log(payPeriod.ref);
+            half = payPeriod.ref;
+            resolve(half);
+          }
+        });
+      });
+    });
+  }
 }
 
+
+// onSubmit() {
+//   console.log(this.job);
+
+//   const jobRef = this.as.doc(`jobs/${this.job.id}`);
+//   const data: Job = {
+//     created: this.job.created,
+//     clientName: this.job.clientName,
+//     address: this.job.address,
+//     id: this.job.id,
+//     description: this.job.description,
+//     jobHours: this.getJobHours(this.job.id),
+//     isActive: true
+//   };
+//   jobRef.set(data, {merge: true})
+//     .then(() => {
+//     this.service.successMessage('Successfully Added!', 'dismiss');
+//     this.router.navigateByUrl('admin-jobs');
+//   }).catch((err) => {
+//     console.log(err);
+//     this.service.errorMessage('Error adding job!', 'dismiss');
+//   });
+// }

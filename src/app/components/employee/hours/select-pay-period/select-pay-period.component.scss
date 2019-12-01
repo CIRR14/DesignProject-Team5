@@ -1,5 +1,6 @@
 table {
 	width: 100%;
+	table-layout: fixed;
   }
 
 button {
@@ -29,3 +30,16 @@ button {
 	text-align: center;
 }
 
+.created {
+	width: 20%;
+	margin-right: 15%;
+}
+
+.job {
+	width: 20%;
+	margin-right: 15%;
+}
+
+.hours {
+	width: 20%;
+}
