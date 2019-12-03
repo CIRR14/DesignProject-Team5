@@ -79,10 +79,9 @@ export class ViewEmployeesDataSource extends DataSource<ViewEmployeesItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'created': return compare(+a.id, +b.id, isAsc);
-        case 'name': return compare(a.id, b.id, isAsc);
-        case 'hourlyRate': return compare(a.id, b.id, isAsc);
-        case 'role': return compare(a.id, b.id, isAsc);
+        case 'name': return compare(a.displayName, b.displayName, isAsc);
+        case 'hourlyRate': return compare(a.hourlyRate, b.hourlyRate, isAsc);
+        case 'role': return compare(a.roles.employee, b.roles.employee, isAsc);
         default: return 0;
       }
     });
