@@ -10,6 +10,10 @@
   overflow: auto;
 }
 
+th {
+  width: 25%;
+}
+
 .add-job-button {
   position: absolute;
   margin: 0;
@@ -29,6 +33,10 @@ mat-card-title {
 mat-icon {
   padding-left: 20px;
   padding-top: 3px;
+}
+
+.excel-icon {
+  padding: 0px;
 }
 
 @media(max-width: 600px) {
