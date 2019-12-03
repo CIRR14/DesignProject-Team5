@@ -151,13 +151,13 @@ deleteEmployee() {
     });
     });
 
-  // this.afs.collection(`users/${this.employee.uid}/payPeriod`).valueChanges().subscribe((eachPp) => {
-  //     eachPp.forEach((val: any) => {
-  //       console.log(val.ref);
-  //       const payperiodRef = this.afs.doc(`users/${this.employee.uid}/payPeriod/${val.ref}`);
-  //       payperiodRef.delete();
-  //     });
-  //     });
+  this.afs.collection(`users/${this.employee.uid}/payPeriod`).valueChanges().subscribe((eachPp) => {
+      eachPp.forEach((val: any) => {
+        console.log(val.ref);
+        const payperiodRef = this.afs.doc(`users/${this.employee.uid}/payPeriod/${val.ref}`);
+        payperiodRef.delete();
+      });
+      });
 
   this.router.navigateByUrl('/admin-view-employees');
 

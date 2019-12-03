@@ -43,7 +43,7 @@ export class AddJobComponent implements OnInit {
   }
 
   getJobHours(id) {
-    return 5;
+    return 0;
   }
 
   onChange(e){
