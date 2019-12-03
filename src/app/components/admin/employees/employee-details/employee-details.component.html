@@ -2,7 +2,7 @@
 
     <mat-card-actions>
         <button mat-stroked-button [routerLink]="['/admin-view-employees']" routerDirection="backward">Back</button>
-        <button mat-raised-button position="end" class="delete-employee" color="warn" (click)="deleteEmployee()"> DELETE EMPLOYEE </button>
+        <button mat-raised-button position="end" class="delete-employee" color="warn" (click)="openDialog()"> DELETE EMPLOYEE </button>
       </mat-card-actions>
 
   <mat-card-title > {{ employee.displayName }} / {{employee.empID}}</mat-card-title>
@@ -30,18 +30,18 @@
 
       <div class="selectRole">
         <mat-form-field>
-          <mat-select matInput placeholder="Role" formControlName="role" >
-            <mat-option value=admin> Admin </mat-option>
-            <mat-option value=employee> Employee </mat-option>
+          <mat-select matInput placeholder="Admin" formControlName="adminRole" >
+            <mat-option value=true> True </mat-option>
+            <mat-option value=false> False </mat-option>
           </mat-select>
         </mat-form-field>
 
-        <!-- <mat-form-field >
+        <mat-form-field >
           <mat-select matInput placeholder="Employee" formControlName="employeeRole" disabled >
               <mat-option value=true> True </mat-option>
               <mat-option value=false> False </mat-option>
           </mat-select>
-        </mat-form-field> -->
+        </mat-form-field>
       </div>
 
       <mat-card-actions>

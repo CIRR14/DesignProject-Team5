@@ -69,13 +69,13 @@ export class ViewjobsDataSource extends DataSource<Job> {
       return data;
     }
 
-    return data.sort((a: any, b: any) => {
+    return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'created': return compare(+a.created.seconds, +b.created.seconds, isAsc);
-        case 'clientName': return compare(a.clientName, b.clientName, isAsc);
-        case 'address': return compare(a.address, b.address, isAsc);
-        case 'jobHours': return compare(a.jobHours, b.jobHours, isAsc);
+        case 'created': return compare(+a.id, +b.id, isAsc);
+        case 'clientName': return compare(a.created, b.created, isAsc);
+        case 'address': return compare(a.created, b.created, isAsc);
+        case 'status': return compare(a.created, b.created, isAsc);
         default: return 0;
       }
     });

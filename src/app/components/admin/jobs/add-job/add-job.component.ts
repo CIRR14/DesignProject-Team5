@@ -20,8 +20,6 @@ export class AddJobComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.job);
-
     const jobRef = this.as.doc(`jobs/${this.job.id}`);
     const data: Job = {
       created: this.job.created,
@@ -43,7 +41,7 @@ export class AddJobComponent implements OnInit {
   }
 
   getJobHours(id) {
-    return 0;
+    return 5;
   }
 
   onChange(e){

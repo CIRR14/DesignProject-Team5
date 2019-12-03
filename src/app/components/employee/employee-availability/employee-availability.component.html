@@ -1,13 +1,13 @@
 <mat-card>
   <mat-card-title>What days are you available in {{currentDate | date:"MMMM"}} ? </mat-card-title>
-  <mat-card-subtitle> <span class="dot"></span> - current availabilities</mat-card-subtitle>
+  <mat-card-subtitle> <mat-icon class="icon">radio_button_checked</mat-icon> - current availabilities</mat-card-subtitle>
   <mat-card-content>
 
 
             <ejs-calendar [value]='dateValue' [min]='minDate' [max]='maxDate' [values]='dateValues'
             [isMultiSelection]='multiSelect'  (change)='setAvailable($event)' (renderDayCell)='disabledDate($event)' style="width: 100%">
             </ejs-calendar>
-            <button  mat-raised-button color="primary" (click)="submit()"> SUBMIT </button>
+            <button  mat-button color="primary" (click)="submit()"> SUBMIT </button>
       </mat-card-content>
 
 </mat-card>

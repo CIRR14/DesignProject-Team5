@@ -56,7 +56,6 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
     this.job$ = this.service.getJobById(this.id);
     this.subscription = this.job$.subscribe(
       data => {
-        console.log(data);
         this.theJob = data;
         this.form.controls.clientName.setValue(this.theJob.clientName);
         // this.form.controls.address.setValue(this.theJob.address);
@@ -86,9 +85,6 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log('edited');
-    console.log(this.form);
-
     const jobRef = this.afs.doc(`jobs/${this.theJob.id}`);
 
     const data: Job = {
@@ -100,8 +96,6 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       jobHours: this.form.value.jobHours,
       isActive: this.form.value.isActive
     };
-
-    console.log(data);
     jobRef.set(data, { merge: true})
       .then(() => {
         this.service.successMessage('Successfully updated!', 'dismiss');

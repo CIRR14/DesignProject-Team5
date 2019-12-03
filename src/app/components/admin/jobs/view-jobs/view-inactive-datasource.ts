@@ -18,7 +18,7 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 export class ViewInactiveDataSource extends DataSource<Job> {
   inactive: Job[] = [];
 
-  constructor(private inactivePaginator: MatPaginator, private inactiveSort: MatSort) {
+  constructor(private paginator: MatPaginator, private sort: MatSort) {
     super();
   }
 
@@ -32,12 +32,12 @@ export class ViewInactiveDataSource extends DataSource<Job> {
     // stream for the data-table to consume.
     const dataMutations = [
       observableOf(this.inactive),
-      this.inactivePaginator.page,
-      this.inactiveSort.sortChange
+      this.paginator.page,
+      this.sort.sortChange
     ];
 
     // Set the paginator's length
-    this.inactivePaginator.length = this.inactive.length;
+    this.paginator.length = this.inactive.length;
 
     return merge(...dataMutations).pipe(map(() => {
       return this.getPagedData(this.getSortedData([...this.inactive]));
@@ -55,27 +55,27 @@ export class ViewInactiveDataSource extends DataSource<Job> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(inactive: Job[]) {
-    const startIndex = this.inactivePaginator.pageIndex * this.inactivePaginator.pageSize;
-    return inactive.splice(startIndex, this.inactivePaginator.pageSize);
+  private getPagedData(data: Job[]) {
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    return data.splice(startIndex, this.paginator.pageSize);
   }
 
   /**
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(inactive: Job[]) {
-    if (!this.inactiveSort.active || this.inactiveSort.direction === '') {
-      return inactive;
+  private getSortedData(data: Job[]) {
+    if (!this.sort.active || this.sort.direction === '') {
+      return data;
     }
 
-    return inactive.sort((a: any, b: any) => {
-      const isAsc = this.inactiveSort.direction === 'asc';
-      switch (this.inactiveSort.active) {
-        case 'created': return compare(+a.created.seconds, +b.created.seconds, isAsc);
-        case 'clientName': return compare(a.clientName, b.clientName, isAsc);
-        case 'address': return compare(a.address, b.address, isAsc);
-        case 'jobHours': return compare(a.jobHours, b.jobHours, isAsc);
+    return data.sort((a, b) => {
+      const isAsc = this.sort.direction === 'asc';
+      switch (this.sort.active) {
+        case 'created': return compare(+a.id, +b.id, isAsc);
+        case 'clientName': return compare(a.created, b.created, isAsc);
+        case 'address': return compare(a.created, b.created, isAsc);
+        case 'status': return compare(a.created, b.created, isAsc);
         default: return 0;
       }
     });
