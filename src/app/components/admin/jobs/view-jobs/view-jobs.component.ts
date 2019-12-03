@@ -72,8 +72,8 @@ constructor(
   }
 
   OnChange($event) {
-      console.log($event);
-      console.log(this.isChecked);
+      // console.log($event);
+      // console.log(this.isChecked);
   }
 
   ngOnDestroy(): void {

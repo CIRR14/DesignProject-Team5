@@ -84,7 +84,7 @@
 
   <mat-card-content>
   <div #INACTIVETABLE>
-  <table #table mat-table [dataSource]='inactiveJobs' matSort mat-table aria-label="Elements" [class.isMobile]="isMobile">
+  <table #inactiveTable mat-table [dataSource]='inactiveJobs' matSort mat-table aria-label="Elements" [class.isMobile]="isMobile">
     <ng-container matColumnDef = 'created'>
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
       <td mat-cell *matCellDef="let row"> 
