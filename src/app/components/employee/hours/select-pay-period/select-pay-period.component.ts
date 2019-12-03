@@ -71,6 +71,7 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
   selectedJob = '1ANY';
 
   currentDate = new Date();
+  maxDate = new Date();
 
   reference;
 

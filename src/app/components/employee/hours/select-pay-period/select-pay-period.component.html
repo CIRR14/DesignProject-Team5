@@ -37,7 +37,7 @@
           <mat-card-content>
             
             <mat-form-field class="created">
-              <input matInput placeholder="Date" required name="created" formControlName="date" [matDatepicker]="created">
+              <input matInput placeholder="Date" required name="created" formControlName="date" [matDatepicker]="created" [max]="maxDate">
               <mat-datepicker-toggle matSuffix [for]="created"></mat-datepicker-toggle>
               <mat-datepicker #created></mat-datepicker>
               <mat-hint> Date to add hours to</mat-hint>
