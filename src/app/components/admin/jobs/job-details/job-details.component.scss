@@ -1,0 +1,18 @@
+.job-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .job-form > * {
+    width: 100%;
+  }
+  
+  .jobHours {
+    width: 20% !important;
+  }
+  
+  .delete-job {
+    float: right;
+    overflow: hidden;
+  }
+  

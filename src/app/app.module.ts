@@ -40,6 +40,8 @@ import { CheckBoxAllModule } from '@syncfusion/ej2-angular-buttons';
 import { DatePickerAllModule, TimePickerAllModule, DateTimePickerAllModule } from '@syncfusion/ej2-angular-calendars';
 
 import { NumericTextBoxAllModule } from '@syncfusion/ej2-angular-inputs';
+import { AdminHelpComponent } from './components/admin/admin-help/admin-help.component';
+import { EmployeeHelpComponent } from './components/employee/employee-help/employee-help.component';
 
 // import { RouterModule } from '@angular/router';
 
@@ -60,7 +62,9 @@ import { NumericTextBoxAllModule } from '@syncfusion/ej2-angular-inputs';
     AddEmployeeComponent,
     ViewAvailabilityComponent,
     EmployeeAvailabilityComponent,
-    DialogOverview
+    DialogOverview,
+    AdminHelpComponent,
+    EmployeeHelpComponent
   ],
   imports: [
     BrowserModule,

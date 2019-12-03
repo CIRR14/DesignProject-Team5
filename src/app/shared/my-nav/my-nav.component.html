@@ -4,20 +4,25 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
     <mat-toolbar>
-      <img mat-card-avatar src='{{profilePicture}}'>
+      <img mat-card-avatar class="proPic" src='{{profilePicture}}'>
     </mat-toolbar>
     <mat-card-title *ngIf="user">
       {{ user.displayName }}
     </mat-card-title>
-    <br/>
-      <mat-card-subtitle>
-        Admin: {{ authService.isAdmin(user) }}
-        <br/>
-        Employee: {{ authService.isEmployee(user)}}
+      <mat-card-subtitle *ngIf="authService.isAdmin(user) && !authService.isEmployee(user)" style="color: #64b5f6">
+        Admin
+      </mat-card-subtitle>
+      <mat-card-subtitle *ngIf="authService.isEmployee(user) && !authService.isAdmin(user)" style="color: #4db6ac">
+          Employee
+      </mat-card-subtitle>
+      <mat-card-subtitle *ngIf="!authService.isEmployee(user) && !authService.isAdmin(user)" style="color: #ff8a65">
+          Not Approved
       </mat-card-subtitle>
 
+
     <mat-nav-list *ngIf="authService.isAdmin(user)">
-      <a mat-list-item routerLink="/admin-dash" routerLinkActive="active"> <mat-icon class="sidebar-icon">dashboard</mat-icon>Dashboard </a>
+      <a mat-list-item routerLink="/admin-dash" routerLinkActive="active"> <mat-icon class="sidebar-icon" aria-hidden="false" routerLink="/admin-dash" aria-label="sidebar-icon">home</mat-icon>Dashboard</a>
+      <!-- <a mat-list-item routerLink="/admin-dash" routerLinkActive="active"> <mat-icon class="sidebar-icon">dashboard</mat-icon>Dashboard </a>-->
       <a mat-list-item routerLink="/admin-view-employees" routerLinkActive="active"><mat-icon class="sidebar-icon">people_alt</mat-icon>Employees</a>
       <a mat-list-item routerLink="/admin-availabilities" routerLinkActive="active"><mat-icon class="sidebar-icon">calendar_today</mat-icon>Availabilities</a>
       <a mat-list-item routerLink="/admin-jobs" routerLinkActive="active"><mat-icon class="sidebar-icon">card_travel</mat-icon>Jobs</a>
@@ -30,15 +35,20 @@
       </mat-nav-list>
 
       <mat-nav-list class="rightDrawer-list">
-        <a mat-list-item *ngIf="user" routerLink="/login"> <mat-icon class="sidebar-icon">arrow_back</mat-icon>Logout </a>
+        <a mat-list-item *ngIf="user" routerLink="/login" routerLinkActive="active"> <mat-icon class="sidebar-icon">arrow_back</mat-icon>Logout </a>
         <a mat-list-item *ngIf="!user" routerLink="/login" routerLinkActive="active"> <mat-icon class="sidebar-icon">exit_to_app</mat-icon>Login </a>
-        <a mat-list-item routerLink="/help" routerLinkActive="active"><mat-icon class="sidebar-icon">help</mat-icon>Help</a>
+        <a mat-list-item *ngIf="authService.isEmployee(user) && !authService.isAdmin(user)" routerLink="/employee-help" routerLinkActive="active"><mat-icon class="sidebar-icon">help</mat-icon>Help</a>
+        <a mat-list-item *ngIf="!authService.isEmployee(user) && authService.isAdmin(user)" routerLink="/admin-help" routerLinkActive="active"><mat-icon class="sidebar-icon">help</mat-icon>Help</a>
     </mat-nav-list>
 
 
+    <img class="logo" src='{{gdLogo}}'>
   </mat-sidenav>
 
+
   <mat-sidenav-content>
+
+
     <mat-toolbar color="primary">
       <button mat-button
         type="button"

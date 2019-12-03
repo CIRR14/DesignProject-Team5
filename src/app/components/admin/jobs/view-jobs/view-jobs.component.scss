@@ -1,9 +1,63 @@
-table{
-  width: 100%;
+.container{
+  display: flex;
+  flex-direction: column;
+  // max-height: 500px;
+  min-width: 300px;
 }
+
+.mat-table{
+  width: 100%;
+  overflow: auto;
+}
+
+
+.description-column {
+  width: 30% !important;
+}
+
+// th {
+//   width: 10%;
+// }
 
 .add-job-button {
   position: absolute;
   margin: 0;
   right: 10px;
+}
+
+.mobile-label {
+  display: none;
+}
+
+mat-card-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+mat-icon {
+  padding-left: 20px;
+  padding-top: 3px;
+}
+
+.excel-icon {
+  padding: 0px;
+}
+
+@media(max-width: 600px) {
+  .mobile-label {
+    width: 80px;
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  .mat-header-row {
+    display: none;
+  }
+
+  .mat-row { 
+    flex-direction: column;
+    align-items: start;
+    padding: 8px 24px;
+  }
 }

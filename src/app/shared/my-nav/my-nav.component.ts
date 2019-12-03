@@ -14,6 +14,7 @@ import { map } from 'rxjs/operators';
 })
 export class MyNavComponent implements OnInit, OnDestroy {
   profilePicture = '../../../assets/profile/default-profile.png';
+  gdLogo = '../../../assets/gdLogo.png';
   title = 'Garage Designs of St. Louis';
   user: User;
   subscription: Subscription;

@@ -94,6 +94,10 @@ if (width > 730) {
                this.ownerCollections.push(this.users);
               });
              this.usersLoaded = Promise.resolve(true);
+            },
+            err => {
+              console.log(err);
+              this.aService.errorMessage('Error loading!', 'dismiss');
             }
             );
       return this.ownerCollections;

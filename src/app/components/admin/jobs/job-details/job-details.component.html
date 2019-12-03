@@ -1,19 +1,56 @@
 <mat-card *ngIf="theJob">
-  <button mat-stroked-button [routerLink]= "['/admin-jobs']" routerDirection="backward">
-    back
-  </button>
-<mat-card-header>
-  JOB ID: {{id}}
-  <br/>
-  CREATED: {{this.theJob.created.seconds * 1000 | date:'MM/dd/yyy'}}
-  <br/>
-  CLIENT NAME: {{this.theJob.clientName}}
-  <br/>
-  ADDRESS: {{this.theJob.address}}
-  <br/>
-  DESCRIPTION: {{this.theJob.description}}
-  <br/>
-  TOTAL JOB HOURS: {{this.theJob.jobHours}}
-</mat-card-header>
 
+  <mat-card-actions>
+      <button mat-stroked-button [routerLink]="['/admin-jobs']" routerDirection="backward">Back</button>
+      <!-- <button mat-raised-button position="end" class="delete-employee" color="warn" (click)="deleteEmployee()"> DELETE EMPLOYEE </button> -->
+    </mat-card-actions>
+
+<mat-card-title > {{ theJob.clientName }} / {{theJob.id}}</mat-card-title>
+<!-- <mat-card-subtitle style="color: blue" *ngIf="employee.roles.admin"> ADMIN </mat-card-subtitle>
+<mat-card-subtitle style="color: green" *ngIf="employee.roles.employee"> EMPLOYEE </mat-card-subtitle> -->
+
+<mat-card-content>
+
+  <form [formGroup]="form"(ngSubmit)="onSubmit()" class="job-form">
+
+    
+      <mat-form-field>
+          <textarea matInput disabled="true" placeholder="Created"> {{this.theJob.created.seconds * 1000 | date:'MM/dd/yyy'}} </textarea>
+        </mat-form-field>
+
+    <mat-form-field>
+      <textarea matInput placeholder="Client Name" maxLength="30" formControlName="clientName"> {{theJob.clientName}} </textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+        <textarea matInput disabled="true" placeholder="Address"> {{theJob.address}}</textarea>
+      </mat-form-field>
+
+      <mat-form-field class="jobHours">
+          <input matInput type="number" placeholder="jobHours" formControlName="jobHours" maxLength="5">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select matInput placeholder="Status" formControlName="isActive" >
+            <mat-option [value]=true> Active </mat-option>
+            <mat-option [value]=false> Inactive </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <textarea matInput placeholder="description" formControlName="description" rows="5" maxLength="300"> {{theJob.description}}</textarea>
+          </mat-form-field>
+
+    <mat-card-actions>
+      <button mat-raised-button type="submit" color="primary"  [disabled]="!form.valid || !form.dirty"> UPDATE JOB </button>
+    </mat-card-actions>
+  </form>
+
+  <mat-card-actions>
+    <button mat-raised-button color="warn" [routerLink]="['/admin-jobs']" > CANCEL </button>
+  </mat-card-actions>
+
+
+</mat-card-content>
 </mat-card>
+

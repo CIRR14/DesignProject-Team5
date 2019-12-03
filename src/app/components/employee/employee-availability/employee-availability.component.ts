@@ -21,9 +21,9 @@ export class EmployeeAvailabilityComponent implements OnInit {
   public today: number = new Date().getDate();
   public dateValues: Date[] = [];
   public multiSelect = true;
-  public dateValue: Date = new Date(this.fullYear, this.month , 11);
+  public dateValue: Date = new Date(this.fullYear, this.month , this.today);
   public minDate: Date = new Date(this.fullYear, this.month, this.today + 1);
-  public maxDate: Date = new Date(this.fullYear, this.month, 31);
+  public maxDate: Date = new Date(this.fullYear, this.month + 1, 31);
 
   availableDates = [];
   selectedDate;
@@ -59,7 +59,8 @@ export class EmployeeAvailabilityComponent implements OnInit {
     const data = {
       title: this.currentUser.displayName,
       userId: this.currentUser.uid,
-      available: this.availableDates
+      available: this.availableDates,
+      ref: this.currentMonth
     };
 
     if (this.availableDates.length > 0 ) {
@@ -80,12 +81,16 @@ export class EmployeeAvailabilityComponent implements OnInit {
     const myAvailability = [];
 
     this.getAvail = employeeAvailRef.get()
-      .subscribe((data) => {
-        data.data().available.forEach(timestamp => {
-          const timestamps = new Date(timestamp.seconds * 1000);
-          myAvailability.push(timestamps);
-        });
-        this.dateValues = myAvailability;
+      .subscribe((data) => { 
+        if(data.data()) {
+          data.data().available.forEach(timestamp => {
+            const timestamps = new Date(timestamp.seconds * 1000);
+            myAvailability.push(timestamps);
+          });
+          this.dateValues = myAvailability;
+        } else {
+          console.log('no availability yet');
+        }
       });
     return myAvailability;
   }

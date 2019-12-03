@@ -1,4 +1,5 @@
-import { Observable, Subscription } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
+import { Observable, Subscription, of } from 'rxjs';
 import { User } from './../../auth/user';
 import { AuthService } from '../../auth/auth.service';
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
@@ -20,6 +21,8 @@ export interface PayrollElement {
   styleUrls: ['./dash.component.scss']
 })
 export class DashComponent implements OnInit, OnDestroy {
+  @ViewChild('TABLE') table: ElementRef;
+  @ViewChild('datepicker') datepicker: ElementRef;
 
   payPeriodRef: AngularFirestoreCollectionGroup<any>;
   payPeriod$: Observable<any>;
@@ -34,17 +37,18 @@ export class DashComponent implements OnInit, OnDestroy {
 
   payrollData = [];
   displayedColumns: string[] = ['name', 'rate', 'hours', 'total'];
-  dataSource = this.payrollData;
+  dataSource = new MatTableDataSource<PayrollElement>();
 
-  currentDate = new Date();
-  currentMonth = new Date().getMonth() + 1;
+  currentDate: Date = new Date();
+  // currentMonth = new Date().getMonth() + 1;
   currentPayPeriod: string;
 
   constructor(private afs: AngularFirestore, public auth: AuthService) { }
 
-  @ViewChild('TABLE') table: ElementRef;
+  
 
   ngOnInit() {
+    this.dataSource.data = this.payrollData;
     this.payPeriodRef = this.afs.collectionGroup(`payPeriod`);
     this.payPeriod$ = this.payPeriodRef.valueChanges();
 
@@ -59,9 +63,10 @@ export class DashComponent implements OnInit, OnDestroy {
   }
 
   async getInfo() {
+    console.log('getin info');
     await this.getAllEmployees();
     await this.getAllPayPeriods();
-    this.matchEmpAndPayPeriod();
+    await this.matchEmpAndPayPeriod();
   }
 
   exportAsExcel() {
@@ -69,10 +74,23 @@ export class DashComponent implements OnInit, OnDestroy {
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'payroll');
     XLSX.writeFile(wb, 'PayrollReport.xlsx');
+
+    // CHECK IF THE PAY PERIOD EXISTS, IF NOT, CREATE ONE WITH THE APPROPRIATE VALUES
   }
 
   ngOnDestroy() {
-    this.loggedInUserSubscription.unsubscribe();
+    // this.loggedInUserSubscription.unsubscribe();
+  }
+
+  async change($event) {
+      // this.payPeriodData = [];
+      // this.userData = [];
+      this.payPeriodData = [];
+      this.userData = [];
+      this.payrollData = [];
+      this.currentDate = $event.value;
+      this.ngOnInit();
+      this.refresh();
   }
 
   getCurrentPayPeriod(endDate, startDate) {
@@ -104,8 +122,8 @@ export class DashComponent implements OnInit, OnDestroy {
         payPeriods.forEach((payPeriod) => {
           const pPEndDate = new Date(payPeriod.endDate.seconds * 1000);
           const pPStartDate = new Date(payPeriod.startDate.seconds * 1000);
-          this.currentPayPeriod = this.getCurrentPayPeriod(pPEndDate, pPStartDate);
           if (this.currentDate > pPStartDate && this.currentDate <= pPEndDate) {
+            this.currentPayPeriod = this.getCurrentPayPeriod(pPEndDate, pPStartDate);
             this.payPeriodData.push(payPeriod);
             resolve();
           }
@@ -115,18 +133,33 @@ export class DashComponent implements OnInit, OnDestroy {
   }
 
   matchEmpAndPayPeriod() {
-    this.userData.forEach((user) => {
-      this.payPeriodData.forEach((payP) => {
-        if (user.uid === payP.uid) {
-          const data: PayrollElement = {
-            name: user.name,
-            rate: user.rate,
-            hours: payP.hours,
-            uid: user.uid
-          };
-          this.payrollData.push(data);
-        }
+    return new Promise((resolve) => {
+      this.userData.forEach((user) => {
+        this.payPeriodData.forEach((payP) => {
+          if (user.uid === payP.uid) {
+            const data: PayrollElement = {
+              name: user.name,
+              rate: user.rate,
+              hours: payP.hours,
+              uid: user.uid
+            };
+            if(data.rate){
+              this.payrollData.push(data);
+            }
+            resolve();
+          }
+        });
       });
     });
+  }
+
+  refresh() {
+    this.refreshTable().subscribe((data: PayrollElement[]) => {
+      this.dataSource.data = data;
+    });
+  }
+
+  refreshTable(): Observable<PayrollElement[]> {
+    return of(this.dataSource.data);
   }
 }

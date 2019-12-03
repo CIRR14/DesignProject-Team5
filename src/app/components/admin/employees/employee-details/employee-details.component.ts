@@ -28,8 +28,11 @@ form: FormGroup;
 employeeName = new FormControl('', Validators.required);
 employeeID = new FormControl('', Validators.required);
 hourlyRate = new FormControl('', Validators.required);
-adminRole = new FormControl('', Validators.required);
-employeeRole = new FormControl('', Validators.required);
+role = new FormControl('', Validators.required);
+
+isAdmin: boolean;
+isEmployee: boolean;
+// employeeRole = new FormControl('', Validators.required);
 
   constructor(
     private route: ActivatedRoute,
@@ -43,8 +46,8 @@ employeeRole = new FormControl('', Validators.required);
       employeeName: this.employeeName,
       employeeID: this.employeeID,
       hourlyRate: this.hourlyRate,
-      adminRole: this.adminRole,
-      employeeRole: this.employeeRole
+      role: this.role,
+      // employeeRole: this.employeeRole
         });
   }
 
@@ -58,23 +61,21 @@ employeeRole = new FormControl('', Validators.required);
           this.form.controls.employeeName.setValue(this.employee.displayName);
           this.form.controls.employeeID.setValue(this.employee.empID);
           this.form.controls.hourlyRate.setValue(this.employee.hourlyRate);
-          // this.form.controls.adminRole.setValue(this.employee.roles.admin);
+          // this.form.controls.role.setValue('');
       },
         err => {console.log('error', err); } ,
         () => {console.log('what to do after'); }
       );
 
 
-    this.formSubscription = this.form.get('adminRole').valueChanges.subscribe((value) => {
+    this.formSubscription = this.form.get('role').valueChanges.subscribe((value) => {
         console.log(value);
-        if (value === 'true') {
-          // this.form.get('adminRole').setValue(true);
-          this.form.get('employeeRole').setValue('false');
-          // this.formSubscription.unsubscribe();
+        if (value === 'admin') {
+          this.isAdmin = true;
+          this.isEmployee = false;
         } else {
-          // this.form.get('adminRole').setValue(false);
-          this.form.get('employeeRole').setValue('true');
-          // this.formSubscription.unsubscribe();
+          this.isAdmin = false;
+          this.isEmployee = true;
         }
       });
 
@@ -97,9 +98,6 @@ ngOnDestroy() {
 
 
   onSubmit() {
-    console.log('submitted');
-    console.log(this.form);
-
     const userRef = this.afs.doc(`users/${this.employee.uid}`);
 
 
@@ -112,29 +110,43 @@ ngOnDestroy() {
     emailVerified: this.employee.emailVerified,
     hourlyRate: this.form.value.hourlyRate,
     roles: {
-      employee: this.stringToBoolean(this.form.value.employeeRole),
-      admin: this.stringToBoolean(this.form.value.adminRole)
+      employee: this.isEmployee,
+      admin: this.isAdmin
     }
     };
+    userRef.set(data, {merge: true})
+    .then(() => {
+      this.service.successMessage('Successfully updated!', 'dismiss');
+      this.router.navigateByUrl('/admin-view-employees');
+    }).catch((err) => {
+      console.log(err);
+      this.service.errorMessage('Error updating!', 'dismiss');
+    });
 
-    console.log(data);
-    userRef.set(data, {merge: true} );
-
-    this.router.navigateByUrl('/admin-view-employees');
+    
   }
 
-
-  stringToBoolean(word: string) {
-    switch (word.toLowerCase().trim()) {
-        case 'true': case 'yes': case '1': return true;
-        case 'false': case 'no': case '0': case null: return false;
-        default: return Boolean(word);
-    }
-}
 
 
 deleteEmployee() {
   const userRef = this.afs.doc(`users/${this.employee.uid}`);
+
+  this.afs.collection(`users/${this.employee.uid}/available`).valueChanges().subscribe((eachAv) => {
+    eachAv.forEach((val: any) => {
+      console.log(val.ref);
+      const availabilityRef = this.afs.doc(`users/${this.employee.uid}/available/${val.ref}`);
+      availabilityRef.delete();
+    });
+    });
+
+  this.afs.collection(`users/${this.employee.uid}/payPeriod`).valueChanges().subscribe((eachPp) => {
+      eachPp.forEach((val: any) => {
+        console.log(val.ref);
+        const payperiodRef = this.afs.doc(`users/${this.employee.uid}/payPeriod/${val.ref}`);
+        payperiodRef.delete();
+      });
+      });
+
   this.router.navigateByUrl('/admin-view-employees');
 
   setTimeout(() => {

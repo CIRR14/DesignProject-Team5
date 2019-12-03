@@ -15,10 +15,10 @@ import { Observable, of as observableOf, merge } from 'rxjs';
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class ViewjobsDataSource extends DataSource<Job> {
-  data: Job[] = [];
+export class ViewInactiveDataSource extends DataSource<Job> {
+  inactive: Job[] = [];
 
-  constructor(private paginator: MatPaginator, private sort: MatSort) {
+  constructor(private inactivePaginator: MatPaginator, private inactiveSort: MatSort) {
     super();
   }
 
@@ -31,16 +31,16 @@ export class ViewjobsDataSource extends DataSource<Job> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
-      observableOf(this.data),
-      this.paginator.page,
-      this.sort.sortChange
+      observableOf(this.inactive),
+      this.inactivePaginator.page,
+      this.inactiveSort.sortChange
     ];
 
     // Set the paginator's length
-    this.paginator.length = this.data.length;
+    this.inactivePaginator.length = this.inactive.length;
 
     return merge(...dataMutations).pipe(map(() => {
-      return this.getPagedData(this.getSortedData([...this.data]));
+      return this.getPagedData(this.getSortedData([...this.inactive]));
     }));
   }
 
@@ -55,23 +55,23 @@ export class ViewjobsDataSource extends DataSource<Job> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: Job[]) {
-    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    return data.splice(startIndex, this.paginator.pageSize);
+  private getPagedData(inactive: Job[]) {
+    const startIndex = this.inactivePaginator.pageIndex * this.inactivePaginator.pageSize;
+    return inactive.splice(startIndex, this.inactivePaginator.pageSize);
   }
 
   /**
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: Job[]) {
-    if (!this.sort.active || this.sort.direction === '') {
-      return data;
+  private getSortedData(inactive: Job[]) {
+    if (!this.inactiveSort.active || this.inactiveSort.direction === '') {
+      return inactive;
     }
 
-    return data.sort((a: any, b: any) => {
-      const isAsc = this.sort.direction === 'asc';
-      switch (this.sort.active) {
+    return inactive.sort((a: any, b: any) => {
+      const isAsc = this.inactiveSort.direction === 'asc';
+      switch (this.inactiveSort.active) {
         case 'created': return compare(+a.created.seconds, +b.created.seconds, isAsc);
         case 'clientName': return compare(a.clientName, b.clientName, isAsc);
         case 'address': return compare(a.address, b.address, isAsc);

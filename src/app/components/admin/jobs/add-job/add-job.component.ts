@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { JobService } from './../job.service';
 import { Job } from './../job';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireDatabase } from '@angular/fire/database';
@@ -11,15 +13,13 @@ import { Component, OnInit } from '@angular/core';
 export class AddJobComponent implements OnInit {
 
   job: any = [];
-  formIsFilledOut = false;
 
-  constructor(private as: AngularFirestore) { }
+  constructor(private as: AngularFirestore, private service: JobService, private router: Router) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
-
     console.log(this.job);
 
     const jobRef = this.as.doc(`jobs/${this.job.id}`);
@@ -29,17 +29,21 @@ export class AddJobComponent implements OnInit {
       address: this.job.address,
       id: this.job.id,
       description: this.job.description,
-      jobHours: this.getJobHours(this.job.id)
+      jobHours: this.getJobHours(this.job.id),
+      isActive: true
     };
-    jobRef.set(data, {merge: true});
+    jobRef.set(data, {merge: true})
+      .then(() => {
+      this.service.successMessage('Successfully Added!', 'dismiss');
+      this.router.navigateByUrl('admin-jobs');
+    }).catch((err) => {
+      console.log(err);
+      this.service.errorMessage('Error adding job!', 'dismiss');
+    });
   }
 
   getJobHours(id) {
-    return 5;
-  }
-
-  cancel() {
-    this.job = {};
+    return 0;
   }
 
   onChange(e){

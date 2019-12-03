@@ -1,0 +1,92 @@
+<mat-card>
+  <section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
+    <h1><strong>Frequently Asked Questions(FAQS)</strong></h1>
+   <ul class="cd-faq__categories">
+      <button mat-button (click)="scrollToElement(dashboard)">Dashboard</button>
+      <button mat-button (click)="scrollToElement(employees)">Employees</button>
+      <button mat-button (click)="scrollToElement(checkavailabilities)">Check Availabilities</button>
+      <button mat-button (click)="scrollToElement(jobs)">Jobs</button>
+      <button mat-button (click)="scrollToElement(export)">Export</button>
+   </ul> <!-- cd-faq__categories -->
+  
+   <div class="cd-faq__items">
+       <ul #dashboard class="top">
+           <h2>Dashboard</h2>
+           <li class="cd-faq__item">
+               <a class="cd-faq__trigger"><span>What's in the Dashboard?</span></a>
+               <div class="cd-faq__content">
+         <div class="text-component">
+           <p>The Dashboard displays all current employees, their rate of pay, hours worked and their total pay for the hours worked. After everything is verified, you can also export it as a PDF by clicking Export on the top right</p>
+         </div>
+               </div> <!-- cd-faq__content -->
+           </li>
+  
+       </ul> <!-- cd-faq__group -->
+  
+  
+       <ul #employees class="middle">
+           <h2>Employees</h2>
+           <li class="cd-faq__item">
+               <a class="cd-faq__trigger" ><span>What does the employee tab have?</span></a>
+               <div class="cd-faq__content">
+         <div class="text-component">
+           <p>Employees tab is where you can manage your employees. You can assign roles of either an employee or an admin. This is also the place to verify an employee. Another feature of the Employees tab is to change rate of pay. </p>
+           <p> You can add an employee by giving them the url of the app. The employee would need to be verified by going into the employee tab and setting it to true.</p>
+         </div>
+               </div> <!-- cd-faq__content -->
+           </li>
+           <li class="cd-faq__item">
+              <a class="cd-faq__trigger" ><span>How do I delete an employee?</span></a>
+              <p> An Employee can be deleted by first clicking on the employee tab and then role and finally delete</p>
+           </li>
+  
+       </ul> <!-- cd-faq__group -->
+  
+  
+       <ul #checkavailabilities class="middle1">
+           <h2>Check Availabilities</h2>
+           <li class="cd-faq__item">
+               <a class="cd-faq__trigger" ><span>How do I check availabilities of my employees?</span></a>
+               <div class="cd-faq__content">
+         <div class="text-component">
+           <p>You can check employees availability from the Availabilities tab.</p>
+         </div>
+               </div> <!-- cd-faq__content -->
+           </li>
+       </ul> <!-- cd-faq__group -->
+      
+      
+       <ul #jobs class="middle2">
+         <h2>Jobs</h2>
+         <li class="cd-faq__item">
+             <a class="cd-faq__trigger"><span>How do I create a job?</span></a>
+             <div class="cd-faq__content">
+       <div class="text-component">
+         <p>The Jobs tab has all the created jobs. You can also add a new job by clicking add job at the top right corner</p>
+       </div>
+             </div> <!-- cd-faq__content -->
+         </li>
+         <li class="cd-faq__item">
+            <a class="cd-faq__trigger"><span>How do I edit a job?</span></a>
+            <p> A Job can be edited by clicking on a specific job that is already created. You will not be able to edit the address and the date job was created</p>
+       </ul> <!-- cd-faq__group -->
+      
+      
+       <ul #export class="buttom">
+         <h2>Export</h2>
+         <li class="cd-faq__item">
+             <a class="cd-faq__trigger"><span>How do I export document after everything is verified?</span></a>
+             <div class="cd-faq__content">
+       <div class="text-component">
+         <p>You can use the export function located in the Dashboard.</p>
+       </div>
+             </div> <!-- cd-faq__content -->
+         </li>
+       </ul> <!-- cd-faq__group -->
+   
+   </div> <!-- cd-faq__items -->  
+  <div class="cd-faq__overlay" aria-hidden="true"></div>
+  </section> <!-- cd-faq -->
+  
+  </mat-card>
+ 

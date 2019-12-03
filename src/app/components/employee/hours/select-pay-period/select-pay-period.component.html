@@ -1,116 +1,127 @@
-<mat-card class="example-card">
+<mat-card *ngIf="userClockInfo; else spinner" class="example-card">
 
-<p class="form-inline1">
-    <mat-form-field>
-    <mat-label>Jobs</mat-label>
-    <mat-select [(value)]="selectedJob" required>
-      <mat-option *ngFor="let job of jobOptions" [value]="job.value">
-        {{job.viewValue}}
-      </mat-option>
-    </mat-select>
-    </mat-form-field>
+  <p class="form-inline1">
+      <mat-form-field>
+      <mat-label>Please select a job</mat-label>
+      <mat-select [disabled]="isClockedIn" [(value)]="selectedJob" required>
+        <mat-option *ngFor="let job of jobOptions" [value]="job.value">
+          {{job.viewValue}}
+        </mat-option>
+      </mat-select>
+      </mat-form-field>
 
-    <div> you selected: {{selectedJob}} </div>
+      
+  <div class="clock-buttons">
+      <button mat-raised-button color="primary" id="clockIn" (click)="clockingIn()"  [disabled]="isClockedIn">Clock In</button>
+      <button mat-raised-button color="primary" id="clockOut"  (click)="clockingOut()" [disabled]="!isClockedIn">Clock Out</button>
+  </div>
 
-    <button class="Job number" ng-click="reset()" id="JobID">Select</button>
-
-  <!-- </p> -->
-
-
-
-<div ng-app="" ng-init="mySwitch=true">
-<p>
-    <button mat-raised-button  id="clockIn" (click)="clockingIn()" [disabled]="disableClockIn">Clock In</button>
-</p>
-<p>
-    <button mat-raised-button  id="clockOut"  (click)="clockingOut()" [disabled]="disableClockOut">Clock Out</button>
-</p>
-</div>
-
-<!-- <button mat-raised-button (click)="test()">show test button</button> -->
-
-<!-- <button *ngFor="let element of dataSource.data">
-</button> -->
+  <mat-card-subtitle style="text-align: center" *ngIf="isClockedIn"> You clocked in at {{ userClockInfo.clockInDate.seconds * 1000 | date: 'hh:mm a' }} on {{ userClockInfo.clockInDate.seconds * 1000 | date: 'MM/dd/yyyy'  }}</mat-card-subtitle>
+  <mat-card-subtitle style="text-align: center" *ngIf="!isClockedIn"> You clocked out at {{ userClockInfo.clockOutDate.seconds * 1000 | date: 'hh:mm a' }} on {{ userClockInfo.clockOutDate.seconds * 1000 | date: 'MM/dd/yyyy' }}
+      <span *ngIf="hoursWorked"> for a total of {{ hoursWorked }} hours </span>
+      <br/>
+      <span *ngIf="hoursWorked"> on {{ userClockInfo.job }} </span>
+      <br/>
+      <mat-checkbox [disabled]="isClockedIn" color="primary" [(ngModel)]="showForm"> Forgot to clock in? Check this box to add hours </mat-checkbox>
+      </mat-card-subtitle>
 
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <form *ngIf="showForm && !isClockedIn" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-card class="job-card">
+          <mat-card-title>
+            Add hours
+          </mat-card-title>
+          <mat-card-subtitle>
+            Only use if you forgot to clock in on a specific date.
+          </mat-card-subtitle>
+          <mat-card-content>
+            
+            <mat-form-field class="created">
+              <input matInput placeholder="Date" required name="created" formControlName="date" [matDatepicker]="created" [max]="maxDate">
+              <mat-datepicker-toggle matSuffix [for]="created"></mat-datepicker-toggle>
+              <mat-datepicker #created></mat-datepicker>
+              <mat-hint> Date to add hours to</mat-hint>
+            </mat-form-field>
 
+              <mat-form-field class="job">
+                  <mat-select matInput placeholder="Job" [disabled]="isClockedIn" required id="joboption" formControlName="job"> 
+                      <mat-option *ngFor="let job of jobOptions" [value]="job.value">
+                          {{job.viewValue}}
+                      </mat-option>
+                    </mat-select>   
+                    <mat-hint> Job to add hours to</mat-hint>
+                </mat-form-field>
+      
+            <mat-form-field class="hours">
+                <input matInput type="number" maxLength="4" placeholder="Total hours" required formControlName="hours">
+                <span matSuffix> hrs </span>
+                <mat-hint> Total hours to add</mat-hint>
+            </mat-form-field>
 
-    <ng-container matColumnDef="Job">
-    <th mat-header-cell *matHeaderCellDef> Job ID</th>
-    <!-- <tr *ngFor = "let element in element"> -->
-    <td mat-cell *matCellDef="let element"> {{element.Job}} </td>
-    <!-- </tr> -->
-    </ng-container>
-
-
-    <ng-container matColumnDef="dateClock">
-    <th mat-header-cell *matHeaderCellDef> Date </th>
-    <!-- <tr *ngFor = "let element in element"> -->
-    <td mat-cell *matCellDef="let element"> {{element.dateClock}} </td>
-    <!-- </tr> -->
-    </ng-container>
-
-
-    <ng-container matColumnDef="clockI">
-    <th mat-header-cell *matHeaderCellDef> Clock In </th>
-    <!-- <tr *ngFor = "let element in element"> -->
-    <td mat-cell *matCellDef="let element"> {{element.clockI}} </td>
-    <!-- </tr> -->
-    </ng-container>
-
-
-    <ng-container matColumnDef="clockO">
-    <th mat-header-cell *matHeaderCellDef> Clock Out </th>
-    <!-- <tr *ngFor = "let element in element"> -->
-    <td mat-cell *matCellDef="let element"> {{element.clockO}} </td>
-    <!-- </tr> -->
-    </ng-container>
-
-    <ng-container matColumnDef="Hoursworked">
-    <th mat-header-cell *matHeaderCellDef> Hours Worked </th>
-    <!-- <tr *ngFor = "let element in element"> -->
-    <td mat-cell *matCellDef="let element"> {{element.Hoursworked}} </td>
-    <!-- </tr> -->
-    </ng-container>
-
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-</table>
-
-
-<!-- <div #TABLE>
-  <table mat-table #table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-
-      <ng-container matColumnDef="employee">
-        <th mat-header-cell *matHeaderCellDef> Employee </th>
-        <td mat-cell *matCellDef="let employee"> {{employee.displayName}} </td>
+            <!-- <mat-card-actions> -->
+              <button mat-raised-button color="primary" position="end" [disabled]="!form.valid" type="submit">Submit</button>
+            <!-- </mat-card-actions> -->
+      
+          </mat-card-content>
+        </mat-card>
+       </form>
+  
+  <!-- <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  
+  <div class="example-container mat-elevation-z8">
+      <button mat-button (click)="addToTable()" mat-flat-button color="primary">Add</button>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"  id="editable" 
+  matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+  
+  
+      <ng-container matColumnDef="Job" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Job ID</th>
+      <td mat-cell *matCellDef="let element" > 
+      <mat-select [disabled]="isClockedIn" required id="joboption"> 
+        <mat-option *ngFor="let job of jobOptions" [value]="job.value">
+            {{job.viewValue}}
+        </mat-option>
+      </mat-select>   
+      </td>
+      </ng-container>
+  
+  
+      <ng-container matColumnDef="dateClock" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-form-field id="daypicker">
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date" [value]="date.value">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field> 
+      </td>
       </ng-container>
 
-
-      <ng-container matColumnDef="rate">
-        <th mat-header-cell *matHeaderCellDef> Rate </th>
-        <td mat-cell *matCellDef="let employee"> $ {{employee.hourlyRate}} </td>
+      <ng-container matColumnDef="Hoursworked" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Hours Worked </th>
+      <td mat-cell *matCellDef="let element"> 
+          <input matInput [(value)]="element.Hoursworked" placeholder="Type in your hour">  
+      </td>
       </ng-container>
-
-
-      <ng-container matColumnDef="hrs">
-        <th mat-header-cell *matHeaderCellDef> Hours </th>
-        <td mat-cell *matCellDef="let employee"> {{employee.hours}} </td>
-      </ng-container>
-
-
-      <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef> Total </th>
-        <td mat-cell *matCellDef="let employee"> $ {{employee.hours * employee.hourlyRate}} </td>
-      </ng-container>
-
+  
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
   </table>
-</div> -->
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"  showFirstLastButtons></mat-paginator>
+  <button mat-button (click)="onSubmit()" mat-flat-button color="primary" style="float: right;">Submit</button>
+  </div>
+   -->
+  </mat-card>
+<!-- TRIS manually enter data -->
 
 
-</mat-card>
+  <ng-template #spinner class="spinner">
+    <mat-spinner> Loading </mat-spinner>
+  </ng-template>
+
+
+
+  

@@ -108,6 +108,119 @@ private createDefaultUser(defaultUser) {
   userRef.set(data, { merge: true} );
   console.log('Default user created:', data);
 
+  //Create clockHours 
+  const clockHourRef = this.afs.doc(`clockHours/${defaultUser.uid}`);
+  const clockHrData = {
+    isClockedIn : false,
+    totalHours: 0,
+    clockInDate: new Date(),
+    clockOutDate: new Date(),
+    job: '1ANY'
+  };
+  clockHourRef.set(clockHrData, { merge: true });
+
+  // TODO: Hardcoded -> change this
+  const pp1ref = this.afs.doc(`users/${defaultUser.uid}/payPeriod/11-2`);
+  const pp1 = {
+      startDate: new Date(2019, 10, 10),
+      endDate: new Date(2019, 10, 23),
+      hours: 0,
+      uid: defaultUser.uid,
+      ref: '11-2'
+    };
+  pp1ref.set(pp1, {merge: true});
+
+  const pp2ref = this.afs.doc(`users/${defaultUser.uid}/payPeriod/12-1`);
+  const pp2 = {
+      startDate: new Date(2019, 10, 24),
+      endDate: new Date(2019, 11, 7),
+      hours: 0,
+      uid: defaultUser.uid,
+      ref: '12-1'
+    };
+  pp2ref.set(pp2, {merge: true});
+
+
+  const pp3ref = this.afs.doc(`users/${defaultUser.uid}/payPeriod/12-2`);
+  const pp3 = {
+      startDate: new Date(2019, 11, 8),
+      endDate: new Date(2019, 11, 21),
+      hours: 0,
+      uid: defaultUser.uid,
+      ref: '12-2'
+    };
+  pp3ref.set(pp3, {merge: true});
+
+  const pp4ref = this.afs.doc(`users/${defaultUser.uid}/payPeriod/01-1`);
+  const pp4 = {
+      startDate: new Date(2019, 11, 22),
+      endDate: new Date(2019, 0, 4),
+      hours: 0,
+      uid: defaultUser.uid,
+      ref: '01-1'
+    };
+  pp4ref.set(pp4, {merge: true});
+
+  const pp5ref = this.afs.doc(`users/${defaultUser.uid}/payPeriod/01-2`);
+  const pp5 = {
+      startDate: new Date(2019, 0, 5),
+      endDate: new Date(2019, 0, 18),
+      hours: 0,
+      uid: defaultUser.uid,
+      ref: '01-2'
+    };
+  pp5ref.set(pp5, {merge: true});
+
+  const pp6ref = this.afs.doc(`users/${defaultUser.uid}/payPeriod/02-1`);
+  const pp6 = {
+      startDate: new Date(2019, 0, 19),
+      endDate: new Date(2019, 1, 1),
+      hours: 0,
+      uid: defaultUser.uid,
+      ref: '02-1'
+    };
+  pp6ref.set(pp6, {merge: true});
+
+  const pp7ref = this.afs.doc(`users/${defaultUser.uid}/payPeriod/02-2`);
+  const pp7 = {
+      startDate: new Date(2019, 1, 2),
+      endDate: new Date(2019, 1, 15),
+      hours: 0,
+      uid: defaultUser.uid,
+      ref: '02-2'
+    };
+  pp7ref.set(pp7, {merge: true});
+
+  const pp8ref = this.afs.doc(`users/${defaultUser.uid}/payPeriod/03-1`);
+  const pp8 = {
+      startDate: new Date(2019, 1, 16),
+      endDate: new Date(2019, 1, 29),
+      hours: 0,
+      uid: defaultUser.uid,
+      ref: '03-1'
+    };
+  pp8ref.set(pp8, {merge: true});
+
+  const pp9ref = this.afs.doc(`users/${defaultUser.uid}/payPeriod/03-2`);
+  const pp9 = {
+      startDate: new Date(2019, 2, 1),
+      endDate: new Date(2019, 2, 14),
+      hours: 0,
+      uid: defaultUser.uid,
+      ref: '03-2'
+    };
+  pp9ref.set(pp9, {merge: true});
+
+  const pp10ref = this.afs.doc(`users/${defaultUser.uid}/payPeriod/04-1`);
+  const pp10 = {
+      startDate: new Date(2019, 2, 15),
+      endDate: new Date(2019, 2, 28),
+      hours: 0,
+      uid: defaultUser.uid,
+      ref: '04-1'
+    };
+  pp10ref.set(pp10, {merge: true});
+
 }
 
 
