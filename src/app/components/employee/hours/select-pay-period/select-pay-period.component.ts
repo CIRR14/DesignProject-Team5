@@ -317,6 +317,7 @@ async onSubmit() {
   this.addHrsToJob(totalHours, jobId);
   this.form.reset();
   this.showForm = false;
+  this.openSnackBar('SUBMITTED!')
 
   }
 
