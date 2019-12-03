@@ -63,6 +63,7 @@ export class DashComponent implements OnInit, OnDestroy {
   }
 
   async getInfo() {
+    console.log('getin info');
     await this.getAllEmployees();
     await this.getAllPayPeriods();
     await this.matchEmpAndPayPeriod();

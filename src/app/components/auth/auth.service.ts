@@ -28,6 +28,7 @@ export class AuthService {
         switchMap( (user) => {
           if (user) {
             this.currentUser = user;
+            // console.log(this.currentUser);
             return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
           } else {
             return of(null);
@@ -105,8 +106,9 @@ private createDefaultUser(defaultUser) {
     }
   };
   userRef.set(data, { merge: true} );
+  console.log('Default user created:', data);
 
-  // Create clockHours 
+  //Create clockHours 
   const clockHourRef = this.afs.doc(`clockHours/${defaultUser.uid}`);
   const clockHrData = {
     isClockedIn : false,

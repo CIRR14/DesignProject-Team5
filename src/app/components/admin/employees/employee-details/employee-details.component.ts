@@ -5,10 +5,8 @@ import { User, Roles } from './../../../auth/user';
 import { EmployeesService } from './../employees.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
-
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 
 @Component({
@@ -39,8 +37,7 @@ employeeRole = new FormControl('', Validators.required);
     private service: EmployeesService,
     private auth: AuthService,
     fb: FormBuilder,
-    private afs: AngularFirestore,
-    public dialog: MatDialog
+    private afs: AngularFirestore
   ) {
     this.form = fb.group({
       employeeName: this.employeeName,
@@ -62,7 +59,6 @@ employeeRole = new FormControl('', Validators.required);
           this.form.controls.employeeID.setValue(this.employee.empID);
           this.form.controls.hourlyRate.setValue(this.employee.hourlyRate);
           // this.form.controls.adminRole.setValue(this.employee.roles.admin);
-          // this.form.controls.adminRole.setValue(this.employee.roles.employee);
       },
         err => {console.log('error', err); } ,
         () => {console.log('what to do after'); }
@@ -70,6 +66,7 @@ employeeRole = new FormControl('', Validators.required);
 
 
     this.formSubscription = this.form.get('adminRole').valueChanges.subscribe((value) => {
+        console.log(value);
         if (value === 'true') {
           // this.form.get('adminRole').setValue(true);
           this.form.get('employeeRole').setValue('false');
@@ -100,6 +97,9 @@ ngOnDestroy() {
 
 
   onSubmit() {
+    console.log('submitted');
+    console.log(this.form);
+
     const userRef = this.afs.doc(`users/${this.employee.uid}`);
 
 
@@ -116,6 +116,8 @@ ngOnDestroy() {
       admin: this.stringToBoolean(this.form.value.adminRole)
     }
     };
+
+    console.log(data);
     userRef.set(data, {merge: true})
     .then(() => {
       this.service.successMessage('Successfully updated!', 'dismiss');
@@ -125,7 +127,7 @@ ngOnDestroy() {
       this.service.errorMessage('Error updating!', 'dismiss');
     });
 
-
+    
   }
 
 
@@ -138,25 +140,12 @@ ngOnDestroy() {
 }
 
 
-openDialog(): void {
-  const dialogRef = this.dialog.open(AreYouSureDialog, {
-    width: '30%',
-    hasBackdrop: true
-  });
-
-  dialogRef.afterClosed().subscribe(result => {
-    if (result) {
-      this.deleteEmployee();
-    }
-  });
-}
-
-
 deleteEmployee() {
   const userRef = this.afs.doc(`users/${this.employee.uid}`);
 
   this.afs.collection(`users/${this.employee.uid}/available`).valueChanges().subscribe((eachAv) => {
     eachAv.forEach((val: any) => {
+      console.log(val.ref);
       const availabilityRef = this.afs.doc(`users/${this.employee.uid}/available/${val.ref}`);
       availabilityRef.delete();
     });
@@ -164,6 +153,7 @@ deleteEmployee() {
 
   this.afs.collection(`users/${this.employee.uid}/payPeriod`).valueChanges().subscribe((eachPp) => {
       eachPp.forEach((val: any) => {
+        console.log(val.ref);
         const payperiodRef = this.afs.doc(`users/${this.employee.uid}/payPeriod/${val.ref}`);
         payperiodRef.delete();
       });
@@ -176,22 +166,5 @@ deleteEmployee() {
   }, 300);
 
 }
-
-}
-
-
-@Component({
-  selector: 'dialog-overview-example-dialog',
-  templateUrl: 'delete-dialog.html',
-})
-export class AreYouSureDialog {
-
-  constructor(
-    public dialogRef: MatDialogRef<AreYouSureDialog>) {}
-    
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
 
 }
