@@ -4,8 +4,8 @@ import { Component, ViewChild, OnInit, OnDestroy, ElementRef } from '@angular/co
 import { MatPaginator, MatSort } from '@angular/material';
 import { ViewjobsDataSource } from './view-jobs-datasource';
 import { ViewInactiveDataSource } from './view-inactive-datasource';
-import { Subscription, Observable } from 'rxjs';
-import { AngularFirestore, AngularFirestoreCollectionGroup } from '@angular/fire/firestore';
+import { Subscription } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 import * as XLSX from 'xlsx';
 
@@ -18,8 +18,11 @@ import * as XLSX from 'xlsx';
 export class ViewJobsComponent implements OnInit, OnDestroy {
 
   @ViewChild('TABLE') table: ElementRef;
+  @ViewChild('INACTIVETABLE') inactiveTable: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) inactivePaginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) inactiveSort: MatSort;
   dataSource: ViewjobsDataSource;
   inactiveJobs: ViewInactiveDataSource;
 
@@ -40,7 +43,7 @@ constructor(
 
     this.subscription = this.afs.collection<Job>(`jobs`).valueChanges().subscribe( jobs => {
       this.dataSource = new ViewjobsDataSource(this.paginator, this.sort);
-      this.inactiveJobs = new ViewInactiveDataSource(this.paginator, this.sort);
+      this.inactiveJobs = new ViewInactiveDataSource(this.inactivePaginator, this.inactiveSort);
       jobs.forEach((job) => {
         if (job.isActive === true) {
           this.dataSource.data.push(job);
@@ -59,8 +62,13 @@ constructor(
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Jobs');
     XLSX.writeFile(wb, 'jobs.xlsx');
+  }
 
-    // CANNOT READ PROPERTY TYPE OF 'NATIVE ELEMENT' UNDEFINED
+  exportInactive() {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.inactiveTable.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Inactive Jobs');
+    XLSX.writeFile(wb, 'inactive-jobs.xlsx');
   }
 
   OnChange($event) {

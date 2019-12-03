@@ -69,7 +69,7 @@ export class ViewjobsDataSource extends DataSource<Job> {
       return data;
     }
 
-    return data.sort((a, b) => {
+    return data.sort((a: any, b: any) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
         case 'created': return compare(+a.created.seconds, +b.created.seconds, isAsc);

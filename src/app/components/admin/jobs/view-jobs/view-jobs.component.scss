@@ -10,9 +10,14 @@
   overflow: auto;
 }
 
-th {
-  width: 25%;
+
+.description-column {
+  width: 30% !important;
 }
+
+// th {
+//   width: 10%;
+// }
 
 .add-job-button {
   position: absolute;
