@@ -1,6 +1,6 @@
 <mat-card>
   <section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
-    <h1><strong>Frequently Asked Questions(FAQS)</strong></h1>
+    <h1 style="text-align: center;"><strong>Frequently Asked Questions(FAQS)</strong></h1>
    <ul class="cd-faq__categories">
       <button mat-button (click)="scrollToElement(dashboard)">Dashboard</button>
       <button mat-button (click)="scrollToElement(employees)">Employees</button>
@@ -31,7 +31,7 @@
                <div class="cd-faq__content">
          <div class="text-component">
            <p>Employees tab is where you can manage your employees. You can assign roles of either an employee or an admin. This is also the place to verify an employee. Another feature of the Employees tab is to change rate of pay. </p>
-           <p> You can add an employee by giving them the url of the app. The employee would need to be verified by going into the employee tab and setting it to true.</p>
+           <p> You can add an employee by giving them the url of the app. The employee would need to be verified by going into the Employees tab and setting it to true.</p>
          </div>
                </div> <!-- cd-faq__content -->
            </li>
@@ -62,13 +62,19 @@
              <a class="cd-faq__trigger"><span>How do I create a job?</span></a>
              <div class="cd-faq__content">
        <div class="text-component">
-         <p>The Jobs tab has all the created jobs. You can also add a new job by clicking add job at the top right corner</p>
+         <p>The Jobs tab has all the jobs that are active. You can also add a new job by clicking add job at the top right corner</p>
        </div>
              </div> <!-- cd-faq__content -->
          </li>
          <li class="cd-faq__item">
             <a class="cd-faq__trigger"><span>How do I edit a job?</span></a>
             <p> A Job can be edited by clicking on a specific job that is already created. You will not be able to edit the address and the date job was created</p>
+         </li>
+        <li class="cd-faq__item">
+           <a class="cd-faq__trigger"><span>How do I view jobs from the past or are inactive?</span></a>
+           <p> You can view inactive jobs by checking the "Show Inactive Jobs" on the Jobs tab right underneath the Active Jobs</p>
+        </li>
+
        </ul> <!-- cd-faq__group -->
       
       
@@ -78,7 +84,7 @@
              <a class="cd-faq__trigger"><span>How do I export document after everything is verified?</span></a>
              <div class="cd-faq__content">
        <div class="text-component">
-         <p>You can use the export function located in the Dashboard.</p>
+         <p>You can use the Export function located in the Dashboard.</p>
        </div>
              </div> <!-- cd-faq__content -->
          </li>
