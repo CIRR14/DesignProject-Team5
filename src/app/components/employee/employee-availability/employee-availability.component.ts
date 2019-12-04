@@ -63,15 +63,12 @@ export class EmployeeAvailabilityComponent implements OnInit {
       ref: this.currentMonth
     };
 
-    if (this.availableDates.length > 0 ) {
-        availabilityRef.set(data, {merge: true}).then(() => {
+
+    availabilityRef.set(data, {merge: true}).then(() => {
           this.openDialog();
         }).catch(() => {
-          alert('AVAILABILITY NOT SUBMITTED. PLEASE TRY AGAIN')
+          alert('AVAILABILITY NOT SUBMITTED. PLEASE TRY AGAIN');
         });
-    } else {
-      console.log('please select dates that you are available');
-    }
 
   }
 
@@ -81,8 +78,8 @@ export class EmployeeAvailabilityComponent implements OnInit {
     const myAvailability = [];
 
     this.getAvail = employeeAvailRef.get()
-      .subscribe((data) => { 
-        if(data.data()) {
+      .subscribe((data) => {
+        if (data.data()) {
           data.data().available.forEach(timestamp => {
             const timestamps = new Date(timestamp.seconds * 1000);
             myAvailability.push(timestamps);
