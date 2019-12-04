@@ -122,7 +122,6 @@ if (width > 730) {
   }
 
   getEvents(): object[] {
-  /// GETS EVENTS FROM 'AVAILABILITY' IN FIREBASE //
   if (this.eventCollection.length === 0) {
     this.availableEvents$ = this.aService.getEvents();
     this.eventSubscription = this.availableEvents$.subscribe(
@@ -148,12 +147,7 @@ if (width > 730) {
           );
     return this. eventCollection;
   } else {
-    console.log('events already loaded');
   }
-  }
-
-  onPopupOpen() {
-    console.log('hello');
   }
 
   ngOnDestroy() {

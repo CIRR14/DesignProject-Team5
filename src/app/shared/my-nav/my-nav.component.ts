@@ -31,7 +31,6 @@ export class MyNavComponent implements OnInit, OnDestroy {
        ngOnInit() {
             this.subscription = this.authService.user$.subscribe((userResponse) => {
               this.user = userResponse;
-              console.log(this.user);
               this.setUserPicture();
             });
        }
@@ -39,7 +38,6 @@ export class MyNavComponent implements OnInit, OnDestroy {
        ngOnDestroy() {
         if (this.subscription) {
           this.subscription.unsubscribe();
-          console.log('unsubscribed!');
         }
       }
 
@@ -50,21 +48,4 @@ export class MyNavComponent implements OnInit, OnDestroy {
           }
         }
       }
-
-
-      // loggedIn =  this.authService.checkLoginStatus()
-      //       .subscribe ( data => {
-      //         console.log(data);
-      //         if (data) {
-      //           this.isLoggedIn = true;
-      //         } else {
-      //           this.isLoggedIn = false;
-      //         }
-      //       });
-
-
-
-
-
-
 }

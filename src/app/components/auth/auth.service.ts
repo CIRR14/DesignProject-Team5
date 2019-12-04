@@ -28,7 +28,6 @@ export class AuthService {
         switchMap( (user) => {
           if (user) {
             this.currentUser = user;
-            // console.log(this.currentUser);
             return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
           } else {
             return of(null);
@@ -60,10 +59,8 @@ private checkIfUserExists(user) {
   userRef.get()
     .subscribe(async (doc) => {
     if (doc.exists) {
-        console.log('Existing User:');
         await this.getUserData(doc.data());
     } else {
-        console.log('New user');
         await this.createDefaultUser(user);
     }
 });
@@ -106,8 +103,6 @@ private createDefaultUser(defaultUser) {
     }
   };
   userRef.set(data, { merge: true} );
-  console.log('Default user created:', data);
-
   //Create clockHours 
   const clockHourRef = this.afs.doc(`clockHours/${defaultUser.uid}`);
   const clockHrData = {

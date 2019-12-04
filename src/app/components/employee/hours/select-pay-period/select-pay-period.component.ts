@@ -105,7 +105,6 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
       if (clockHours) {
         this.userClockInfo = clockHours;
         this.isClockedIn = clockHours.isClockedIn;
-        console.log(this.userClockInfo);
         this.selectedJob = clockHours.job;
       }
     });
@@ -188,26 +187,15 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
   getDifference(): number { // convert timestamp to date
     const clockedIn: any = new Date(this.userClockInfo.clockInDate.seconds * 1000);
     const clockedOut: any = new Date();
-    console.log('in', clockedIn);
-    console.log('out', clockedOut);
 
     const difference = (Math.abs(clockedIn - clockedOut) / 36e5).toFixed(2);
     this.hoursWorked = parseFloat(difference);
-    console.log('hours worked', this.hoursWorked);
-
-
-    // this.clockedOut = moment().format('hh:mm:ss');
-    // this.hoursWorked = moment.duration(
-    //   moment(this.clockedOut, 'hh:mm:ss').diff(moment(this.clockedIn, 'hh:mm:ss'))
-    //   ).asHours().toFixed(2);
     return this.hoursWorked;
   }
 
   addHrsToJob(totalHours, jobId) {
-    console.log(totalHours, 'AND', jobId);
     const jobRef = this.afs.doc(`jobs/${jobId}`);
     jobRef.get().subscribe((job) => {
-      // console.log(job.data());
       const data = {
           jobHours: job.data().jobHours + totalHours
         };
@@ -219,23 +207,19 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
 
    async addHrsToEmployee(totalHours, empId, ref?) {
      if (ref) {
-      console.log('im in ref');
       const empRef = this.afs.doc(`users/${empId}/payPeriod/${ref}`);
       empRef.get().subscribe((emp) => {
-        console.log(emp.data());
         const data = {
           hours: emp.data().hours + totalHours
         };
         empRef.set(data, {merge: true});
       });
      } else {
-      console.log(totalHours, 'AND', empId);
       const month = new Date().getMonth() + 1;
       const half = this.reference;
       const empRef = this.afs.doc(`users/${empId}/payPeriod/${half}`);
 
       empRef.get().subscribe((emp) => {
-        console.log(emp.data());
         const data = {
           hours: emp.data().hours + totalHours
         };
@@ -253,27 +237,13 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
               const pPEndDate = new Date(payPeriod.endDate.seconds * 1000);
               const pPStartDate = new Date(payPeriod.startDate.seconds * 1000);
               if (this.currentDate > pPStartDate && this.currentDate <= pPEndDate) {
-                console.log(payPeriod.ref);
                 half = payPeriod.ref;
                 resolve(half);
               }
             });
           });
-          console.log('this is half', half);
         });
       }
-      // const today = new Date();
-      // this.afs.collection(`users/${this.userId}/payPeriod`).valueChanges().subscribe((info) => {
-      //     console.log(info);
-      //     info.forEach((eachPP: any) => {
-      //       const endDate = new Date(eachPP.endDate.seconds * 1000);
-      //       const startDate = new Date(eachPP.startDate.seconds * 1000);
-      //       if (today > startDate && today <= endDate) {
-      //         this.reference = eachPP.ref;
-      //       }
-      //   });
-      // });
-
 
 
 dateobj() {
@@ -302,7 +272,6 @@ addToTable() {
 
     this.dataSource.data.unshift(data);
     this.refresh();
-    console.log(this.dataSource);
   }
 
 ngOnDestroy() {
@@ -312,12 +281,10 @@ ngOnDestroy() {
 
 
 async onSubmit() {
-  console.log(this.form.value);
   const ref = await this.getHalfForSubmittedHours(this.form.value.date);
   const totalHours = this.form.value.hours;
   const empId = this.userId;
   const jobId = this.form.value.job;
-  console.log('HALF', ref);
   this.addHrsToEmployee(totalHours, empId, ref);
   this.addHrsToJob(totalHours, jobId);
   this.form.reset();
@@ -326,7 +293,6 @@ async onSubmit() {
   }
 
   getHalfForSubmittedHours(date: Date): Promise<string> {
-    console.log(date);
     return new Promise((resolve) => {
 
       let half;
@@ -335,7 +301,6 @@ async onSubmit() {
           const pPEndDate = new Date(payPeriod.endDate.seconds * 1000);
           const pPStartDate = new Date(payPeriod.startDate.seconds * 1000);
           if (date > pPStartDate && date <= pPEndDate) {
-            console.log(payPeriod.ref);
             half = payPeriod.ref;
             resolve(half);
           }
@@ -344,27 +309,3 @@ async onSubmit() {
     });
   }
 }
-
-
-// onSubmit() {
-//   console.log(this.job);
-
-//   const jobRef = this.as.doc(`jobs/${this.job.id}`);
-//   const data: Job = {
-//     created: this.job.created,
-//     clientName: this.job.clientName,
-//     address: this.job.address,
-//     id: this.job.id,
-//     description: this.job.description,
-//     jobHours: this.getJobHours(this.job.id),
-//     isActive: true
-//   };
-//   jobRef.set(data, {merge: true})
-//     .then(() => {
-//     this.service.successMessage('Successfully Added!', 'dismiss');
-//     this.router.navigateByUrl('admin-jobs');
-//   }).catch((err) => {
-//     console.log(err);
-//     this.service.errorMessage('Error adding job!', 'dismiss');
-//   });
-// }

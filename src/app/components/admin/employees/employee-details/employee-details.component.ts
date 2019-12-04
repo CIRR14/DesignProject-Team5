@@ -69,7 +69,6 @@ isEmployee: boolean;
 
 
     this.formSubscription = this.form.get('role').valueChanges.subscribe((value) => {
-        console.log(value);
         if (value === 'admin') {
           this.isAdmin = true;
           this.isEmployee = false;
@@ -133,7 +132,6 @@ deleteEmployee() {
 
   this.afs.collection(`users/${this.employee.uid}/available`).valueChanges().subscribe((eachAv) => {
     eachAv.forEach((val: any) => {
-      console.log(val.ref);
       const availabilityRef = this.afs.doc(`users/${this.employee.uid}/available/${val.ref}`);
       availabilityRef.delete();
     });
@@ -141,7 +139,6 @@ deleteEmployee() {
 
   this.afs.collection(`users/${this.employee.uid}/payPeriod`).valueChanges().subscribe((eachPp) => {
       eachPp.forEach((val: any) => {
-        console.log(val.ref);
         const payperiodRef = this.afs.doc(`users/${this.employee.uid}/payPeriod/${val.ref}`);
         payperiodRef.delete();
       });

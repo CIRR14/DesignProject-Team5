@@ -71,11 +71,6 @@ constructor(
     XLSX.writeFile(wb, 'inactive-jobs.xlsx');
   }
 
-  OnChange($event) {
-      // console.log($event);
-      // console.log(this.isChecked);
-  }
-
   ngOnDestroy(): void {
    this.subscription.unsubscribe();
   }
