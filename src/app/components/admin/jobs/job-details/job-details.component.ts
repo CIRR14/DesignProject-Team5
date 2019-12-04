@@ -60,7 +60,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
         this.theJob = data;
         this.form.controls.clientName.setValue(this.theJob.clientName);
         // this.form.controls.address.setValue(this.theJob.address);
-        this.form.controls.jobHours.setValue(this.theJob.jobHours);
+        this.form.controls.jobHours.setValue(this.theJob.jobHours.toFixed(2));
         this.form.controls.description.setValue(this.theJob.description);
         this.form.controls.isActive.setValue(this.theJob.isActive);
       },
