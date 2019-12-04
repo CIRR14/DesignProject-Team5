@@ -79,7 +79,7 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
 
   job = new FormControl('', Validators.required);
   date = new FormControl('', Validators.required);
-  hours = new FormControl('', Validators.required);
+  hours = new FormControl('', [Validators.max(15), Validators.min(0), Validators.required]);
   showForm: boolean = false;
 
   // date = new FormControl(new Date(), Validators.required);
@@ -111,17 +111,21 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
     });
 
     this.subscription = this.afs.collection<Job>(`jobs`).valueChanges().subscribe( jobs => {
-      jobs.forEach((job) => {
-        if (job.isActive === true) {
-        const data: JobOption = {
-          value: job.id,
-          viewValue: job.address
-        };
-        this.jobOptions.push(data);
-        }
-      });
+      if(!this.jobOptions.length) {
+        jobs.forEach((job) => {
+          if (job.isActive === true) {
+          const data: JobOption = {
+            value: job.id,
+            viewValue: job.address
+          };
+          if (jobs.length === this.jobOptions.length) {
+          } else {
+            this.jobOptions.push(data);
+          }
+          }
+        });
+      }
     });
-
   }
 
 
@@ -318,8 +322,7 @@ async onSubmit() {
   this.addHrsToJob(totalHours, jobId);
   this.form.reset();
   this.showForm = false;
-  this.openSnackBar('SUBMITTED!')
-
+  this.openSnackBar('SUBMITTED!');
   }
 
   getHalfForSubmittedHours(date: Date): Promise<string> {

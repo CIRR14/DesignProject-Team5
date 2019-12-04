@@ -40,6 +40,7 @@
               <input matInput placeholder="Date" required name="created" formControlName="date" [matDatepicker]="created" [max]="maxDate">
               <mat-datepicker-toggle matSuffix [for]="created"></mat-datepicker-toggle>
               <mat-datepicker #created></mat-datepicker>
+              <mat-error>Please enter a date</mat-error>
               <mat-hint> Date to add hours to</mat-hint>
             </mat-form-field>
 
@@ -48,74 +49,25 @@
                       <mat-option *ngFor="let job of jobOptions" [value]="job.value">
                           {{job.viewValue}}
                       </mat-option>
-                    </mat-select>   
+                    </mat-select>
+                    <mat-error>Please select a job</mat-error>
                     <mat-hint> Job to add hours to</mat-hint>
                 </mat-form-field>
       
             <mat-form-field class="hours">
-                <input matInput type="number" maxLength="4" placeholder="Total hours" required formControlName="hours">
+                <input matInput type="number" maxLength="4" min="1" max="15" placeholder="Total hours" required formControlName="hours">
+                <mat-error>Please enter a value between 1 and 15</mat-error>
                 <span matSuffix> hrs </span>
                 <mat-hint> Total hours to add</mat-hint>
             </mat-form-field>
 
-            <!-- <mat-card-actions> -->
               <button mat-raised-button color="primary" position="end" [disabled]="!form.valid" type="submit">Submit</button>
-            <!-- </mat-card-actions> -->
       
           </mat-card-content>
         </mat-card>
        </form>
   
-  <!-- <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-  </mat-form-field>
-  
-  <div class="example-container mat-elevation-z8">
-      <button mat-button (click)="addToTable()" mat-flat-button color="primary">Add</button>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"  id="editable" 
-  matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
-  
-  
-      <ng-container matColumnDef="Job" >
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Job ID</th>
-      <td mat-cell *matCellDef="let element" > 
-      <mat-select [disabled]="isClockedIn" required id="joboption"> 
-        <mat-option *ngFor="let job of jobOptions" [value]="job.value">
-            {{job.viewValue}}
-        </mat-option>
-      </mat-select>   
-      </td>
-      </ng-container>
-  
-  
-      <ng-container matColumnDef="dateClock" >
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-      <td mat-cell *matCellDef="let element">
-        <mat-form-field id="daypicker">
-          <input matInput [matDatepicker]="picker" placeholder="Choose a date" [value]="date.value">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field> 
-      </td>
-      </ng-container>
-
-      <ng-container matColumnDef="Hoursworked" >
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Hours Worked </th>
-      <td mat-cell *matCellDef="let element"> 
-          <input matInput [(value)]="element.Hoursworked" placeholder="Type in your hour">  
-      </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  
-  </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"  showFirstLastButtons></mat-paginator>
-  <button mat-button (click)="onSubmit()" mat-flat-button color="primary" style="float: right;">Submit</button>
-  </div>
-   -->
   </mat-card>
-<!-- TRIS manually enter data -->
 
 
   <ng-template #spinner class="spinner">
