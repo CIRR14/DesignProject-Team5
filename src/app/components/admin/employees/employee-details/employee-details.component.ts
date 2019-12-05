@@ -5,8 +5,10 @@ import { User, Roles } from './../../../auth/user';
 import { EmployeesService } from './../employees.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
+
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 
 @Component({
@@ -40,7 +42,8 @@ isEmployee: boolean;
     private service: EmployeesService,
     private auth: AuthService,
     fb: FormBuilder,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    public dialog: MatDialog
   ) {
     this.form = fb.group({
       employeeName: this.employeeName,
@@ -121,8 +124,19 @@ ngOnDestroy() {
       console.log(err);
       this.service.errorMessage('Error updating!', 'dismiss');
     });
+  }
 
-    
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AreYouSureDialog, {
+      width: '30%',
+      hasBackdrop: true
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteEmployee();
+      }
+    });
   }
 
 
@@ -151,5 +165,22 @@ deleteEmployee() {
   }, 300);
 
 }
+
+}
+
+
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: 'delete-dialog.html',
+})
+export class AreYouSureDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<AreYouSureDialog>) {}
+    
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 }

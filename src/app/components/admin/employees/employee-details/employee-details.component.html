@@ -2,7 +2,7 @@
 
     <mat-card-actions>
         <button mat-stroked-button [routerLink]="['/admin-view-employees']" routerDirection="backward">Back</button>
-        <button mat-raised-button position="end" class="delete-employee" color="warn" (click)="deleteEmployee()"> DELETE EMPLOYEE </button>
+        <button mat-raised-button position="end" class="delete-employee" color="warn" (click)="openDialog()"> DELETE EMPLOYEE </button>
       </mat-card-actions>
 
   <mat-card-title > {{ employee.displayName }} / {{employee.empID}}</mat-card-title>
@@ -14,11 +14,11 @@
     <form [formGroup]="form"(ngSubmit)="onSubmit()" class="employee-form">
 
 
-      <mat-form-field>
+      <mat-form-field class="emp-name">
         <textarea matInput placeholder="Employee Name" formControlName="employeeName"> {{employee.displayName}} </textarea>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field class="emp-id">
         <textarea matInput placeholder="Employee ID" formControlName="employeeID" maxLength="5"> {{employee.empID}}</textarea>
       </mat-form-field>
 
@@ -41,10 +41,10 @@
       </mat-card-actions>
     </form>
 
+    
     <mat-card-actions>
       <button mat-raised-button color="warn" [routerLink]="['/admin-view-employees']" > CANCEL </button>
     </mat-card-actions>
-
 
   </mat-card-content>
 </mat-card>

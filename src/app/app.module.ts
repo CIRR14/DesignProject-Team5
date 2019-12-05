@@ -1,3 +1,4 @@
+import { AreYouSureDialog } from './components/admin/employees/employee-details/employee-details.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AppMaterialModule } from './shared/app-material.module';
 import { environment } from './../environments/environment';
@@ -63,6 +64,7 @@ import { EmployeeHelpComponent } from './components/employee/employee-help/emplo
     ViewAvailabilityComponent,
     EmployeeAvailabilityComponent,
     DialogOverview,
+    AreYouSureDialog,
     AdminHelpComponent,
     EmployeeHelpComponent
   ],
@@ -92,7 +94,8 @@ import { EmployeeHelpComponent } from './components/employee/employee-help/emplo
     AngularFireModule.initializeApp(environment.firebase)
   ],
   entryComponents: [
-    DialogOverview
+    DialogOverview,
+    AreYouSureDialog
   ],
   providers: [],
   bootstrap: [AppComponent]
