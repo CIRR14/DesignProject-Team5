@@ -150,6 +150,10 @@ if (width > 730) {
   }
   }
 
+  onPopUpOpen($event) {
+    $event.cancel = true;
+  }
+
   ngOnDestroy() {
    this.employeeSubscription.unsubscribe();
    this.eventSubscription.unsubscribe();
