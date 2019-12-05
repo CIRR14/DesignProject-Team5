@@ -196,10 +196,10 @@ onChange($event) {
     const clockedOut: any = new Date();
 
     const difference = (Math.abs(clockedIn - clockedOut) / 36e5).toFixed(2);
-    this.hoursWorked = 12;
+    this.hoursWorked = parseFloat(difference);
     // parseFloat(difference);
     if (this.hoursWorked >= 12 ) {
-      this.openSnackBar('nope');
+      this.openSnackBar(`${this.hoursWorked} HOURS NOT RECORDED`);
       this.invalidHours = true;
       this.showForm = true;
       return 0;
