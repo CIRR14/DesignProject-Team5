@@ -93,7 +93,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       address: this.theJob.address,
       id: this.theJob.id,
       description: this.form.value.description,
-      jobHours: this.form.value.jobHours,
+      jobHours: parseFloat(this.form.value.jobHours),
       isActive: this.form.value.isActive
     };
     jobRef.set(data, { merge: true})
