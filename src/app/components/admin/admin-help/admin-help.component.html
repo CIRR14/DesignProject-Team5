@@ -1,11 +1,12 @@
 <mat-card>
   <section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
-    <h1><strong>Frequently Asked Questions(FAQS)</strong></h1>
+    <h1 style="text-align: center;"><strong>Frequently Asked Questions(FAQS)</strong></h1>
    <ul class="cd-faq__categories">
       <button mat-button (click)="scrollToElement(dashboard)">Dashboard</button>
       <button mat-button (click)="scrollToElement(employees)">Employees</button>
       <button mat-button (click)="scrollToElement(checkavailabilities)">Check Availabilities</button>
-      <button mat-button (click)="scrollToElement(jobs)">Jobs</button>
+      <button mat-button (click)="scrollToElement(jobs)">Active Job</button>
+      <button mat-button (click)="scrollToElement(jobs2)">Inactive Job</button>
       <button mat-button (click)="scrollToElement(export)">Export</button>
    </ul> <!-- cd-faq__categories -->
   
@@ -16,7 +17,16 @@
                <a class="cd-faq__trigger"><span>What's in the Dashboard?</span></a>
                <div class="cd-faq__content">
          <div class="text-component">
-           <p>The Dashboard displays all current employees, their rate of pay, hours worked and their total pay for the hours worked. After everything is verified, you can also export it as a PDF by clicking Export on the top right</p>
+            <img src='assets/image/IMG-0345.jpg' alt="details in dashboard" style="width: 700px;;height:400px;">
+           <p>The Dashboard displays all current employees, their rate of pay, hours worked and their total pay for the hours worked. After everything is verified, you can also export it as an excel sheet by clicking Export on the top right</p>
+           <li> Step 1) "Change pay peroid" to show the correct time range of "pay period" you would like to export</li>
+           <li> Step 2) Make sure name, rate, hours worked, and total amount are correct</li>
+           <li> Step 3) Click EXPORT button to export table into excel file</li>
+           <p>See below:</p>
+         </div>
+         <div class="exceltimesheet">
+            <img src='assets/image/IMG-0346.jpg' alt="excel in dashboard" style="width: 600px;;height:250px;">
+        
          </div>
                </div> <!-- cd-faq__content -->
            </li>
@@ -27,17 +37,52 @@
        <ul #employees class="middle">
            <h2>Employees</h2>
            <li class="cd-faq__item">
-               <a class="cd-faq__trigger" ><span>What does the employee tab have?</span></a>
+               <a class="cd-faq__trigger" ><span><strong>What does the employee tab have?</strong></span></a>
                <div class="cd-faq__content">
          <div class="text-component">
            <p>Employees tab is where you can manage your employees. You can assign roles of either an employee or an admin. This is also the place to verify an employee. Another feature of the Employees tab is to change rate of pay. </p>
-           <p> You can add an employee by giving them the url of the app. The employee would need to be verified by going into the employee tab and setting it to true.</p>
          </div>
                </div> <!-- cd-faq__content -->
            </li>
            <li class="cd-faq__item">
-              <a class="cd-faq__trigger" ><span>How do I delete an employee?</span></a>
-              <p> An Employee can be deleted by first clicking on the employee tab and then role and finally delete</p>
+            <a class="cd-faq__trigger" ><span><strong>How do I add an employee?</strong></span></a>
+            <p> An Employee can be added by first providing him/her the url of the app which is https://gd-management-system.firebaseapp.com/login.</p>
+            <p>Have the employee sign in with their gmail account</p>
+            <p> It will display that it is users' first time logging in and needs access</p>
+            <img src='assets/image/IMG-0347.jpg' alt="employees in employee" style="width: 700px;;height:500px;">
+            <p> you would then need to follow the steps below to approve the employee</p>
+            <p> Step 1) click on the Employees tab</p>
+            <p> Step 2) Recent employees that need approval will be displayed with orange color with "Not Approved" written
+              <br>
+              <br> Roles are listed as:
+                <br><font color="#5DADE2">ADMIN = Blue</font>
+                <br><font color ="#1ABC9C">EMPLOYEE = Green</font>
+                <br><font color="#EC7063">NOT APPROVED = Orange</font>
+            </p>
+            <img src='assets/image/IMG-0348.jpg' alt="addemp in employee" style="width: 800px;;height:450px;">
+            <p>The selected employee can be edit in these steps:</p>
+            <p>Step 1) Enter/edit employee name
+              <br> Step 2) Enter employee ID
+              <br> Step 3) Enter hourly rate
+              <br> Step 4) Role to decide whether the employee is <font color="#5DADE2">admin</font>  or <font color ="#1ABC9C">employee</font>
+              <br> <font color="red">**If there is any changes made click "UPDATE EMPLOYEE" button to update information**</font>
+              <br> <font color="red">**If there is no changes, please click "CANCLE"**</font>
+            </p>
+
+
+            
+            
+         </li>
+           <li class="cd-faq__item">
+              <a class="cd-faq__trigger" ><span><strong>How do I delete an employee?</strong></span></a>
+              <p> An Employee can be deleted by first clicking on the employee tab and by following the steps below:</p>
+              <p> Step 1) Click on the employee you would like to delete</p>
+              <p> Step 2) press the delete button located on the top right</p>
+              <p> You will get a warning saying "Are Your Sure You Want to Delete This Employee?"</p>
+              <p> Click "DELETE" </p>
+
+              <p>
+                <br>In case if you deleted accidently, you will need to let employee to login in with their gmail account again in this following provided URL: https://gd-management-system.firebaseapp.com/login</p>
            </li>
   
        </ul> <!-- cd-faq__group -->
@@ -49,7 +94,17 @@
                <a class="cd-faq__trigger" ><span>How do I check availabilities of my employees?</span></a>
                <div class="cd-faq__content">
          <div class="text-component">
+           <p></p>
+            <img src='assets/image/IMG-0349.jpg' alt="calendar for availabilities" style="width: 700px;;height:500px;">
            <p>You can check employees availability from the Availabilities tab.</p>
+             <p> 1. "TODAY": bring you back to the current date. e.g.If you go to a future date or a pst date, then "TODAY" enabled to quickly go back to today's date.</p>
+             <p> 2. "DAY": shows you the specific date that you selected</p>
+             <p> 3. "WEEK": shows you the specific week you selected from Sunday to Saturday</p>
+             <p> 4. "WORK WEEK": shows you the specific work week you selected from Monday to Friday</p>
+             <p> 4. "MONTH": shows you a specific month you selected</p>
+             <p> 5. "AGENDA" : shows you who are available in a list format with the dates</p>
+
+           
          </div>
                </div> <!-- cd-faq__content -->
            </li>
@@ -57,28 +112,97 @@
       
       
        <ul #jobs class="middle2">
-         <h2>Jobs</h2>
+         <h2>Active Jobs</h2>
          <li class="cd-faq__item">
-             <a class="cd-faq__trigger"><span>How do I create a job?</span></a>
+             <a class="cd-faq__trigger"><span>1. How do I create a job?</span></a>
              <div class="cd-faq__content">
        <div class="text-component">
-         <p>The Jobs tab has all the created jobs. You can also add a new job by clicking add job at the top right corner</p>
+          <img src='assets/image/IMG-0350.jpg' alt="ActiveJob in joblist" style="width: 700px;;height:500px;">
+         <p>The Jobs tab has all the jobs that are active. </p>
+         <p>
+         </p>
+
+         <p>You can also add a new job by clicking add job at the top right corner</p>
+         <p>This is add job page:</p>
+         <img src='assets/image/IMG-0351.jpg' alt="Addjob in joblist" style="width: 400px;;height:500px;">
+         <p> Step 1) Select/Enter when job was created<br><font color="red"> **cannot be changed later</font></p>
+         <p> Step 2) Enter when client's name</p>
+         <p> Step 3) Enter client's address<br><font color="red"> **cannot be changed later</font></p>
+         <p> Step 4) Enter Job ID (Shows automatically with first three number of address and first three letters of address)<br><font color="red"> **cannot be changed later</font></p>
+         <p> Step 5) Enter job description</p>
+         <p> Step 6) After filling everything "Submit" will appear. Simply click "Submit" button </p>
+         <p> You can also click "Cancle" to go back</p>
+
        </div>
              </div> <!-- cd-faq__content -->
          </li>
          <li class="cd-faq__item">
-            <a class="cd-faq__trigger"><span>How do I edit a job?</span></a>
+            <a class="cd-faq__trigger"><span>2. How do I edit a job?</span></a>
+          
             <p> A Job can be edited by clicking on a specific job that is already created. You will not be able to edit the address and the date job was created</p>
-       </ul> <!-- cd-faq__group -->
+              <p><img src='assets/image/IMG-0352.jpg' alt="rowtable in joblist" style="width: 400px;;height:500px;"></p>
+              <p> If you need to make adjustments, please follow these steps:</p>
+            <p> Step 1) Edit client name</p>
+            <p> Step 2) Edit jobhours</p>
+            <p> Step 3) Edit status to active job or inactive job<br>**once you select to inactive, the job will move into inactive job table</p>
+            <p> Step 4) Edit description</p>
+            <p> Step 5) Once you made changes, please click "UPDATE JOB"</p>
+
+         </li>
+         <li class="cd-faq__item">
+            <a class="cd-faq__trigger"><span>3. How do I export active job?</span></a>
+            <p> Click "EXPORT ACTIVE JOBS" when informations on table are all correct </p>
+            
+            <p> Active job excel sheet will be downloaded, see below for the table:</p>
+            <img src='assets/image/IMG-0353.jpg' alt="excelactive in joblist" style="width: 900px;;height:250px;">
+            <p></p>
+         </li>
+      </ul> <!-- cd-faq__group -->
+
+
+         <ul #jobs2 class="middle4">
+            <h2>Inactive Jobs</h2>
+            <li class="cd-faq__item">
+              <a class="cd-faq__trigger"><span>How do I view jobs from the past or are inactive?</span></a>
+              <div class="cd-faq__content">
+                
+           <p> You can view inactive jobs by checking the "Show Inactive Jobs" on the Jobs tab right underneath the Active Jobs</p>
+           <img src='assets/image/IMG-0350.jpg' alt="ActiveJob in joblist" style="width: 700px;;height:500px;">
+
+           <p></p>
+           <p>Then, you will see this page "Inactive Job" under "Active Job":</p>
+           <img src='assets/image/IMG-0354.jpg' alt="InactiveJob in joblist" style="width: 700px;;height:350px;">
+           <p></p>
+           <p> A Job can be edited by clicking on a specific job that is already created. <br>** You will not be able to edit the address and the date job was created</p>
+           <p> If you need to make adjustments, please follow these steps:</p>
+           <p> Step 1) Edit client name</p>
+           <p> Step 2) Edit jobhours</p>
+           <p> Step 3) Edit status to active job or inactive job<br>**once you select status to active, the job will move back to active job table</p>
+           <p> Step 4) Edit description</p>
+           <p> Step 5) Once you made changes, please click "UPDATE JOB"</p>
+              
+               
+          </div> <!-- cd-faq__content -->
+          
+        <li class="cd-faq__item">
+            <a class="cd-faq__trigger"><span>How do I export active job?</span></a>
+            <p> Click "EXPORT INACTIVE JOBS" when informations on table are all correct </p>
+            
+            <p> Inactive job excel sheet will be downloaded, see below for the table:</p>
+            <img src='assets/image/IMG-0356.jpg' alt="excelinactive in joblist" style="width: 900px;;height:250px;">
+
+         </li>
       
+    </ul> <!-- cd-faq__group -->
       
+     
        <ul #export class="buttom">
          <h2>Export</h2>
          <li class="cd-faq__item">
              <a class="cd-faq__trigger"><span>How do I export document after everything is verified?</span></a>
              <div class="cd-faq__content">
        <div class="text-component">
-         <p>You can use the export function located in the Dashboard.</p>
+         <p>You can use the Export function located in the Dashboard.</p>
        </div>
              </div> <!-- cd-faq__content -->
          </li>
