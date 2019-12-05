@@ -4,7 +4,7 @@
 }
 
 .employee-form > * {
-  width: 100%;
+  width: 290px;
 }
 
 .hourlyRate {
@@ -13,6 +13,7 @@
 
 .selectRole {
   display: inline-block;
+  width: 20% !important;
   mat-form-field {
     margin-right: 1.4%;
   }
