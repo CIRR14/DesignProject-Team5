@@ -5,8 +5,8 @@
       <button mat-button (click)="scrollToElement(dashboard)">Dashboard</button>
       <button mat-button (click)="scrollToElement(employees)">Employees</button>
       <button mat-button (click)="scrollToElement(checkavailabilities)">Check Availabilities</button>
-      <button mat-button (click)="scrollToElement(jobs)">Available Job</button>
-      <button mat-button (click)="scrollToElement(jobs2)">Inavailable Job</button>
+      <button mat-button (click)="scrollToElement(jobs)">Active Jobs</button>
+      <button mat-button (click)="scrollToElement(jobs2)">Inactive Jobs</button>
       <button mat-button (click)="scrollToElement(export)">Export</button>
    </ul> <!-- cd-faq__categories -->
   
@@ -60,13 +60,13 @@
                 <br><font color="#EC7063">NOT APPROVED = Orange</font>
             </p>
             <img src='assets/image/IMG-0348.jpg' alt="addemp in employee" style="width: 800px;;height:450px;">
-            <p>The selected employee can be edit in these steps:</p>
+            <p>The selected employee can be edited in these steps:</p>
             <p>Step 1) Enter/edit employee name
               <br> Step 2) Enter employee ID
               <br> Step 3) Enter hourly rate
               <br> Step 4) Role to decide whether the employee is <font color="#5DADE2">admin</font>  or <font color ="#1ABC9C">employee</font>
-              <br> <font color="red">**If there is any changes made click "UPDATE EMPLOYEE" button to update information**</font>
-              <br> <font color="red">**If there is no changes, please click "CANCLE"**</font>
+              <br> <font color="red">**If there are any changes made, click "UPDATE EMPLOYEE" button to update information**</font>
+              <br> <font color="red">**If there are no changes, please click "CANCEL"**</font>
             </p>
 
 
@@ -82,7 +82,7 @@
               <p> Click "DELETE" </p>
 
               <p>
-                <br>In case if you deleted accidently, you will need to let employee to login in with their gmail account again in this following provided URL: https://gd-management-system.firebaseapp.com/login</p>
+                <br>In case if you deleted an employee accidently, you will need to request an employee to login in with their gmail account again in this following provided URL: https://gd-management-system.firebaseapp.com/login</p>
            </li>
   
        </ul> <!-- cd-faq__group -->
@@ -97,7 +97,7 @@
            <p></p>
             <img src='assets/image/IMG-0349.jpg' alt="calendar for availabilities" style="width: 700px;;height:500px;">
            <p>You can check employees availability from the Availabilities tab.</p>
-             <p> 1. "TODAY": bring you back to the current date. e.g.If you go to a future date or a pst date, then "TODAY" enabled to quickly go back to today's date.</p>
+             <p> 1. "TODAY": brings you back to the current date. e.g.If you go to a future date or a past date, then "TODAY" enables you to quickly go back to today's date.</p>
              <p> 2. "DAY": shows you the specific date that you selected</p>
              <p> 3. "WEEK": shows you the specific week you selected from Sunday to Saturday</p>
              <p> 4. "WORK WEEK": shows you the specific work week you selected from Monday to Friday</p>
@@ -112,7 +112,7 @@
       
       
        <ul #jobs class="middle2">
-         <h2>Available Jobs</h2>
+         <h2>Active Jobs</h2>
          <li class="cd-faq__item">
              <a class="cd-faq__trigger"><span>1. How do I create a job?</span></a>
              <div class="cd-faq__content">
@@ -126,12 +126,12 @@
          <p>This is add job page:</p>
          <img src='assets/image/IMG-0351.jpg' alt="Addjob in joblist" style="width: 400px;;height:500px;">
          <p> Step 1) Select/Enter when job was created<br><font color="red"> **cannot be changed later</font></p>
-         <p> Step 2) Enter when client's name</p>
+         <p> Step 2) Enter client's name</p>
          <p> Step 3) Enter client's address<br><font color="red"> **cannot be changed later</font></p>
-         <p> Step 4) Enter Job ID (Shows automatically with first three number of address and first three letters of address)<br><font color="red"> **cannot be changed later</font></p>
+         <p> Step 4) Enter Job ID (Generates automatically with all house number and first three letters of the street)<br><font color="red"> **cannot be changed later</font></p>
          <p> Step 5) Enter job description</p>
          <p> Step 6) After filling everything "Submit" will appear. Simply click "Submit" button </p>
-         <p> You can also click "Cancle" to go back</p>
+         <p> You can also click "Cancel" to go back</p>
 
        </div>
              </div> <!-- cd-faq__content -->
@@ -161,7 +161,7 @@
 
 
          <ul #jobs2 class="middle4">
-            <h2>Inavailable Jobs</h2>
+            <h2>Inactive Jobs</h2>
             <li class="cd-faq__item">
               <a class="cd-faq__trigger"><span>How do I view jobs from the past or are inactive?</span></a>
               <div class="cd-faq__content">
@@ -185,7 +185,7 @@
           </div> <!-- cd-faq__content -->
           
         <li class="cd-faq__item">
-            <a class="cd-faq__trigger"><span>How do I export active job?</span></a>
+            <a class="cd-faq__trigger"><span>How do I export Inactive jobs?</span></a>
             <p> Click "EXPORT INACTIVE JOBS" when informations on table are all correct </p>
             
             <p> Inactive job excel sheet will be downloaded, see below for the table:</p>
@@ -202,7 +202,9 @@
              <a class="cd-faq__trigger"><span>How do I export document after everything is verified?</span></a>
              <div class="cd-faq__content">
        <div class="text-component">
-         <p>You can use the Export function located in the Dashboard.</p>
+         <p>You can use the Export function located in the Dashboard to export payroll.</p>
+         <p>You can use the Export function located in Jobs to export active and inactive jobs</p>
+         <p>Check above for more information on exporting</p>
        </div>
              </div> <!-- cd-faq__content -->
          </li>
