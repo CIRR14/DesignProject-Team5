@@ -16,13 +16,20 @@
       <button mat-raised-button color="primary" id="clockOut"  (click)="clockingOut()" [disabled]="!isClockedIn">Clock Out</button>
   </div>
 
-  <mat-card-subtitle style="text-align: center" *ngIf="isClockedIn"> You clocked in at {{ userClockInfo.clockInDate.seconds * 1000 | date: 'hh:mm a' }} on {{ userClockInfo.clockInDate.seconds * 1000 | date: 'MM/dd/yyyy'  }}</mat-card-subtitle>
-  <mat-card-subtitle style="text-align: center" *ngIf="!isClockedIn"> You clocked out at {{ userClockInfo.clockOutDate.seconds * 1000 | date: 'hh:mm a' }} on {{ userClockInfo.clockOutDate.seconds * 1000 | date: 'MM/dd/yyyy' }}
-      <span *ngIf="hoursWorked"> for a total of {{ hoursWorked }} hours </span>
+  <mat-card-subtitle style="text-align: center" *ngIf="isClockedIn && !invalidHours"> You clocked in at {{ userClockInfo.clockInDate.seconds * 1000 | date: 'hh:mm a' }} on {{ userClockInfo.clockInDate.seconds * 1000 | date: 'MM/dd/yyyy'  }}</mat-card-subtitle>
+  <mat-card-subtitle style="text-align: center" *ngIf="!isClockedIn"> 
+    <div *ngIf="!invalidHours"> 
+      You clocked out at {{ userClockInfo.clockOutDate.seconds * 1000 | date: 'hh:mm a' }} on {{ userClockInfo.clockOutDate.seconds * 1000 | date: 'MM/dd/yyyy' }}
+      <span> for a total of {{ userClockInfo.totalHours }} hours </span>
       <br/>
-      <span *ngIf="hoursWorked"> on {{ userClockInfo.job }} </span>
+      <span> on {{ userClockInfo.job }} </span>
+    </div>
+    <div *ngIf="invalidHours" style="color: red"> 
+      CLOCKED IN FOR MORE THAN 12 HOURS <br/>
+      PLEASE INPUT YOUR HOURS MANUALLY AND CONTACT YOUR ADMINISTRATOR
+    </div>
       <br/>
-      <mat-checkbox [disabled]="isClockedIn" color="primary" [(ngModel)]="showForm"> Forgot to clock in? Check this box to add hours </mat-checkbox>
+      <mat-checkbox [disabled]="isClockedIn" color="primary" [(ngModel)]="showForm" (change)="onChange($event)"> Forgot to clock in? Check this box to add hours </mat-checkbox>
       </mat-card-subtitle>
 
 
@@ -55,8 +62,8 @@
                 </mat-form-field>
       
             <mat-form-field class="hours">
-                <input matInput type="number" maxLength="4" min="1" max="15" placeholder="Total hours" required formControlName="hours">
-                <mat-error>Please enter a value between 1 and 15</mat-error>
+                <input matInput type="number" maxLength="4" min="1" max="12" placeholder="Total hours" required formControlName="hours">
+                <mat-error>Please enter a value between 1 and 12</mat-error>
                 <span matSuffix> hrs </span>
                 <mat-hint> Total hours to add</mat-hint>
             </mat-form-field>

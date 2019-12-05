@@ -64,6 +64,7 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
   clockedIn;
   clockedOut;
   hoursWorked;
+  invalidHours = false;
 
   isClockedIn: boolean;
   userClockInfo: ClockHours;
@@ -79,7 +80,7 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
 
   job = new FormControl('', Validators.required);
   date = new FormControl('', Validators.required);
-  hours = new FormControl('', [Validators.max(15), Validators.min(0), Validators.required]);
+  hours = new FormControl('', [Validators.max(12), Validators.min(0), Validators.required]);
   showForm: boolean = false;
 
   // date = new FormControl(new Date(), Validators.required);
@@ -127,7 +128,11 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
     });
   }
 
-
+onChange($event) {
+  console.log(this.showForm);
+  console.log(this.isClockedIn);
+  console.log($event);
+}
 
 
   applyFilter(filterValue: string) {
@@ -166,22 +171,24 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
     const clockRef = this.afs.doc(`clockHours/${this.userId}`);
     const totHrs = this.getDifference();
     const data = {
-      isClockedIn: false,
-      clockOutDate: new Date(),
-      totalHours: totHrs,
-      job: this.selectedJob
-    };
+        isClockedIn: false,
+        clockOutDate: new Date(),
+        totalHours: totHrs,
+        job: this.selectedJob
+      };
     clockRef.set(data, {merge: true}).then(() => {
-      const message = `Clocked out at ${moment().format('hh:mm:ss a')}`;
-      this.openSnackBar(message);
-      // this.addToTable();
-      // ADD this.hoursWorked to job id totalHours;
-      this.addHrsToJob(this.hoursWorked, data.job);
-      // ADD this.hoursWorked to employee -> payroll -> [month-half] -> hours
-      this.addHrsToEmployee(this.hoursWorked, this.userId);
-    }).catch((err) => {
-      alert('COULD NOT CLOCK IN' + err);
-    });
+        if (!this.invalidHours) {
+        const message = `Clocked out at ${moment().format('hh:mm:ss a')}`;
+        this.openSnackBar(message);
+        // this.addToTable();
+        // ADD this.hoursWorked to job id totalHours;
+        this.addHrsToJob(this.hoursWorked, data.job);
+        // ADD this.hoursWorked to employee -> payroll -> [month-half] -> hours
+        this.addHrsToEmployee(this.hoursWorked, this.userId);
+        }
+      }).catch((err) => {
+        alert('COULD NOT CLOCK IN' + err);
+      });
   }
 
   getDifference(): number { // convert timestamp to date
@@ -189,8 +196,17 @@ export class SelectPayPeriodComponent implements OnInit, OnDestroy {
     const clockedOut: any = new Date();
 
     const difference = (Math.abs(clockedIn - clockedOut) / 36e5).toFixed(2);
-    this.hoursWorked = parseFloat(difference);
-    return this.hoursWorked;
+    this.hoursWorked = 12;
+    // parseFloat(difference);
+    if (this.hoursWorked >= 12 ) {
+      this.openSnackBar('nope');
+      this.invalidHours = true;
+      this.showForm = true;
+      return 0;
+    } else {
+      this.invalidHours = false;
+      return this.hoursWorked;
+    }
   }
 
   addHrsToJob(totalHours, jobId) {
@@ -289,6 +305,7 @@ async onSubmit() {
   this.addHrsToJob(totalHours, jobId);
   this.form.reset();
   this.showForm = false;
+  this.invalidHours = false;
   this.openSnackBar('SUBMITTED!');
   }
 
