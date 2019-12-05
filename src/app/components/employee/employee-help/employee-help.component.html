@@ -1,70 +1,85 @@
 <mat-card>
-<section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
-    <h1 style="text-align: center;"><strong>Frequently Asked Questions(FAQS)</strong></h1>
-  <ul class="cd-faq__categories">
-    <button mat-button (click)="scrollToElement(clock)">ClockIn/Out</button>
-    <button mat-button (click)="scrollToElement(availability)">Availability</button>
-    <button mat-button (click)="scrollToElement(signout)">SignIn/Out of App</button>
-
-     </ul> <!-- cd-faq__categories -->
-  
-  <div class="cd-faq__items">
-      <ul #clock class="top">
-          <h2>ClockIn/Out</h2>
-          <li class="cd-faq__item">
-              <a class="cd-faq__trigger"><span><strong>How do I Clock In and Out?</strong></span></a>
-              <div class="cd-faq__content">
-        <div class="text-component">
-          <p>You Can Clock In from the Clock Hours tab by pressing the Clock In button.</p>
-          <p>You Can Clock Out from the Clock Hours tab by pressing the Clock out button.</p>
-        </div>
-              </div> <!-- cd-faq__content -->
-          </li>
-      </ul> <!-- cd-faq__group -->
-  
-      <ul #availability class="middle">
-          <h2>Availability</h2>
-          <li class="cd-faq__item">
-              <a class="cd-faq__trigger"><span><strong>How do I submit my availabilities?</strong></span></a>
-              <div class="cd-faq__content">
-        <div class="text-component">
-          <p>You can submit availabilities by clicking on Availability tab. Just select the dates you are available to work and click submit.</p>
-        </div>
-              </div> <!-- cd-faq__content -->
-          </li>
-          <li class="cd-faq__item">
-            <a class="cd-faq__trigger"><span><strong>How do I change my availabilities after its submitted?</strong></span></a>
-            <div class="cd-faq__content">
-      <div class="text-component">
-        <p>You can change availabilities by clicking on Availability tab. Just unselect the dates you already submitted and select the ones available to work and click submit.</p>
-        <p> The Date automatically turns red once its selected and stays red when submitted.</p>
-      </div>
-            </div> <!-- cd-faq__content -->
-        </li>
-  
-      </ul> <!-- cd-faq__group -->
-  
-      <ul #signout class="buttom">
-          <h2>Sign In/Out of App</h2>
-          <li class="cd-faq__item">
-              <a class="cd-faq__trigger"><span><strong>How do I sign in and out?</strong></span></a>
-              <div class="cd-faq__content">
-        <div class="text-component">
-          <p>You can sign in to the app using your gmail account.</p>
-          <p> You can signout of your account by clicking the logout button</p>
-        </div>
-              </div> <!-- cd-faq__content -->
-          </li>
-      </ul> <!-- cd-faq__group -->
-  
-     
-  
+  <section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
+     <h1 style="text-align: center;"><strong>Frequently Asked Questions(FAQS)</strong></h1>
+   <ul class="cd-faq__categories">
+     <button mat-button (click)="scrollToElement(clock)">Clock-In/Out</button>
+     <button mat-button (click)="scrollToElement(availability)">Availability</button>
+     <button mat-button (click)="scrollToElement(signout)">Sign-In/Out of App</button>
    
-  </div> <!-- cd-faq__items -->
+      </ul> <!-- cd-faq__categories -->
+    <div class="cd-faq__items">
+       <ul #clock class="top">
+           <h2>ClockIn/Out</h2>
+           <li class="cd-faq__item">
+               <a class="cd-faq__trigger"><span><strong>How do I Clock In?</strong></span></a>
+               <div class="cd-faq__content">
+         <div class="text-component">
+           <p>You Can Clock In from the Clock Hours tab located on the left hand side</p>
+           <p> After pressing the Clock Hours tab</p>
+           <p>Step 1) select a Job</p>
+           <p>Step 2) Press the Clock In button</p>
+         </div>
+         <div> <strong> How do I clock out?</strong> 
+           <p>You Can Clock Out from the Clock Hours tab located on the left hand side and then by pressing Clock Out.</p>
+        </div>
+               </div> <!-- cd-faq__content -->
+           </li>
+           
+           <li class="cd-faq__item">
+             <a class="cd-faq__trigger"><span><strong>How do I submit my hours if i forget to clock in?</strong></span></a>
+             <div class="cd-faq__content">
+       <div class="text-component">
+         <p>You can submit hours worked by checking the "forgot to clock in?" button in the Clock Hours tab underneath the clock in and out.</p>
+         <p> Step 1) press the "forgot to clock in? check this box to add hours" button</p>
+         <p>step 2) select the date that you forgot to clock in. You can only select the date from the past or current day but not future dates</p>
+         <p> step 3) Select the job related to missed clock-in</p>
+         <p> Step 4) enter total hours worked on that job</p>
+         <p>step 5) press Submit</p>
+       </div>
+             </div> <!-- cd-faq__content -->
+         </li>
+       </ul> <!-- cd-faq__group -->
+        <ul #availability class="middle">
+           <h2>Availability</h2>
+           <li class="cd-faq__item">
+               <a class="cd-faq__trigger"><span><strong>How do I submit my availabilities?</strong></span></a>
+               <div class="cd-faq__content">
+         <div class="text-component">
+           <p>You can submit availabilities by clicking on Availability tab located on the left side below your profile</p>
+           <p> step 1) select the dates you are available</p>
+           <p> Step 2) click submit</p>
+         </div>
+               </div> <!-- cd-faq__content -->
+
+           </li>
+           <li class="cd-faq__item">
+             <a class="cd-faq__trigger"><span><strong>How do I change my availability after its already submitted?</strong></span></a>
+             <div class="cd-faq__content">
+       <div class="text-component">
+         <p>You can change availability by clicking on Availability tab</p>
+         <p> step 1) Unselect the date(s) that you previously submitted</p>
+         <p> Make sure that the dates you are unavailable is not red</p>
+         <p> Press Submit</p>
+       </div>
+             </div> <!-- cd-faq__content -->
+         </li>
+        </ul> <!-- cd-faq__group -->
+        <ul #signout class="buttom">
+           <h2>Sign In/Out of App</h2>
+           <li class="cd-faq__item">
+               <a class="cd-faq__trigger"><span><strong>How do I sign in and out?</strong></span></a>
+               <div class="cd-faq__content">
+         <div class="text-component">
+           <p>You can sign in to the app by going to the following URL: https://gd-management-system.firebaseapp.com/login</p>
+           <p> You can then sign in using your gmail account. Your administrator will need to approve you</p>
+           <p> You can sign out of your account by clicking the logout button</p>
+         </div>
+               </div> <!-- cd-faq__content -->
+           </li>
+       </ul> <!-- cd-faq__group -->
+      
+    
+   </div> <!-- cd-faq__items -->
+   </section> <!-- cd-faq -->
+  </mat-card>
   
- </section> <!-- cd-faq -->
-</mat-card>
-  
- 
- 
- 
